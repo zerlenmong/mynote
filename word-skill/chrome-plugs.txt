@@ -1,0 +1,4 @@
+evernote web clipper
+php ninja manual
+proxy SwitchyOmerga
+vimium

@@ -1,0 +1,7 @@
+/usr/share/fonts
+
+
+chmod -R 664 ./*
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv

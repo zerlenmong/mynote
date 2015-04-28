@@ -1,0 +1,5 @@
+__set 
+__get
+__call
+__callstatic
+__invoke  将对象当作函数使用时调用

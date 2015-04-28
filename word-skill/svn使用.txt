@@ -1,0 +1,321 @@
+1.安装包 
+
+$ sudo apt-get install subversion
+2.创建项目目录 
+
+$ sudo mkdir /var/svnroot
+$ cd /var/svnroot
+$ sudo mkdir mypro
+3.创建svn文件仓库
+
+$ sudo svnadmin create /var/svnroot/mypro
+4.导入项目到svn文件仓库 (可有可无)
+
+$ sudo svn import -m "" 你的文件夹路径 file://var/svnroot/mypro
+5.访问权限设置 
+
+修改 /var/svnroot/mypro/conf目录下： 
+
+svnserve.conf 、passwd 个文件,行最前端不允许有空格 
+
+编辑svnserve.conf文件,把如下面行取消注释，并需要顶格
+
+anon-access = read
+auth-access = write
+password-db = passwd
+编辑passwd  如下: 
+
+[users] 
+andy = andy
+6. 开启svnserve,以SVN根目录开启： 
+
+$ svnserve -d -r /var/svnroot
+7.检查是否正常启动
+
+$ netstat -ntlp
+可以看到有一个端口为3690的地址，表示启动成功
+
+（如果使用Apache连接，则跳过下步）
+
+8.局域网访问，checkout出来SVN库的文件
+
+svn checkout svn://svnIp地址/mypro
+或者简写为： 
+
+svn co svn://svnIp地址/mypro
+二、在Ubuntu12.04下使用Apache配置Subversion
+1.安装必要软件
+
+$ sudo apt-get install subversion libapache2-svn apache2
+2.修改apache配置文件/etc/apache2/mods-available/dav_svn.conf
+
+<Location /var/svnroot/mypro>
+DAV svn
+SVNPath /var/svnroot/mypro
+AuthType Basic
+AuthName "myproject subversion repository"
+AuthUserFile /etc/subversion/passwd
+#<LimitExcept GET PROPFIND OPTIONS REPORT>
+Require valid-user
+#</LimitExcept>
+</Location>
+ 如果需要用户每次登录时都进行用户密码验证，请将
+
+<LimitExcept GET PROPFIND OPTIONS REPORT>与</LimitExcept>两行注释掉。
+
+当您添加了上面的内容，您必须重新起动 Apache 2 Web 服务器，请输入下面的命令：
+
+$ sudo /etc/init.d/apache2 restart
+3.创建 /etc/subversion/passwd 文件，该文件包含了用户授权的详细信息
+
+$ sudo htpasswd -c /etc/subversion/passwd user_name
+它会提示您输入密码，当您输入了密码，该用户就建立了。“-c”选项表示创建新的/etc/subversion/passwd文件，所以user_name所指的用户将是文件中唯一的用户。如果要添加其他用户，则去掉“-c”选项即可：
+
+$ sudo htpasswd /etc/subversion/passwd other_user_name
+4.您可以通过下面的命令来访问文件仓库：
+
+$ svn co http://hostname/svn/myproject myproject --username user_name
+或者通过浏览器：http://hostname/svn/myproject
+
+三、Ubuntu12.04 SVN命令大全
+1、将文件checkout到本地目录 svn checkout path（path 是服务器上的目录） 
+
+例如：
+
+$ svn checkout svn://192.168.1.1/pro
+简写：
+
+$ svn co svn://192.168.1.1/pro
+2、往版本库中添加新的文件
+
+ $ svnadd file
+ $ svn add test.php#(添加test.php)
+ $ svn add *.php#(添加当前目录下所有的php文件)
+3、将改动的文件提交到版本库
+
+$ svn commit -m "LogMessage" [-N] [--no-unlock] PATH(如果选择了保持锁,就使用–no- unlock开关)
+例如：
+
+$ svn commit -m 'add test file for my test' test.php
+简写：
+
+$ svn ci
+4、更新到某个版本
+
+$ svn update -rm path
+例如：$ svn update如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。 
+
+$ svn update -r 200 test.php#(将版本库中的文件test.php还原到版本200)
+$ svn update test.php#(更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文 件，然后清除$ svn resolved，最后再提交commit) 简写：svn up
+5、删除文件
+
+$ svn delete path -m 'delete test fle'
+例如：
+
+$ svn delete test.php
+然后再
+
+$ svn ci -m 'delete test file'
+简写：
+
+svn (del, remove, rm)
+6、比较差异
+
+$ svn diff path#(将修改的文件与基础版本比较)
+例如：
+
+$ svn diff test.php
+$ svn diff -r m:n path#(对版本m和版本n比较差异)
+例如：
+
+svn diff -r 200:201 test.php
+简写：
+
+svn di
+ 7、查看文件或者目录状态
+
+1）svn status path#（目录下的文件和子目录的状态，正常状态不显示）
+ 【?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】 
+
+ 2）svn status -v path(显示 文件和子目录状态)
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+1. 安装Subversion
+apt-get install subversion
+apt-get install subversion-tools
+2. 安装Apache
+apt-get install apache2
+apt-get install libapache2-svn
+apt-get install apache2-utils  //在添加用户时需要用到
+3. Apache和Subversion的集成
+查看/etc/apache2/mods-enabled/dav_svn.load文件，有mod_dav_svn.so和mod_authz_svn.so这两个动态库说明apache已经加载了Subversion的访问控制模块。如果没有，手动添加。
+
+添加mod_authz_svn.so则是 gedit /etc/apache2/mods_enables/dav_svn.load
+然后：LoadModule authz_svn_module /usr/lib/apache2/modules/mod_authz_svn.so
+
+
+编辑/etc/apache2/mods-enabled/dav_svn.conf文件，在最后加入下述内容：
+<Location /svn>
+DAV svn
+SVNParentPath /home/svn
+AuthType Basic
+AuthName "Subversion Repository"
+AuthUserFile /etc/subversion/dav_svn.password
+AuthzSVNAccessFile /etc/subversion/dav_svn.authz
+Require valid-user
+</Location>
+命令touch /etc/subversion/dav_svn.password和touch /etc/subversion/dav_svn.authz来创建这2个不存在的文件。
+/etc/subversion目录为项目配置目录，其公共数据可存放到此目录
+<Location /svn>　　意思是Subversion版本可用的URL是http://SubversionServerIP/svn
+DAV SVN　　告诉Apache是哪个模块响应哪个URL的请求，在这里是Subversion模块
+SVNParentPath /home/svn　　告诉Subversion需要查看的版本库在/home/svn之下。如果不希望为每个单独的项目都进行单独的设置，可以把所有项目都存放在统一的资源库目录，使用SVNParentPath指令来指定存放所有项目的路径。否则使用SVNPath
+SVNPath　　单版本库时使用此项指明版本库的路径，但在多版本库中不要使用此项
+AuthType Basic　　认证类型为基本认证，就是用户名和密码
+AuthName "Subversion repository"　　认证名称，将在浏览器界面弹出一个对话框，标题为Subversion repository
+AuthUserFile /home/svn/passwd.conf　　指定使用的认证密码文件，即访问版本库用户的文件，用apache的htpasswd命令生成
+AuthzSVNAccessFile /home/svn/authz.conf　　设定访问版本库权限的文件
+Require valid-user　　要求验证用户，即不能匿名访问。如果没有该语句，则只能第一个用户可以访问新建库
+此外，SVNIndexXSLT “/svnindex.xsl”　　使用它可以在用浏览器时更好看
+4. 在添加了上述内容后，必须重启Apache2 HTTP服务器
+/etc/init.d/apache2 restart
+5. Subversion建立版本库
+mkdir /home/svn
+mkdir /home/svn/repos
+svnadmin create --fs-type fsfs /home/svn/repos
+也可以直接：svnadmin create  /home/svn/repos
+运行创建版本库的命令，指定数据存储为 FSFS，如果要指定为 Berkeley DB，则将 fsfs 替换为 bdb。
+如果一切正常，命令执行后没有任何反馈信息而迅速返回。一个新的版本库就被创建出来。我们可以查看下版本库里有什么。
+
+其中，conf 目录下存放了版本库的配置文件，包括用户访问控制和权限控制等内容；dav 目录是提供给 Apache 相关模块的目录，目前为空；db 目录下存放着 Subversion 所要管理的所有受版本控制的数据，不同的存储方式（Berkeley DB 或者 FSFS）下有着不同的目录结构，不过我们一般不用直接修改和查看这个目录下的内容，Subversion 的命令可以安全的操作这个目录；另外，hooks 目录存放着钩子脚本及其模版（一种版本库事件触发程序），locks 目录存放着 Subversion 版本库锁定数据，用来追踪存取文件库的客户端；format 文件是一个文本文件，里面只放了一个整数，表示当前文件库配置的版本号。
+注意：库与库之间不能包含。
+我们可以测试下Subversion能不能检出。
+其中：dav和repos这两个目录可有可无（或者其他地方要用到，这个暂时不予考虑）
+
+创建好之后，需要对repos进行授权，否则在后续Check in的时候会报错如：
+Can't open '/home/svn/repos/db/txn-current-lock': Permission denied
+6.创建 SVN 仓库
+许多位置都可以放置 Subversion 文件仓库，其中两个最常用的是：/usr/local/svn 以及 /home/svn。为了在下面的描述中简单明了，我们假设您的 Subversion 文件仓库放在 /home/svn，并且你的项目名称是简单的“myproject”。
+同样的，也有许多常用的方式设置文件仓库的访问权限。然而，这也是安装过程中最经常出现错误的地方，因此我们会对此进行一个详细说明。通常的情况下，您应该创建一个名为“Subversion”的用户组，该组是SVN仓库所在的目录的拥有者。下面是一个快速的操作说明，有关内容请参考相关文档的详细说明：
+在 Ubuntu 菜单上选择“系统->系统管理->用户和组”；
+切换到“组”标签；
+点击“添加组”按钮；
+组名为“subversion”；
+将您自己和“www-data”(Apache 用户)加入组成员中；
+点击“OK”以确认修改，关闭该程序。
+或者使用命令完成上述功能（增加组，并且把用户加到组里）：
+sudo addgroup subversion
+sudo usermod -G subversion -a www-data
+再或者直接使用命令编辑组文件"sudo vi /etc/group"，增加组和成员（不推荐）：
+$ sudo vi /etc/group
+结果看上去，像这样。
+$ cat /etc/group|grep subversion
+subversion:x:1002:www-data,exp
+您需要注销然后再登录以便您能够成为 subversion 组的一员，然后就可以执行签入文件（Check in，也称提交文件）的操作了。
+现在执行下面的命令
+$ sudo mkdir /home/svn
+$ cd /home/svn
+$ sudo mkdir repos
+$ sudo chown -R root:subversion repos
+下面的命令用于创建 SVN 文件仓库：
+$ sudo svnadmin create /home/svn/repos
+赋予组成员对所有新加入文件仓库的文件拥有相应的权限：
+$ sudo chmod -R g+rws repos
+如果上面这个命令在创建SVN文件仓库之前运行，你可能在后续Check in的时候遇到如下错误：
+Can't open '/home/svn/repos/db/txn-current-lock': Permission denied
+查看txn-current-lock文件的权限和用户以及组信息，应该类似于：
+$ ls -l /home/svn/repos/db/txn-current-lock
+-rw-rwSr-- 1 root subversion  0  2009-06-18  15:33  txn-current-lock
+除了权限以外，用户及其组如果不对，则仍然会遇到上述问题，可以再次运行命令：
+$ sudo chown -R root:subversion repos
+
+
+7. Subversion添加项目
+管理员必须考虑的问题是，将每一个项目分别放在不同的版本库里面，还是将它们放在统一的版本库里面。统一的版本库可以让管理员更加容易的升级和备份，不过，由于访问权限控制是针对整个版本库的，所以，统一的版本库也为不同项目配置不同的访问权限带来了麻烦。所以，管理员应该根据实际情况权衡考虑。
+我以统一的版本库为例，添加三个项目business，develop和project。首先在一个临时目录下，根据 Subversion 版本控制的一般布局结构，创建出三个项目的主要目录树，如下：
+
+然后用 svn import 命令导入已有的目录树。
+svn import /home/svn/tmp/ file:///home/svn/repos/ --message "init"
+
+可以用 svn list 确认导入的项目是否正确：
+svn list --verbose file:///home/svn/repos/
+
+如果要查看最新修订版本的信息，可以使用 svnlook info 命令：
+svnlook info /home/svn/repos/
+还可以在命令后面接上 “--revision 版本号” 来指定某一个修订版的显示。
+还可以用如下命令来显示版本库的具体树形结构，后面的 “--show-ids” 选项指定显示每一个显示元素的修改版本 ID。
+svnlook tree /home/svn/repos/ --show-ids
+
+
+8. Subversion添加用户
+添加第一个用户，要加参数-c。以后不用加。
+htpasswd -c /etc/subversion/dav_svn.passwd wangqixuan
+
+Subversion追加用户：
+htpasswd /etc/subversion/dav_svn.passwd yang
+passwd.conf文件的生成内容是用户名加上密码的 MD5 密文。
+9. Subversion分配用户权限
+新添加的用户是不能访问Subversion的，还要为他分配权限。编辑/etc/subversion/dav_svn.authz文件，例：
+[groups]
+vip = wang
+admin = wangqixuan, yang
+develop-manager = zhong
+business-manager = shi
+developer = ma, hu, zhou, cen, huang
+
+[repos:/]
+@admin = rw
+* = r
+
+[repos:/develop/01-Windows项目组/01-ARM架构]
+@vip =rw
+@admin = rw
+@develop-manager = rw
+* =
+[repos:/develop/01-Windows项目组/02-X86架构]
+@vip =rw
+@admin = rw
+@develop-manager = rw
+zhou = rw
+hu =rw
+ma = r
+* =
+
+[repos:/develop/02-Linux项目组/01-ARM架构]
+@vip =rw
+@admin = rw
+@develop-manager = rw
+cen = r
+huang = r
+* = 
+
+[repos:/develop/02-Linux项目组/02-X86架构]
+@vip =rw
+@admin = rw
+@develop-manager = rw
+cen = r
+huang = r
+* =
+
+[repos:/develop/个人目录]
+@vip =rw
+@admin = rw
+@develop-manager = rw
+@developer = rw
+* = 
+其中* = 表示其它所有用户都没有任何权限。@表示用户组，*表示所有用户，[/]表示全部目录。注意顶格写。UTF-8格式才能配置SVN权限，Linux下默认是UTF-8，Windows下有转换工具，比如Eclipse->Edit->最后一项。一般针对最末梢文件设置权限。
+特别注意：权限分配时，不能写成cen, huang =r，这样提交时会出现错误：svn Commit failed checkout of 403 forbidden。应该写成cen = r和huang = r
+10. Subversion启动
+svnserve -d -r /home/svn
+Subversion 设计了一个抽象的网络层，版本库建立完毕之后，可以通过各种服务器向外公布。svnserve 是 Subversion 自带的一个小型的服务器，它使用独立的协议与客户端。–i 作为 inetd 启动。-d参数表示svnserve将会作为一个服务程序运行在后台。-r参数表示将/home/svn指定为代码库的根目录。这样，当客户端使用类似svn://192.168.0.1/repos这样的URL访问服务器的时候，其所访问的真实库是/home/svn/repos。另外如 --listen-port，--listen-host 可以指定绑定的地址和端口，-R 可以强制设定为 Read-Only 模式。
+下面命令可检查是否成功启动：
+ps -ef | grep svn
+或者
+ps -aux | grep svn

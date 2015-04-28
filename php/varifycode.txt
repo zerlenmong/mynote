@@ -1,0 +1,27 @@
+1.生成底图
+	依赖php图片处理库gd
+2.生成验证内容
+	简单的随机数生成，使用php函数mt_rand();
+	随机数字+字母生成，askII
+	随机中文内容生成，utf-8
+3.生成验证码图片
+4.校验验证内容
+	php session基础
+	ajax
+
+
+header ('Content-Type: image/png');
+
+$im = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
+
+$bgcolor=imagecolorallocate($im, 255,255,255);
+
+$text_color = imagecolorallocate($im, 233, 14, 91);
+
+imagefill($im,0,0,$bgcolor);
+
+imagestring($im, 1, 5, 5,  'A Simple Text String', $text_color);
+
+imagepng($im);
+
+imagedestroy($im)

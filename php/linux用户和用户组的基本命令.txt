@@ -1,0 +1,35 @@
+groupadd XXX      ----------添加组名
+groupmod -n 新组名 原组名  -------更改组名
+groupmod -g 组编号 组名称 -----更改组编号
+groupadd -g 888 boss ----添加一个boss的用户组编号为888
+groupdel 用户组名 -----删除用户组(在删除之前要删除组里的用户)
+
+useradd -g 用户组名 用户名 ----添加用户到用户组(默认会给用户在/home下创建用户名相同的文件)
+useradd -d /home/XXX imooc ----创建用户的同时指定用户的路径
+usermod -c dgdzmx sdf -----修改用户sdf的注释
+usermod -l cls sdf -----将用户名sdf修改成cls
+usermod -d /home/cls cls ----指定用户的用户目录
+usermod -g sexy imooc ----将imooc切换到sexy用户组
+userdel 用户名 ----- 只删除用户名
+userdel -r 用户名 -----删除用户名的同时删除用户的文件
+
+touch /etc/nologin 除了root以外的账户无法登录服务器
+
+passwd -l cls  锁定cls账户
+passwd -u cls  解锁cls账户
+passwd -d cls  清除cls账户密码 
+
+gpasswd -a cls boss 为cls 添加boss附属组
+gpasswd -d cls boss 删除cls的boss附属组
+newgrp boss ----当前用户零时切换到boss附属组
+
+useradd -g group1 -G group2,group3...
+gpasswd imooc 更改 imooc用户的组密码
+
+su username 快速切换到username用户
+
+whoami
+id louis
+groups louis
+chfn louis
+finger louis

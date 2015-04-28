@@ -1,0 +1,5 @@
+导入：mysql -h localhost -u root --password="123" $1 <  $2 ;
+导出：mysqldump -h localhost -u root --password="123" $1 >  $2;
+注 ：其中 $1->数据库名 
+	  $2->sql文件的全路径
+

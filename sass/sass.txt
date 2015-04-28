@@ -1,0 +1,42 @@
+ruby 
+https://www.ruby-lang.org
+rvm 
+http://www.rvm.io/
+homebrew ---苹果安装器（类似apt-get yum)
+http://brew.sh
+cakebrew ---homebrew图形化管理软件
+https://www.cakebrew.com 
+
+rvm安装ruby命令
+rvm autolibs disable ---如果安装报错可以用这条命令
+rvm list known ----列出所有已知ruby 版本
+rvm list ----- 列出本机安装的ruby版本
+rvm install 2.0.0 ---安装ruby版本号为2.0.0
+rvm use --default 2.2.0  将ruby版本切换为2.2.0
+rvm use system ----将ruby切换到系统版本
+
+更换ruby sources
+1.移除源
+gem sources --remove  https://rubygems.org/
+2.添加国内源
+gem sources -a https://ruby.taobao.org/
+查看源
+gem sources -l
+更新
+gem update
+gem list ----列出本地安装 的所有ruby程序包
+gem uninstall sass --version=3.3.0 --删除指定版本
+gem uninstall sass
+
+安装sass
+sass-lang.com
+gem install sass [--version=3.3.0]
+sass -v --查看版本
+sass-convert main.scss main.sass ---scss与sass之间的转换
+
+
+compass
+compass-style.org
+gen install compass
+compass -v ---查看版本
+compass create learn-compass-init --创建一个compass项目

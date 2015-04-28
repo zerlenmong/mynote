@@ -1,0 +1,52 @@
+phpStrome
+httpie 模拟post传参数
+
+router
+session
+service
+
+twig:
+  -输出 : {{ }}
+  -判断 : {% %}
+  -注释 : {# #}
+核心概念:用类的继承关系去管理页面之间的关系
+
+html5 --- boilerplate
+php app/console assets:install web --symlink --relative
+
+注册/定义资源
+{{asset('***.js')}}
+{% javascripts '@目录路径'%}
+<script type="text/javascript" src="{{asset_url}}">
+{% endjavascripts %}
+
+{% stylesheets '@目录路径'%}
+<link rel="stylesheets" href="{{asset_url}}">
+{% endstylesheets %}
+
+coffeescript编写js源文件
+
+doctrine 操作数据库
+	entity  实体对象
+	repository 对象操作集合
+	proxy class 代理类
+DQL
+事件监听机制
+
+数据库
+设计数据库关系和主要字段
+配置symfony2数据库连接
+配置entity
+生成get/set/repository  ----generate:doctrine:entities  ScourgenWebBundle
+生成真实数据库 ---1、doctrine:database:create ，2、doctrine:schema:update --force. 
+
+
+
+
+
+
+
+
+
+
+

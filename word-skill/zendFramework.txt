@@ -1,0 +1,65 @@
+
+Zend Framework application.ini 配置
+[production]
+#PHP错误是否显示,您所在时区,bootstrap引导文件配置(1为true,0为false)
+phpSettings.error_reporting              = 8191
+phpSettings.DATE.timezone              = “Asia/Shanghai”
+phpSettings.display_startup_errors    =1
+phpSettings.display_errors               =1
+bootstrap.path = APPLICATION_PATH”/Bootstrap.php”
+bootstrap.class = “Bootstrap” #这个名称请对应到上面Bootstrap.php文件中的类
+#项目载入的模块,插件,错误提示信息配置
+resources.FrontController.moduleDirectory = APPLICATION_PATH”/modules”
+resources.FrontController.moduleControllerDirectoryName = “controllers”
+resources.FrontController.defaultModule   = “default”
+resources.FrontController.plugins.common = “Custom_Controller_Plugin_Layout”
+resources.FrontController.noErrorHandler        = 1
+resources.FrontController.throwExceptions     = 1
+#resources.FrontController.noViewRenderer    = false
+#网站页面标题,编码以及ViewHelper的设置(这些可有可无.我们可以在不同的模块中设置不同)
+resources.view.title     = “Kylingood”
+resources.view.encoding      = “UTF-8″
+resources.view.helperPathPrefix    = “Custom_View_Helper_”
+resources.view.helperPath     = “Custom/View/Helper/”
+#网站前台模块(不同模块对应不同layout,与不同的ViewHelper)
+resources.view.params.DEFAULT.basePath    = APPLICATION_PATH”/modules/default/views/”
+resources.view.params.DEFAULT.helperPathPrefix  =”Custom_View_Helper_Default_”
+resources.view.params.DEFAULT.helperPath = “Custom/View/Helper/Default/”
+resources.view.params.DEFAULT.layout = “default”
+resources.view.params.DEFAULT.layoutPath  = APPLICATION_PATH”/modules/default/views/layouts”
+#用户后台模块(同上)
+resources.view.params.user.basePath    = APPLICATION_PATH”/modules/user/views/”
+resources.view.params.user.helperPathPrefix  = “Custom_View_Helper_User_”
+resources.view.params.user.helperPath = “Custom/View/Helper/User/”
+resources.view.params.user.layout = “default”
+resources.view.params.user.layoutPath  = APPLICATION_PATH”/modules/user/views/layouts”
+#您数据库的配置参数
+resources.db.adapter = PDO_MYSQL
+resources.db.params.host = “localhost”
+resources.db.params.username = “root”
+resources.db.params.password = “uniono”
+resources.db.params.dbname = “blog”
+resources.db.params.prefix = “oophp_”
+resources.db.isDefaultTableAdapter = TRUE
+resources.db.params.driver_options.1002 = “SET NAMES UTF8;”
+#网站多语言配置(前期学习可以不管,甚至于去掉)
+resources.translate.registry_key = “Zend_Translate”
+resources.translate.adapter = array
+resources.translate.options.scan = “directory”
+resources.translate.locale = “zh_CN”
+resources.translate.data.zh_CN = APPLICATION_PATH”/languages/zh_CN.php”
+resources.translate.data.en_US = APPLICATION_PATH”/languages/en_US.php”
+#网站生成的日志(前期学习可以不管,甚至于去掉)
+[logger]
+priority = 7
+file = “log/debug.txt”
+;EMERG=0;ALERT=1;CRIT=2;ERR=3;WARN=4;NOTICE=5;INFO=6;DEBUG=7;
+type = firebug
+;stream,firebug
+#网站生成Cache配置(前期学习可以不管,甚至于去掉)
+[cache]
+type = file
+dir = APPLICATION_PATH”/cache/”
+pagedir = APPLICATION_PATH”/cache/page/”
+lifetime = 7200
+automatic_serialization = TRUE

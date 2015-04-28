@@ -1,0 +1,22 @@
+function print(object){
+    for (var obj in object)
+     {
+       document.write("<p>" + obj + "=" + eval("event."+obj) + "</p>");   
+     }
+}
+var event=navigator;
+print(event);
+
+
+
+var MySampleClass = Class.create();
+MySampleClass.prototype = {
+initialize: function(message) {
+this.message = message;
+},
+showMessage: function(ajaxResponse) {
+alert(this.message);
+}
+};
+var myTalker = new MySampleClass('hi there.');
+myTalker.showMessage();

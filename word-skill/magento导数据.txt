@@ -1,0 +1,11 @@
+导入新产品必须要有的字段
+type (Ex: “simple”)
+attribute_set (”Default” or another field set name)
+tax_class_id (”None” or another tax class name)
+status (”Enabled”)
+weight (yes, it is required... just put “1” if you don’t use it)
+sku (unique product identification)
+name
+price
+description
+short_descriptio

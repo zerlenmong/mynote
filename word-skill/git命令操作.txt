@@ -1,0 +1,339 @@
+git config --global --add merge.ff false
+初始化操作 
+    $ git config -global user.name <name> #设置提交者名字 
+    $ git config -global user.email <email> #设置提交者邮箱 
+    $ git config -global core.editor <editor> #设置默认文本编辑器 
+    $ git config -global merge.tool <tool> #设置解决合并冲突时差异分析工具 
+    $ git config -list #检查已有的配置信息 
+
+创建新版本库 
+    $ git clone <url> #克隆远程版本库 
+    $ git init #初始化本地版本库 
+
+修改和提交 
+加载（Stage）文件 
+    $ git add . #添加所有改动过的文件 
+    $ git add <file> #添加指定的文件 
+
+    $ git mv <old> <new> #文件重命名 
+    $ git rm <file> #删除文件 
+    $ git rm -cached <file> #停止跟踪文件但不删除 
+
+提交文件 
+    $ git commit -m <file> #提交指定文件 
+    $ git commit -m “commit message” #提交所有更新过的文件 
+    $ git commit -amend #修改最后一次提交 
+    $ git commit -C HEAD -a -amend #增补提交（不会产生新的提交历史纪录） 
+
+查看提交历史 
+    $ git log #查看提交历史 
+    $ git log -p <file> #查看指定文件的提交历史 
+    $ git blame <file> #以列表方式查看指定文件的提交历史 
+    $ gitk #查看当前分支历史纪录 
+    $ gitk <branch> #查看某分支历史纪录 
+    $ gitk --all #查看所有分支历史纪录 
+    $ git branch -v #每个分支最后的提交 
+    $ git status #查看当前状态 
+    $ git diff #查看变更内容 
+
+撤消操作 
+    $ git reset -hard HEAD #撤消工作目录中所有未提交文件的修改内容 
+    $ git checkout HEAD <file1> <file2> #撤消指定的未提交文件的修改内容 
+    $ git checkout HEAD. #撤消所有文件 
+    $ git revert <commit> #撤消指定的提交 
+
+分支与标签 
+    $ git branch #显示所有本地分支 
+    $ git checkout <branch/tagname> #切换到指定分支或标签 
+    $ git branch <new-branch> #创建新分支 
+    $ git branch -d <branch> #删除本地分支 
+    $ git tag #列出所有本地标签 
+    $ git tag <tagname> #基于最新提交创建标签 
+    $ git tag -d <tagname> #删除标签 
+
+合并与衍合 
+    $ git merge <branch> #合并指定分支到当前分支 
+    $ git rebase <branch> #衍合指定分支到当前分支 
+
+远程操作 
+    $ git remote -v #查看远程版本库信息 
+    $ git remote show <remote> #查看指定远程版本库信息 
+    $ git remote add <remote> <url> #添加远程版本库 
+    $ git fetch <remote> #从远程库获取代码 
+    $ git pull <remote> <branch> #下载代码及快速合并 
+    $ git push <remote> <branch> #上传代码及快速合并 
+    $ git push <remote> : <branch>/<tagname> #删除远程分支或标签 
+    $ git push -tags #上传所有标签 
+
+更多：《 Git Cheatsheet 》 
+
+    Git 是用于Linux 内核开发的版本控制工具。与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持，使源代码的发布和交流极其方便。 Git 的速度很快，这对于诸如 Linux kernel 这样的大项目来说自然很重要。 Git 最为出色的是它的合并跟踪（merge tracing）能力。 
+
+———————————————————————————————————————— 
+
+下面我用ubuntu 10.10上的命令为例：（这些命令都是在本地客户端处使用，非服务器操作裸库使用） 
+
+（本文中尖括号内包含尖括号都将是描述内容，请在输入实际命令时替换成描述内容所符的内容。） 
+
+1、安装： 
+
+$ sudo apt-get install git 
+
+$ sudo apt-get install gitk#此为安装官方的图形界面，不需要的可以不安装 
+
+2、cd到需要管理的代码、文件所在的第一级目录 
+
+3、初始化： 
+
+$ git init 
+
+4、添加当前目录所有内容： 
+
+$ git add . 
+
+5、查看状态： 
+
+$ git status 
+
+6、添加commit： 
+
+$ git commit -am "first commit." 
+
+7、版本对比： 
+
+$ git diff 
+
+8、查看历史记录： 
+
+$ git log 
+
+9、分支操作 
+
+查看分支：$ git branch 
+
+创建分支：$ git branch 分支名称 （注意：请不要在服务端建立分支） 
+
+切换分支：$ git checkout 分支名称 
+
+删除分支：$ git branch -d 分支名称 
+
+10、加入服务器 
+
+$ git remote add 用户名@计算机名或IP:~/某个目录 
+
+11、推送数据 
+
+$ git push master master #本地master推送到远端master 
+
+如果想快捷的使用git push就推送到默认远端分支master，可以做个一次性设置： 
+
+$ git remote add origin <实际的ssl用户名>@<IP地址>:<Git在远端的path> 
+
+    做完以上设置，以后直接使用git push 就会自动推送到上述设置地址了，但如果要推送到其他分支，还是需要加参数的，这个设置只是相当于一个默认参数而已。 
+
+12、接收数据 
+
+$ git pull origin master 
+
+如果想直接使用git pull直接接收，同样需要提前做一个一次性设置（同样也是不能应用多分支pull情况）： 
+
+$ git branch --set-upstream master origin/master 
+
+13、本地库设置个人姓名和邮件 
+
+$ git config --global user.name "你的姓名，最好由没有符合和空格的英文字母组成" 
+
+$ git config --global user.email <邮件名>@<邮箱服务商后缀> 
+
+如果不设置个人信息，提交的信息将不会有更改者信息，这样会加大项目管理的难度。 
+
+14、启动图形界面 
+
+$ gitk 
+
+这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲： 
+
+    查看远程分支 
+    删除远程分支和tag 
+    删除不存在对应远程分支的本地分支 
+    重命名远程分支 
+    把本地tag推送到远程 
+    获取远程tag 
+
+查看远程分支 
+
+加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）： 
+
+# git branch -a 
+  master 
+  remote 
+  tungway 
+  v1.52 
+* zrong 
+  remotes/origin/master 
+  remotes/origin/tungway 
+  remotes/origin/v1.52 
+  remotes/origin/zrong 
+
+删除远程分支和tag 
+
+在Git v1.7.0 之后，可以使用这种语法删除远程分支： 
+
+git push origin --delete <branchName> 
+
+删除tag这么用： 
+
+git push origin --delete tag <tagname> 
+
+
+否则，可以使用这种语法，推送一个空分支到远程分支，其实就相当于删除远程分支： 
+
+git push origin :<branchName> 
+
+这是删除tag的方法，推送一个空tag到远程tag： 
+
+git tag -d <tagname> 
+git push origin :refs/tags/<tagname> 
+
+两种语法作用完全相同。 
+删除不存在对应远程分支的本地分支 
+
+假设这样一种情况： 
+1. 我创建了本地分支b1并pull到远程分支 origin/b1； 
+2. 其他人在本地使用fetch或pull创建了本地的b1分支； 
+3. 我删除了 origin/b1 远程分支； 
+4. 其他人再次执行fetch或者pull并不会删除这个他们本地的 b1 分支，运行 git branch -a 也不能看出这个branch被删除了，如何处理？ 
+
+使用下面的代码查看b1的状态： 
+
+# git remote show origin 
+* remote origin 
+  Fetch URL: git@github.com:xxx/xxx.git 
+  Push  URL: git@github.com:xxx/xxx.git 
+  HEAD branch: master 
+  Remote branches: 
+    master                 tracked 
+    refs/remotes/origin/b1 stale (use 'git remote prune' to remove) 
+  Local branch configured for 'git pull': 
+    master merges with remote master 
+  Local ref configured for 'git push': 
+    master pushes to master (up to date) 
+
+这时候能够看到b1是stale的，使用 git remote prune origin 可以将其从本地版本库中去除。 
+
+更简单的方法是使用这个命令，它在fetch之后删除掉没有与远程分支对应的本地分支： 
+
+git fetch -p 
+
+重命名远程分支 
+
+在git中重命名远程分支，其实就是先删除远程分支，然后重命名本地分支，再重新提交一个远程分支。 
+
+例如下面的例子中，我需要把 devel 分支重命名为 develop 分支： 
+
+# git branch -av 
+* devel                             752bb84 Merge pull request #158 from Gwill/devel 
+  master                            53b27b8 Merge pull request #138 from tdlrobin/master 
+  zrong                             2ae98d8 modify CCFileUtils, export getFileData 
+  remotes/origin/HEAD               -> origin/master 
+  remotes/origin/add_build_script   d4a8c4f Merge branch 'master' into add_build_script 
+  remotes/origin/devel              752bb84 Merge pull request #158 from Gwill/devel 
+  remotes/origin/devel_qt51         62208f1 update .gitignore 
+  remotes/origin/master             53b27b8 Merge pull request #138 from tdlrobin/master 
+  remotes/origin/zrong              2ae98d8 modify CCFileUtils, export getFileData 
+
+删除远程分支： 
+
+# git push --delete origin devel 
+To git@github.com:zrong/quick-cocos2d-x.git 
+- [deleted]         devel 
+
+重命名本地分支： 
+
+# git br -m devel develop 
+
+推送本地分支： 
+
+# git push origin develop 
+Counting objects: 92, done. 
+Delta compression using up to 4 threads. 
+Compressing objects: 100% (48/48), done. 
+Writing objects: 100% (58/58), 1.38 MiB, done. 
+Total 58 (delta 34), reused 12 (delta 5) 
+To git@github.com:zrong/quick-cocos2d-x.git 
+* [new branch]      develop -> develop 
+
+然而，在 github 上操作的时候，我在删除远程分支时碰到这个错误： 
+
+
+# git push --delete origin devel 
+remote: error: refusing to delete the current branch: refs/heads/devel 
+To git@github.com:zrong/quick-cocos2d-x.git 
+! [remote rejected] devel (deletion of the current branch prohibited) 
+error: failed to push some refs to 'git@github.com:zrong/quick-cocos2d-x.git' 
+
+这是由于在 github 中，devel 是项目的默认分支。要解决此问题，这样操作： 
+
+    进入 github 中该项目的 Settings 页面； 
+    设置 Default Branch 为其他的分支（例如 master）； 
+    重新执行删除远程分支命令。 
+
+把本地tag推送到远程 
+
+$ git push --tags 
+
+获取远程tag 
+
+$ git fetch origin tag <tagname> 
+
+项目的控制文件，一般是不上传的，现在我使用phpstorm，它的.idea目录，有时候会错误的上传到远程库中。 
+
+删除的步骤如下。 
+
+将本地.idea目录改名，这个步骤适合于不是你push该目录，是别人上传的： 
+mv .idea/ .idea_back 
+
+如果是自己push的，可略过上面步骤。 
+
+删除.idea目录下文件： 
+git rm .idea/* -r 
+
+然后commit： 
+git commit -a -m ‘remove .idea’   注意是单引号 
+
+再次push就可以了： 
+git push -u origin master 
+
+亡羊补牢，可以增加忽略文件: 
+vim .gitignore 
+
+在文件中加入： 
+.idea/**/* 
+
+git commit回退 
+
+1、git log 查到commit_id 
+2、想回退到哪个commit_id然后输入： 
+   git reset --hard commit_id 
+   git push origin HEAD --force
+
+
+取别名
+git config --global alias.co checkout //设置checkout 命令别名 
+git config --global alias.br branch //设置branch 命令别名 
+git config --global alias.ci commit //设置commit 命令别名 
+git config --global alias.st status //设置status 命令别名 
+git config --global alias.last 'log -1 HEAD' //查看最后一次提交信息 
+git config --global alias.visual "!gitk" //启动gitk。运行外部命令，只需在命令前加上 ！ 。
+
+
+git 差异打包
+git diff 版本号1 版本号2 --name-only|xargs zip update.zip
+
+
+
+
+git中可以加入忽略文件权限的配置，具体如下：
+
+$ git config core.filemode false
+$ git config --list

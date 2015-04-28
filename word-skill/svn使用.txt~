@@ -1,0 +1,140 @@
+1.安装包 
+
+$ sudo apt-get install subversion
+2.创建项目目录 
+
+$ sudo mkdir /var/svnroot
+$ cd /var/svnroot
+$ sudo mkdir mypro
+3.创建svn文件仓库
+
+$ sudo svnadmin create /var/svnroot/mypro
+4.导入项目到svn文件仓库 (可有可无)
+
+$ sudo svn import -m "" 你的文件夹路径 file://var/svnroot/mypro
+5.访问权限设置 
+
+修改 /var/svnroot/mypro/conf目录下： 
+
+svnserve.conf 、passwd 个文件,行最前端不允许有空格 
+
+编辑svnserve.conf文件,把如下面行取消注释，并需要顶格
+
+anon-access = read
+auth-access = write
+password-db = passwd
+编辑passwd  如下: 
+
+[users] 
+andy = andy
+6. 开启svnserve,以SVN根目录开启： 
+
+$ svnserve -d -r /var/svnroot
+7.检查是否正常启动
+
+$ netstat -ntlp
+可以看到有一个端口为3690的地址，表示启动成功
+
+（如果使用Apache连接，则跳过下步）
+
+8.局域网访问，checkout出来SVN库的文件
+
+svn checkout svn://svnIp地址/mypro
+或者简写为： 
+
+svn co svn://svnIp地址/mypro
+二、在Ubuntu12.04下使用Apache配置Subversion
+1.安装必要软件
+
+$ sudo apt-get install subversion libapache2-svn apache2
+2.修改apache配置文件/etc/apache2/mods-available/dav_svn.conf
+
+<Location /var/svnroot/mypro>
+DAV svn
+SVNPath /var/svnroot/mypro
+AuthType Basic
+AuthName "myproject subversion repository"
+AuthUserFile /etc/subversion/passwd
+#<LimitExcept GET PROPFIND OPTIONS REPORT>
+Require valid-user
+#</LimitExcept>
+</Location>
+ 如果需要用户每次登录时都进行用户密码验证，请将
+
+<LimitExcept GET PROPFIND OPTIONS REPORT>与</LimitExcept>两行注释掉。
+
+当您添加了上面的内容，您必须重新起动 Apache 2 Web 服务器，请输入下面的命令：
+
+$ sudo /etc/init.d/apache2 restart
+3.创建 /etc/subversion/passwd 文件，该文件包含了用户授权的详细信息
+
+$ sudo htpasswd -c /etc/subversion/passwd user_name
+它会提示您输入密码，当您输入了密码，该用户就建立了。“-c”选项表示创建新的/etc/subversion/passwd文件，所以user_name所指的用户将是文件中唯一的用户。如果要添加其他用户，则去掉“-c”选项即可：
+
+$ sudo htpasswd /etc/subversion/passwd other_user_name
+4.您可以通过下面的命令来访问文件仓库：
+
+$ svn co http://hostname/svn/myproject myproject --username user_name
+或者通过浏览器：http://hostname/svn/myproject
+
+三、Ubuntu12.04 SVN命令大全
+1、将文件checkout到本地目录 svn checkout path（path 是服务器上的目录） 
+
+例如：
+
+$ svn checkout svn://192.168.1.1/pro
+简写：
+
+$ svn co svn://192.168.1.1/pro
+2、往版本库中添加新的文件
+
+ $ svnadd file
+ $ svn add test.php#(添加test.php)
+ $ svn add *.php#(添加当前目录下所有的php文件)
+3、将改动的文件提交到版本库
+
+$ svn commit -m "LogMessage" [-N] [--no-unlock] PATH(如果选择了保持锁,就使用–no- unlock开关)
+例如：
+
+$ svn commit -m 'add test file for my test' test.php
+简写：
+
+$ svn ci
+4、更新到某个版本
+
+$ svn update -rm path
+例如：$ svn update如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。 
+
+$ svn update -r 200 test.php#(将版本库中的文件test.php还原到版本200)
+$ svn update test.php#(更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文 件，然后清除$ svn resolved，最后再提交commit) 简写：svn up
+5、删除文件
+
+$ svn delete path -m 'delete test fle'
+例如：
+
+$ svn delete test.php
+然后再
+
+$ svn ci -m 'delete test file'
+简写：
+
+svn (del, remove, rm)
+6、比较差异
+
+$ svn diff path#(将修改的文件与基础版本比较)
+例如：
+
+$ svn diff test.php
+$ svn diff -r m:n path#(对版本m和版本n比较差异)
+例如：
+
+svn diff -r 200:201 test.php
+简写：
+
+svn di
+ 7、查看文件或者目录状态
+
+1）svn status path#（目录下的文件和子目录的状态，正常状态不显示）
+ 【?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】 
+
+ 2）svn status -v path(显示 文件和子目录状态)
