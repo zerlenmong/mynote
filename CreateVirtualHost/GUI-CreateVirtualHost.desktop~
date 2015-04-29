@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Create Virtual Host
+Comment=Create Virtual Host
+Exec=sudo -S python /home/daniel/Software/CreateVirtualHost/GUI-CreateVirtualHost.py
+Icon=/home/daniel/Software/CreateVirtualHost/GUI-CreateVirtualHost.png
+Version=1.0
+Terminal=true
+Type=Application
