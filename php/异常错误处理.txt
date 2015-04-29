@@ -1,0 +1,64 @@
+1.语法错误
+2.环境错误
+3.逻辑错误
+
+php 中的错误级别
+ deprecated最低级别的错误
+ notice通知级别的错误
+ warning警告级别
+
+php配置文件中与错误相关选项
+ error_reporting 设置错误报告的级别
+ display_errors  是否显示错误
+ log_errors      设置是否将产生错误信息记录到日志或者error_log中
+ error_log       设置脚本错误将记录到的文件
+ log_errors_max_len 设置log_errors的最大字节数
+ ignore_repeated_errors 是否忽略重复的错误信息
+ ignore_repeated_source 是否忽略错误消息的来源
+ track_errors   如果开启此选项，最后一个错误将永远保存在$php_errormsg中
+
+如何设置错误等级
+1.通过修改php配置文件
+2.通过error_reporting()函数设置
+3.通过ini_set()函数运行时设置
+eg:
+  error_reporting(E_ALL&~E_NOTICE)--动态设置错误级别
+  error_reporting(0)--不显示错误
+  error_reporting(-1)---显示所有错误
+  ini_set('error_reporting',0)---运行时设置配置选项的值
+
+通过错误抑制符 @
+
+
+通过trigger_error()手动触发错误，抛出错误。
+
+error_log()
+syslog()
+
+
+
+1.创建错误处理函数
+2.设置不同级别调用函数 
+3.set_error_handler(array('myErrorHandler','deal'))函数指定接管错误处理
+---error_types 里指定的错误类型都会绕过 PHP 标准错误处理程序
+
+
+restore_error_handler()---取消接管
+
+debug_print_backtrace()--打印回溯
+
+自定义错误处理器
+register_shutdown_function()--当执行关闭时可以被调用的另一个函数
+ 作用场景：页面强制被停止
+         程序代码意外终止或超时
+
+error_get_last()--获取最后一次出现的错误
+
+
+
+
+
+
+
+
+

@@ -337,3 +337,46 @@ git中可以加入忽略文件权限的配置，具体如下：
 
 $ git config core.filemode false
 $ git config --list
+
+
+git ignore files的三种方法
+以'#'开始的行，被视为注释.                                                                                                                          
+# 忽略掉所有文件名是 foo.txt的文件.
+foo.txt
+# 忽略所有生成的 html文件,
+*.html
+# foo.html是手工维护的，所以例外.
+!foo.html
+# 忽略所有.o和 .a文件.
+*.[oa]
+【方式一】
+在仓库目录下新建一个名为.gitignore的文件
+【方式二】
+通过配置.git/info/exclude文件来忽略文件
+【方式三】
+通过.git/config配置文件的core. Excludesfile选项，指定一个忽略规则文件（完整路径）
+【例子】
+# 忽略*.o和*.a文件
+ *.[oa]
+# 忽略*.b和*.B文件，my.b除外
+*.[bB]
+!my.b
+# 忽略dbg文件和dbg目录
+dbg
+# 只忽略dbg目录，不忽略dbg文件
+dbg/
+# 只忽略dbg文件，不忽略dbg目录
+dbg
+!dbg/
+# 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内
+/dbg
+
+
+
+
+
+
+
+
+
+
