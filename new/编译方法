@@ -1,0 +1,13 @@
+./configure --prefix=/usr/local/php5 --with-apxs2=/usr/local/apache/bin/apxs --with-mysql=/usr/local/mysql --with-pdo-mysql=/usr/local/mysql --with-gd=/usr/local/libgd --enable-gd-native-ttf --with-ttf --enable-gd-jis-conv --with-freetype-dir=/usr/local/freetype --with-jpeg-dir=/usr/local/libjpeg --with-png-dir=/usr/local/libpng --with-libxml-dir=/usr/local/libxml2 --with-zlib-dir=/usr/local/zlib --with-mcrypt=/usr/local/libmcrypt --enable-xml --enable-mbstring --enable-sockets --enable-ftp --with-mhash=/usr/local/mhash
+
+
+
+./configure --prefix=/usr/local/apache --enable-rewrite=shared --enable-dav=shared --enable-so --with-a
+
+./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache/bin/apxs --with-libxml-dir=/usr/local/libxml2 --with-config-file-path=/usr/local/php --with-openssl --with-zlib --with-zlib-dir=/usr/local/zlib --enable-bcmath --enable-calendar --with-curl=/usr/local/curl --with-curlwrappers --enable-ftp --with-gd --with-jpeg-dir=/usr/local/jpeg --with-png-dir=/usr with-freetype-dir=/usr/local/freetype2 --enable-gd-native-ttf --with-gettext --with-mcrypt=/usr/local/libmcrypt --with-mhash=/usr/local/libmhash --enable-mbstring --enable-exif --with-mysql=/usr/local/mysql --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-xmlrpc --enable-soap --enable-sockets --enable-zip
+
+
+
+./configure   --prefix=/usr/local/php  --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql=/usr/local/mysql --with-config-file-path=/usr/local/php5 --with-zlib --enable-mbstring=all --with-mysqli=/usr/bin/mysql_config --with-pdo-mysql=/usr/local/mysql
+
+./configure --with-php-config=/usr/bin/php-config

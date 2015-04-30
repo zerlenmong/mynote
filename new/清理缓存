@@ -1,0 +1,5 @@
+2。ubuntu 清理缓存
+
+    apt-get autoclean
+    apt-get clean
+    apt-get autoremove

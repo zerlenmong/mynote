@@ -1,0 +1,27 @@
+ 在Linux系统中，默认是区分MySQL表名的大小写的，而Windows系统默认是不区分MySQL的大小写的。
+
+　　具体修改MySQL的方法如下：
+
+　　Java代码
+
+　　sudo vi /etc/mysql/my.cnf
+
+　　意思是先找到你MySQL的my.cnf配置文件并修改，当然如果你的路径不一定跟我一样，这点要注意一下
+
+　　在[mysqld]中添加
+
+　　Java代码
+
+　　lower_case_table_names=1
+
+　　如图：
+
+　　
+
+　　配置完成后，重启一下MySQL
+
+　　Java代码
+
+　　sudo /etc/init.d/mysql restart
+
+　　好了Linux系统忽略大小的设置完成。

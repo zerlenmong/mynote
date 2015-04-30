@@ -1,0 +1,54 @@
+首先简述自己的系统配置：win7+ ubuntu12.04
+
+linuxQQ 有各种版本，这里介绍两种：linuxQQ 和 wineQQ
+
+
+ 1 ------linuxqq是QQ简化版，功能很少，界面很差，但是安装简单
+
+      下载地址：http://im.qq.com/qq/linux/  可以选择对听版本的系统以及QQ 。这里建议下载tar.gz的版本，然后解压，执行./QQ就搞定了，很简单吧。
+
+      下载后运行命令：    tar xzvf     ************.tar.gz   ////**号代表你下载的文件名称
+
+     然后进入对应的的解压好的文件里面 执行命令：  ./qq    就可以登陆QQ了 ，ok！！！
+
+
+2------wineQQ基本上是和windows下QQ 是同步的。功能相当齐全。当然我是建议你安装这个类型的。
+
+     下载地址：    http://www.longene.org/download/WineQQ2013-20131120-Longene.deb    这只是我编辑此文章的时候最新版本，如果你自己想获取最新版本，可以在此可以下载到最新版本的wineqq版本：下载地址为： http://www.longene.org/download/   在列表里面寻找最新版本的吧！！！这种哦功能类型名字的-WineQQ2012-20120719-Longene.deb   下载到自己知道的目录下
+
+    下载后在下载目录里面运行命令：sudo dpkg -i WineQQ2013-20131120-Longene.deb 
+
+      64位系统还需要运行以下命令：sudo apt-get install ia32-libs
+
+3------运行
+
+       一般默认安装在/opt/longene/qq2013文件夹里面。进入这个目录，将QQ2013图表拖放到桌面或者侧边栏，就可以随心所欲的使用wineqq 了，ok！！！
+
+   如果你找不到安装的位置，可以搜索一下‘qq2012’，寻找目录，找到快捷方式。ok！！！
+
+4------卸载
+
+      运行以下命令：
+
+       dpkg -r qq-for-wine
+
+5 -----卸载wineqq
+
+sudo dpkg --purge wine-qq2013-longeneteam
+
+(正在读取数据库 ... 系统当前共安装有 198829 个文件和目录。)
+正在卸载 wine-qq2013-longeneteam ...
+*    Backup QQ users directory to your HOME.......
+*    Backup done!
+*    ldconfig....
+*    Remove the entry from system menu......
+*    Remove desktop icon......
+正在清除 wine-qq2012-longeneteam 的配置文件 ...
+ls: 无法访问/opt/longene: 没有那个文件或目录
+*    Removing /opt/longene...
+*    Done.
+正在处理用于 bamfdaemon 的触发器...
+Rebuilding /usr/share/applications/bamf.index...
+正在处理用于 desktop-file-utils 的触发器...
+正在处理用于 gnome-menus 的触发器...
+

@@ -1,0 +1,134 @@
+前提：在你安装好各种软件后才开始优化
+这样会减少错误的发生
+以下是经过本人测试过的方案，不影响系统和电脑任何性能
+可以针对ubuntu9.10系统系（包括最新的雨林木风）
+首先是开机速度
+1.删除掉动画模块速度会增加不少：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove ubuntu-xsplash-artwork libusplash0  
+
+     
+
+
+2.设置开机不扫描硬盘，此设置可以减少一半的开机时间：
+
+    Java代码  收藏代码
+
+        sudo gedit /etc/fstab  
+
+     
+
+
+在打开的文本编辑器里
+寻找所有的
+UUID=
+开头的语句
+把结尾部分的数字全部改成 0 0
+呵呵，开机速度超级快了
+接下来是对臃肿的系统开刀：
+系统减肥：
+1.删除游戏：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove gnome-games-common  
+
+     
+
+
+所有系统自带的游戏全部没了
+2.删除蓝牙装备：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove libbluetooth3  
+
+     
+
+
+3.删除IDE接口硬盘支持（切记你是sata硬盘才可以删除否则嘿嘿别怪我没说）：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove hdparm  
+
+     
+
+
+4.很多人用永中office，那么删除OO吧
+
+    Java代码  收藏代码
+
+        sudo apt-get remove openoffice.org-draw openoffice.org-math openoffice.org-impress openoffice.org-calc openoffice.org-writer  
+
+     
+
+
+5.一些基本用不到的组件，除非你知道他做什么用的。删除吧
+
+    Java代码  收藏代码
+
+        sudo apt-get remove cron anacron rsync  
+
+     
+
+
+6.删除掉打印机支持：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove cups hplip system-config-printer-common  
+
+     
+
+
+7.删除掉自带brasero刻录软件
+
+    Java代码  收藏代码
+
+        sudo apt-get remove libbrasero-media0  
+
+      
+
+
+8.删除系统自带的E-mail
+
+    Java代码  收藏代码
+
+        sudo apt-get remove empathy-doc evolution-common   
+
+      
+
+
+9.删除扫描仪：
+
+    Java代码  收藏代码
+
+        sudo apt-get remove xsane-common  
+
+      
+
+
+10.此命令注意看说明：删除掉pulseaudio音量系统可以解决放电影和flash突然卡声音突然没声音突然杂音的问题，但是不好的地方是连带系统的音量控制系统一并删除。我的做法是用awn仿苹果工具条里的音量控制来代替。请各位看官慎重考虑
+
+    Java代码  收藏代码
+
+        sudo apt-get remove pulseaudio  
+
+      
+
+
+删除系统孤立的组件
+
+    Java代码  收藏代码
+
+        dpkg -l |grep ^rc|awk '{print $2}' |tr ["\n"] [" "]|sudo xargs dpkg -P -  
+
+     
+
+
+暂时传这些优化上来。以后慢慢完善~
+
+

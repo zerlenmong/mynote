@@ -1,0 +1,11 @@
+ .desktop 文件的写法，自己总结了 .desktop 书写的一些规则：
+
+    [Desktop Entry] 打头
+    Version=1.0 （普遍1.0，不明白为什么是 1.0，难道这个 .desktop 的格式规定是 1.0 版本哦？）
+    Name 是该桌面项的名字，如果不指定， Launcher 中的图标（从正文开始数下来第3张图）会提示没有名字
+    GenericName 是软件的泛称，说明 Sublime 是一个文本编辑器，可以不写的
+    Exec 是执行的命令，我的是 sb，因为我在 Step 3 中没有创建名为 sublime 的软链接，而是 sb，敲两个字母多简单啊，:-)
+    Icon 是软件的图标，你当然可以下一些漂亮的图标替换它原来的
+    Type=Application 表明它是一个软件应用
+    Categories 是软件的分类
+    重点在 x-Ayatana-Desktop-Shortchts=ooxx 和 [ooxx Shortcut Group]，这里指定 Launcher 中按下右键出现的一些快捷方式，也就是菜单项啦，多个菜单的话这样写 x-Ayatana-Desktop-Shortchts=a;b;c;d;，然后指定多个 Group。

@@ -1,0 +1,124 @@
+禁用默认的虚拟主机配置（000.default.conf)，然后启用新的虚拟主机配置，如下所示。
+
+sudo a2dissite 000-default.conf
+
+
+安装mysql
+输入命令：
+
+apt-get install mysql-server mysql-client
+
+pdo扩展
+III. 修改配置文件php.ini
+增加条目
+extension=pdo.so
+extension=pdo_mysql.so
+
+安装apache2
+输入命令:
+
+apt-get install apache2
+Apache 在 Ubuntu 中
+默认文档根目录为 /var/www，
+配置文件 /etc/apache2/apache2.conf，
+额外配置存储子目录 /etc/apache2 例如 /etc/apache2/mods-enabled (为 Apache 模块), /etc/apache2/sites-enabled (为虚拟主机 virtual hosts), 和 /etc/apache2/conf.d.
+
+重启apache命令:
+
+在终端中执行
+
+sudo a2enmod rewrite
+
+指令后，即启用了 Mod_rewrite 模块。
+
+另外，也可以通过将 /etc/apache2/mods-available/rewrite.load 连接到 /etc/apache2/mods-enabled/rewrite.load 来打开 Mod_rewrite 模块。用指令操作就是：
+
+sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+
+一点小提示
+
+/etc/init.d/apache2 restart
+
+
+卸载apache2
+
+之前卸载重新安装后找不到apache2.conf配置文件，测试使用一下方式卸载后可用。
+(1)  $ sudo apt-get --purge remove apache2
+       $ sudo apt-get --purge remove apache2.2-common
+       $ sudo apt-get autoremove
+
+(2) （关键一步）找到没有删除掉的配置文件，一并删除
+       $ sudo find  /etc -name "*apache*" -exec  rm -rf {} \;
+       $ sudo rm -rf /var/www
+
+安装 PHP5 和 Apache PHP5 模块:
+
+apt-get install php5 libapache2-mod-php5
+
+测试 PHP5 / 可以建立一个探针页面
+
+vi /var/www/info.php
+输入下面的内容：
+
+<?php
+phpinfo();
+?>
+
+6 为PHP5取得 MySQL 支持
+我们需要安装 php5-mysql，先查看一下php5的模块
+apt-cache search php5
+然后安装所需模块，例如下面的命令：
+
+apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+
+然后刷次你 http://192.168.0.100/info.php 查看模块支持是不是已经增加了。
+
+7 phpMyAdmin
+安装phpmyadmin来管理mysql:
+
+apt-get install phpmyadmin
+Phpmyadmin访问地址：http://192.168.0.100/phpmyadmin/
+
+卸载
+sudo apt-get remove 
+ sudo apt-get autoremove 
+
+
+安装phpmyadmin-Mysql数据库管理
+sudo apt-get install phpmyadmin
+phpmyadmin设置：
+
+在安装过程中会要求选择Web server：apache2或lighttpd，使用空格键选定apache2，按tab键然后确定。然后会要求输入设置的Mysql数据库密码连接密码Password of the database’s administrative user。
+
+然后将phpmyadmin与apache2建立连接，以我的为例：www目录在/var/www，phpmyadmin在/usr/share /phpmyadmin目录，所以就用命令：
+sudo ln -s /usr/share/phpmyadmin /var/www
+
+
+
+PHP解析问题
+安装完貌似php的解析都有点问题，浏览php网页会保存，apache没有将其解析为网页。
+网上一般说的是需要在httpd.conf中添加XXXX，对其他的linux系统可能确实如此，但是ubuntu有点特殊。
+
+ubuntu的apache2配置在/etc/apache2目录下。
+这个目录下有个apache2.conf文件，这个文件通过包含其他配置文件涵盖了所有的apache2系统配置信息。
+
+php解析部分在的配置在/etc/apache2/mods-available下的php5.conf和php5.load中，apache2.conf文件中并没有将这两个文件包含进来，只要包含进去就OK了。
+*************************************************
+在apache2.conf中找到
+# Include module configuration:
+Include /etc/apache2/mods-enabled/*.load
+Include /etc/apache2/mods-enabled/*.conf
+在其后面添加
+Include /etc/apache2/mods-available/php5.load
+Include /etc/apache2/mods-available/php5.conf
+*************************************************
+另外一种方法就是将这两个文件链接到mods-enabled目录下：
+sudo ln -s /etc/apache2/mods-available/php5.load /etc/apache2/mods-enabled/php5.load
+sudo ln -s /etc/apache2/mods-available/php5.conf /etc/apache2/mods-enabled/php5.conf
+这一种方式更好一点，没有破坏apache2本身的配置结构。
+*************************************************
+
+
+重启 Apache2:
+
+/etc/init.d/apache2 restart

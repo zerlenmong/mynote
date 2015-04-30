@@ -1,0 +1,45 @@
+1.如果您没有忘记密码的情况下，可以通过UPDATE直接编辑user表来修改密码：
+进入数据库mysql -u root
+mysql> use mysql;
+mysql> UPDATE user SET Password = PASSWORD('newpass') WHERE user = 'root';
+mysql> FLUSH PRIVILEGES;
+2.如果您已经忘记密码：
+# /etc/init.d/mysql stop                                   1、结束当前正在运行的mysql进程。
+# /usr/bin/mysqld_safe --skip-grant-tables     2、用mysql安全模式运行并跳过权限验证。
+# mysql -u root                                               3、重开一个终端以root身份登录mysql。
+
+mysql> use mysql;                                          4、修改root用户口令。
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> update user set Password = PASSWORD('root') where User ='root';
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3 Changed: 3 Warnings: 0
+
+mysql> exit
+
+# /etc/init.d/mysql restart                                5、结束mysql安全模式，用正常模式运行mysql。
+mysql> update mysql.user set password=PASSWORD（'新密码'） where User='root'； 
+                                                                       6、试试你新修改的口令
+mysql> flush privileges；
+mysql> quit
+
+
+
+方法二：
+直接使用/etc/mysql/debian.cnf文件中[client]节提供的用户名和密码:
+# mysql -udebian-sys-maint -p
+Enter password: <输入[client]节的密码>
+mysql> UPDATE user SET Password=PASSWORD('123') where USER='root';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+# mysql -uroot -p
+Enter password: <输入新设的密码newpassword>
+mysql> 
+
+
+存放数据库的路径
+/var/lib/mysql
+这个路径可以在/etc/mysql/my.cnf里边设置。
+datadir  = /var/lib/mysql

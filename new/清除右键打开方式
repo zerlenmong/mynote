@@ -1,0 +1,2 @@
+最终采用以下方式。
+清除～/.local/share/applications下mimeapps.list 和 mimeinfo.cache中的所有内容即可。

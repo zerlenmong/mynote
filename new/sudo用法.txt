@@ -1,0 +1,64 @@
+关于sudo命令
+sudo - 以超级使用者 (superuser; root) 的身分执行指令 (不需root用户的密码)，也就是说，经由 sudo 所执行的指令就好像是 root 亲自执行
+visudo - 编辑 sudoers 档案 (不要用vi来编辑，小心出问题的)语法sudo command描述Sudo 允许经过同意的使用者以超级使用者的身分执行指令。 Sudo 参考/etc/sudoers 这个档案来判定谁是被授权的使用者。Sudo 将会提示使用者输入密码来启始一段 N 分钟的允许时间（其中 N 是在安装的时候定义的且预设值为 5 分钟）。Sudoers 这个档案是由一个选择性的主机别名 (host alias) 节区，一个选择性的指令别名 (command alias) 节区以及使用者说明 (user specification)节区所组成的。所有的指令别名或主机别名必须需以他们自己的关键字作为开始 (Host_Alias/Cmnd_Alias)。注意，只有第一次使用者（在使用者说明节区里有记录的使用者）使用时会有说明。sudo使用权限：在 /etc/sudoers 中有出现的使用者# sudo -h
+usage: sudo -V | -h | -L | -l | -v | -k | -K | [-H] [-P] [-S] [-b] [-p prompt]
+            [-u username/#uid] -s | <command>
+参数： 
+-V 显示版本编号 
+-h 会显示版本编号及指令的使用方式说明 
+-l 显示出自己（执行 sudo 的使用者）的权限 
+-v 因为 sudo 在第一次执行时或是在 N 分钟内没有执行（N 预设为五）会问密码，这个参数是重新做一次确认，如果超过 N 分钟，也会问密码 
+-k 将会强迫使用者在下一次执行 sudo 时问密码（不论有没有超过 N 分钟） 
+-b 将要执行的指令放在背景执行 
+-p prompt 可以更改问密码的提示语，其中 %u 会代换为使用者的帐号名称， %h 会显示主机名称 
+-u username/#uid 不加此参数，代表要以 root 的身份执行指令，而加了此参数，可以以 username 的身份执行指令（#uid 为该 username 的使用者号码） 
+-s 执行环境变数中的 SHELL 所指定的 shell ，或是 /etc/passwd 里所指定的 shell 
+-H 将环境变数中的 HOME （家目录）指定为要变更身份的使用者家目录（如不加 -u 参数就是系统管理者 root ） 
+command 要以系统管理者身份（或以 -u 更改为其他人）执行的指令 
+例： 
+sudo -l 列出目前的权限 
+sudo -V 列出 sudo 的版本资讯,甚至IP地址
+使用者说明节区格式： 
+使用者 接取群组 [: 接取群组 ] ...接取群组 ::= 主机象徵 = [op]指令象徵 [,[op]指令象徵] ... 
+主机象徵 ::= 一个小写的主机名称或主机别名。 
+指令象徵 ::= 一个指令或指令别名。 
+op ::= 逻辑的 '!' 否定运算元。主机别名节区格式： 
+Host_Alias 主机别名 = 主机列表Host_Alias ::= 这是一个关键字。 
+主机别名 ::= 一个大写的别名。 
+主机列表 ::= 以逗号间隔的一些主机名称。指令别名节区格式： 
+Cmnd_Alias 指令别名 = 指令列表Cmnd_Alias ::= 这是一个关键字。 
+指令别名 ::= 一个大写的别名。 
+指令列表 ::= 以逗号间隔的一些指令。所有在 '#' 符号後面的文字都会被当作是注解。 
+太长的行可以使用倒斜线 '' 字元来分成新的行。 
+保留的别名 'ALL' 在 {Host,Cmnd}_Alias' 里都可以使用。 
+不要用 'ALL' 来定义一个别名，这个别名无效。 
+注意到 'ALL' 暗示全部的主机跟指令。 
+你可以使用这个语法从整个范围中减掉一些项目：# Samples
+# %users ALL=/sbin/mount /cdrom,/sbin/umount /cdrom
+# %users localhost=/sbin/shutdown -h now范例# Host alias specification 
+Host_Alias HUB=houdini.rootgroup.com: 
+REMOTE=merlin,kodiakthorn,spirit 
+Host_Alias MACHINES=kalkan,alpo,milkbones 
+Host_Alias SERVERS=houdini,merlin,kodiakthorn,spirit# Command alias specification 
+Cmnd_Alias LPCS=/usr/etc/lpc,/usr/ucb/lprm 
+Cmnd_Alias SHELLS=/bin/sh,/bin/csh,/bin/tcsh 
+Cmnd_Alias MISC=/bin/rm,/bin/cat: 
+SHUTDOWN=/etc/halt,/etc/shutdown# User specification 
+britt REMOTE=SHUTDOWN:ALL=LPCS 
+robh ALL=ALL,!SHELLS 
+nieusma SERVERS=SHUTDOWN,/etc/reboot: 
+HUB=ALL,!SHELLS 
+jill houdini.rootgroup.com=/etc/shutdown,MISC 
+markm HUB=ALL,!MISC,!/etc/shutdown,!/etc/halt 
+billp ALL=/usr/local/bin/top:MACHINES=SHELLS 
+davehieb merlin=ALL:SERVERS=/etc/halt: 
+kodiakthorn=ALL上面的 sudoers 说明档案是由 4 个主机别名说明，4 个指令别名说明以及 7 个使用者说明所组成的。Britt 被允许在远端机器 (merlin, kodiakthorn, 还有 spirit) 上执行 /etc/halt, /etc/shutdown, /usr/etc/lpc 以及/usr/ucb/lprm 。Rohn 被允许在任何机器上执行除了 SHELL 指令群以外的任何指令。Jill 被允许在 houdini 上执行 /etc/shotdown, /bin/rm, 以及/bin/cat 。Davehieb 可以在 merlin 以及 kodiakthorn 上执行任何指令并且可以 halt SERVERS 。Sudoers 档案应该用 visudo 指令编辑，它会锁住该档并且做文法检查。这提供了一个可以避免愚蠢文法错误的机制。Sudo 被设计成经由 4.3 BSD syslogging 来记录，但是如果真的想要的话还是可以记录到一个档案来取代。如果一个没有被授权的使用者执行了 sudo 的话，将会有一封 mail 从该使用者寄送到当地的授权者处（在安装的时候定义的）。所有的设定都是在安装的时后定义的，从 sudo.h 含入档及 Makefile 取得。未来加强允许巢状的主机以及指令别名。 
+允许在 sudoers 档案中使用 host specifier 
+以便使用全区符号 (user ALL,!SERVERS, ... = commands) 。 
+允许在 sudores 档案里的使用者别名（就如同主机／指令别名一样）。 
+使 visudo 对 sudoers 档案做更广泛的检查。档案/etc/sudoers 经授权的使用者档案。 
+/etc/stmp visudo 的 lock file 。 
+/usr/local/bin/sudo sudo 的执行档。 
+/usr/local/etc/visudo 修改 sudoers 档案的工具。sudo确实是很有用的工具命令，是权限管理的好东东，一定要会用
+管理员权限
+sudo su

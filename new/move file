@@ -1,0 +1,2 @@
+使用 mv命令， 如文件hello.c在/usr/my/surce下，要把这个文件搬到/usr/my下面，可以使用 mv   /usr/my/surce/hello.c   
+ /usr/my   注意命令中的空格。
