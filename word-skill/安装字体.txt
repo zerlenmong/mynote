@@ -1,5 +1,6 @@
 /usr/share/fonts
-
+pantheon-terminal
+gsettings set org.pantheon.terminal.settings font
 
 chmod -R 664 ./*
 sudo mkfontscale
