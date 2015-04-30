@@ -1,2 +1,10 @@
  curl -sS https://getcomposer.org/installer | php
  sudo mv composer.phar /usr/local/bin/composer
+
+
+
+[mcrypt]
+sudo apt-get install php5-mcrypt
+sudo ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+sudo php5enmod mcrypt
+sudo service apache2 restart
