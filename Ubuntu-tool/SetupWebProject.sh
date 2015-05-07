@@ -32,24 +32,24 @@ sudo chown -R $USER:$USER /var/www/$project_name/logs
 # Ensure anyone can read the files
 #sudo chmod -R 755 /var/www
 # Creates and example index.html file in the project folder
-touch /var/www/$project_name/public_html/index.html
+#touch /var/www/$project_name/public_html/index.html
 # Take ownership over the project folder
-sudo chown $USER:$USER /var/www/$project_name/public_html/index.html
+#sudo chown $USER:$USER /var/www/$project_name/public_html/index.html
 # Create a starting file
-cat <<EOF >> /var/www/$project_name/public_html/index.html
-<html>
-	<head>
-	<title>$project_name index file</title>
-</head>
-<body>
-<h1>$project_name is ready!</h1>
-<p>This index file is located at: /var/www/$project_name/public_html/index.html<p>
-<p>So. project folder is at: /var/www/$project_name/public_html</p>
-<p>VirtualHost has been created with the name of your project: http://$project_name/</p>
-<p>Happy coding!<p>
-</body>
-</html>
-EOF
+#cat <<EOF >> /var/www/$project_name/public_html/index.html
+#<html>
+#	<head>
+#	<title>$project_name index file</title>
+#</head>
+#<body>
+#<h1>$project_name is ready!</h1>
+#<p>This index file is located at: /var/www/$project_name/public_html/index.html<p>
+#<p>So. project folder is at: /var/www/$project_name/public_html</p>
+#<p>VirtualHost has been created with the name of your project: http://$project_name/</p>
+#<p>Happy coding!<p>
+#</body>
+#</html>
+#EOF
 # Creates a new virtual host file
 sudo touch /etc/apache2/sites-available/$project_name.conf
 sudo chown $USER:$USER /etc/apache2/sites-available/$project_name.conf
