@@ -1,0 +1,104 @@
+The Form
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+<form class="my-form" name="myForm" id="myForm">
+    ...
+    <label>
+        <span>First Name:</span><span>*</span><br />
+        <input class="required-entry" type="text" name="first_name" id="first_name" />
+    </label>
+    <label>
+        <span>Last Name:</span><span>*</span><br />
+        <input class="required-entry" type="text" name="last_name" id="last_name" />
+    </label>
+    ...
+        more fields here
+    ...
+    <input type="submit" value="enter" />
+    <span id="formLoader" style="display:none;">&nbsp;</span>
+</form>
+<div id="formSuccess" style="display:none;">&nbsp;</div>
+That’s it, honest. You could put action and method tags in if you like, but it’s not necessary. This form belongs in your .phtml file, along with the following code.
+
+The Javascript
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+<script type="text/javascript">
+//<![CDATA[
+    var formId = 'myForm';
+    var myForm = new VarienForm(formId, true);
+    var postUrl = '<?php echo $this->getUrl("namespace_module/method/action") ?>';
+    function doAjax() {
+        if (myForm.validator.validate()) {
+            new Ajax.Updater(
+                { success:'formSuccess' }, postUrl, {
+                    method:'post',
+                    asynchronous:true,
+                    evalScripts:false,
+                    onComplete:function(request, json) {
+                        Element.hide(formId);
+                        Element.show('formSuccess');
+                    },
+                    onLoading:function(request, json){
+                        Element.show('formLoader');
+                    },
+                    parameters: $(formId).serialize(true),
+                }
+            );
+        }
+    }
+    
+    new Event.observe(formId, 'submit', function(e){
+        e.stop();
+        doAjax();
+    });
+//]]>
+</script>
