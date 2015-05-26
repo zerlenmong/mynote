@@ -1,0 +1,4 @@
+TMPL_VAR_IDENTIFY---解析定制
+TMPL_EXCEPTION_FILE--错误页面定制
+SESSION_TYPE=>'Db'--自定义session数据库存储
+attribute

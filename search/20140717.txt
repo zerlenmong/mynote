@@ -1,0 +1,6 @@
+RBAC
+ nodes
+   level ----1--应用 admin/index
+   			 2--控制器 action
+   			 3--控制器方法 function
+

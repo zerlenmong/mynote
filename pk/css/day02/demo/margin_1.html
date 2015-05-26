@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	#test{
+		width:300px;
+		height:300px;
+		border:1px solid red;
+		/*margin:50px;*/
+		margin-top:10px;
+		margin-left:-302px;
+	}
+	p{
+		border:1px solid green;
+	}
+	p:hover{
+		color:red;
+	}
+	p:hover+#test{
+		margin-left:0;
+	}
+
+	</style>
+</head>
+<body>
+<p>this is a test</p>
+<div id="test">
+	我是盒子1
+</div>
+
+	
+</body>
+</html>

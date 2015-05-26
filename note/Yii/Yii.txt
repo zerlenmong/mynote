@@ -1,0 +1,422 @@
+﻿--------2014-08-08-----------------------------
+Yii框架(安装 控制层 视图层)
+yes it is
+www.yiichina.com
+
+安装:
+	cmd窗口输入:
+	工作目录跳转到 framework 下
+	yiic  webapp ../shop
+	访问index.php?r=控制器名/方法名
+	设置默认的控制器
+	'defaultController'=>'控制器名/方法名'，
+	控制器的书写规则:
+		1、必须把控制器放在controller目录下
+		2、类名和类文件名同名，且以Controller结束，没有.class直接是.php
+		3、类必须继承Controller
+		4、方法名称使用小驼峰命名法，以action开始
+			funciton actionIndex(){
+				方法体
+			}
+
+Controller基类方法
+	显示模板
+	render(模板名称)----显示模板并渲染布局
+	renderPartial(模板名称)---显示模板不渲染布局
+	传值
+	render(模板名称,array('s'=>$string));
+
+	默认的模板访问规则
+		views/控制器/模板名称.php
+	重定向：
+	$this->redirect('目标地址/r=控制器名/方法名/id/5/a/c...');
+	$this->redirect('目标地址/r=控制器名/方法名&id=5&a=c...');
+	URL地址值
+	$this->createUrl("当前分组/控制器名/方法名","参数")
+	模板布局:
+	views/layouts/布局文件
+	动作控制器里中
+	public $layout='//layouts/布局文件';
+	在布局文件中
+	加入<?php  echo $content ?>
+
+	说明：可以写在控制器的基类中，属性layout |  components/contorller.php
+
+其后台分离:(控制器，模板)
+	帮助页面，自动生成分组
+	打开帮助页面：(助手工具)
+
+	'modules'=>array(
+	['添加相应的分组名']
+		// uncomment the following to enable the Gii tool
+		/*
+		'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>'Enter Your Password Here',
+		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
+			'ipFilters'=>array('127.0.0.1','::1'),
+		),
+		*/
+	),
+	index.php?r=gii---访问
+
+	后台的动作控制
+	modules/admin/controller/
+	后台的数据模型类(如果后台没有该数据模型会自动去前台找)
+	modules/admin/model/
+	后台模板
+	modules/admin/views/
+
+
+	后台用户是否登录的判断
+	方法一：
+	更改modules/AdminModule.php
+	public function beforeControllerAction($controller, $action)
+	{
+		if(parent::beforeControllerAction($controller, $action))
+		{
+			if(isset($_COOKE['uid'])&&!empty($_COOKE['uid'])){//如果cookie中有值就显示页面
+				return true;
+			}else if($controller instanceof DefaultController){
+				return true;//对后台默认的登录页面进行过滤
+			}else{//cookie中没有值 ，也不是后台登录页面就跳转到后台登录页面
+				header("location:index.php?r=admin/default/index");
+				return false;
+			}
+		}
+		else
+			return false;
+	}
+	方法二：
+	function init(){
+		if(isset($_COOKE['uid'])&&!empty($_COOKE['uid'])){
+
+		}
+	}
+dirname(Yii::app()->Basepath)
+	错误提示：(跨页面访问)
+	产生错误信息---设置闪存
+	Yii::app()->user->setFlash('uerror','用户名错误');
+	获取错误信息
+	if(Yii::app()->user->hasFlash('uerror')){
+		Yii::app()->user->getFlash('uerror');
+	}
+-----------2014-08-11--------------------------------------------------------
+M层
+链接数据为---在config/main.php中
+	'db'=>array(
+		'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+		'emulatePrepare' => true,
+		'username' => 'root',
+		'password' => '',
+		'charset' => 'utf8',
+		tablePrefix=>'',
+		'enableParamLogging'=>true//错误调试--上线时要关闭
+	),
+验证数据是否链接成功
+Yii::app()->db;
+	方法：
+	$ob=Yii::app()->db;
+	$ps=$ob->createCommand('sql语句')---创建sql语句//--prepare() execute()
+	点位符 :名称
+	$ps->bindParam(":名称",值.PDO::PARAM_STR|PARAM_INT)
+	$ps->execute();--执行sql语句---返回影响记录的条数
+	$dataob=$ps->query();--返回查询结果
+	$dataob->read()---返回一纬数组
+	$dataob->readAll()----返回二纬数组
+      eg:
+      	$ob=Yii::app()->db;
+      	$pob=$ob->createCommand('select * from tableName where id=:id');
+      	$id=1;
+      	$pob->bindParam(':id',$id,PDO::PARAM_INT);
+      	$pob->execute();
+      	$dataob=$pob->query();
+      	$arr=$dataob->read()
+
+
+数据模型层封装
+	特点：必须封装
+	CActiveRecord
+	class NewsModel extends CActiveRecord{}
+	1、命名
+	models里，名称+Model.php,首字母大写
+	2、继承CActiveRecord
+	3、一定要有两个方法：
+		1、public static function model(){
+			return parent::model($className=__CLASS__)
+		}//类的实例化
+		2、public function tableName(){
+			return "{{news}}"----{{}}--双花括号自动配置前缀
+		}//指定表名
+增
+	方法：save()
+	$ob=new NewsModel;
+	$ob->字段名=值;
+	$ob->save();//返回影响记录的条数
+	方法：获取主键ID值
+		getPrimaryKey();
+查
+	方法
+	$ob=new NewsModel::Model();---修改
+	$ob=new NewsModel();----增加
+	$dob=$ob->find($condition,$params=array())//获取一条记录$params为条件中的占位符赋值
+	find(array('condition'=>'条件','select'=>'指定字段列表','params'=>array('为条件中的占位符传值')));
+	$dob->attributes//获取查询的结果
+	findByPk($id)//获取一条记录
+	findAllBySql('sql语句');
+	findAll($condition,$params)//获取多条记录
+	findAll(array(
+		'condition'=>'条件',
+		'select'=>'',
+		'where'=>'',
+		'order'=>'',
+		'limit'=>'',
+		'offset'=>'',
+		'group'=>'',
+		'having'=>'',
+		'param'=>array()
+
+	));
+	findAllByPk(array(1,2,6,7..))//获取多条记录
+
+改
+	1、查询记录
+	$ob->updateByPk(id,array());
+	2、save();
+删
+	1、deleteAll($condition,$params);
+	2、deleteByPk($id);
+
+-----------2014-08-12----------------------------------------------
+表单生成的助手类(如何生成表单)
+CActiveForm
+		方法：
+			labelEx($model,$attribute)//标签
+
+			textField($model,$attribute)//文本框
+			error($model,$attribute)//错误提示
+			passwordField($model,$attribute)//密码框
+			hiddenField($model,$attribute)//隐藏域
+			fileField($model,$attribute)//文件上传
+			textarea($model,$attribute)//文本域
+			radioButtonList($model,$attribute,$data=array())单选按钮组
+			checkBoxList($model,$attribute,$data=array())//多选按钮组
+			CHtml::submitButton('名称') 提交按钮
+			dropDownList---下拉按钮
+
+<?php $form = $this->beginWidget("CActiveForm",array(
+                   "action"=>"index.php?r=yiiform/add",
+                   "method"=>"post",
+                    "htmlOptions"=>array(
+                    			"enctype"=>"multipart/form-data",
+                  			 "name"=>"frm",
+                    			"onsubmit"=>"return checkAdd()"
+                			   )
+         ));?>
+
+
+<?php $this->endWidget(); ?>//结束
+
+
+
+
+
+
+会员注册表单
+	1、封装数据模型对象
+	2、控制器，方法，显示模板，给模板传值
+	3、借助于CActiveForm实现表单
+表单中文提示：
+	在数据模型中
+	function attributeLabels(){
+		return array(
+		'username'=>'用户名',
+		'password'=>'密码',
+		'password1'=>'确认密码'
+		);
+	}
+
+
+自动验证---在当前页面处理---触发验证--数据模型->validate()
+	在数据模型类中加方法
+	function rules(){
+		return array(
+			array('字段名称','验证规则','message'=>'提示语','其它'),
+		);
+	}
+	验证规则:
+		required 字段值非空
+		compare 验证两个字段的值是否相同
+	array('password1',compare,'message'=>'提示语','compareAttribute'=>'password')
+		unique 验证字段唯一
+		match 使用正则表达式进行验证
+	array('username','match','pattern'=>'/正则表达式/','message'=>'用户名格式错误')
+		email  是否是邮箱
+	array('email','email','message'=>'邮箱格式错误')
+		length	值的长度
+	array('age','length','max'=>100,'min'=>'18','tooLong'=>'年龄过大','tooShort'=>'未成年')
+		in         是否在某个数据中---'range'=>array()
+		date 值是否是时间格式
+		file 文件类型
+	array('filename','file','type'=>'jpg,gif.jpeg,png','message'=>'没有上传或者类型不对')
+		自定义函数
+	array('字段名称','方法名')
+	array('验证码','captcha','message'=>'验证码不正确')
+
+登录验证操作 loginForm和userIdentity
+
+
+
+分页
+CDbCriteria类
+$c=new CDbCtriteria()//----用来存放数据模型类方法
+	/*
+	array(
+	  	'condition'=>'条件',
+		'select'=>'',
+		'where'=>'',
+		'order'=>'',
+		'limit'=>'',
+		'offset'=>'',//---当前页的位置
+		'group'=>'',
+		'having'=>'',
+	)
+	 */
+config/main.php----log=>array(
+
+array(
+	'class'=>'CWebLogRoute',
+),
+
+)
+CPagination类
+web/Cpagination.php
+1、总条数
+2、实例化分页类对象
+3、指定每页的条数
+4、改变CDbCriteria对象的属性 limit offset
+5、获取当前页数据
+6、分页和数据传模板页面
+/*  $criteria = new CDbCriteria();
+ *     $count=Article::model()->count($criteria);
+ *     $pages=new CPagination($count);
+ *
+ *     // results per page
+ *     $pages->pageSize=10;
+ *     $pages->applyLimit($criteria);
+ *     $models = Post::model()->findAll($criteria);
+ *
+ *     $this->render('index', array(
+ *     'models' => $models,
+ *          'pages' => $pages
+ *     ));*/
+ View:
+ * <pre>
+ * <?php foreach($models as $model): ?>
+ *     // display a model
+ * <?php endforeach; ?>
+ *
+ * // display pagination
+ * <?php $this->widget('CLinkPager', array(
+ *     'pages' => $pages,
+ * )) ?>
+ * </pre>
+
+验证码---修改bug---CCaptchaAction.php--中的run方法中$this->renderImage($this->getVerifyCode(true));
+
+<?php $this->widget("CCaptcha") ?>--显示验证码---模板中
+<?php $this->widget('CCaptcha',array('showRefreshButton'=>false,'clickableImage'=>true,'imageOptions'=>array('alt'=>'点击换图','title'=>'点击换图','style'=>'cursor:pointer')))?>
+public function actions()//----控制器中
+	{
+		return array(
+			// captcha action renders the CAPTCHA image displayed on the contact page
+			'captcha'=>array(
+				'class'=>'CCaptchaAction',
+				'backColor'=>0xFFFFFF,
+			),
+			// page action renders "static" pages stored under 'protected/views/site/pages'
+			// They can be accessed via: index.php?r=site/page&view=FileName
+			'page'=>array(
+				'class'=>'CViewAction',
+			),
+		);
+	}
+验证：数据模型中
+	function rules(){
+		return array (
+			array('字段名称','captcha','message'=>'验证码错误')
+		);
+	}
+
+
+文件上传--CUploadedFile类----配合助手类CActiveForm
+实例化：
+	getInstance()--单图片
+	getInstances()---多图片
+CUploadedFile::getInstance($model,'字段名称')方法：
+			saveAs("文件保存路径及文件名")
+			getName()
+			getType()
+			getSize()
+			getError()
+			getExtensionName()//后缀名jpg,jpeg,,,
+views:
+表单的要求
+"enctype"=>"multipart/form-data",
+
+1、定义数据模型类
+2、表单，文件浏览框
+3、动作控制器使用CUploadedFile,把文件名称入库
+
+public function actionSave(){
+	$model=new ImageModel();
+	$upload=CUploadedFile::getInstance($model,"字段名称");
+	if($upload){
+		$name=文件名;//逐个压入属性
+	}
+	[$upload->attributes=$_POST['名称']//将所有属性压入]
+}
+
+--------------2014-08-13-----------------------------------------------------------------
+购物车：
+	购物车里面的数据放在哪里？？
+	 服务器上(文件 session memcache mysql)
+
+	 放在mysql 可以漫游
+	 	购物车表
+	 	定时任务 shell脚本，数据库的备份
+	 放在cookie中，客户端，可以不登录会员，不能漫游
+	 	购物车结构 array(产品ID=>购买数量)
+--------------2014-08-14-----------------------------------------------------------------
+	销毁：
+	改变数量
+
+
+
+
+
+购物流程：
+	去结算
+		地址：
+		发货人：
+		电话：
+		送货方式：
+		付款方式：
+			银行转账(网银)
+			支付宝
+			货到付款
+前后台的区分,在AdminModule.php ---init方法中加入Yii::app()->setComponents(array('user'=>array('stateKeyPrefix'=>'admin')));
+
+
+Yii::app()->user-name;
+
+session
+写入session
+Yii::app()->session['logintime']=time();
+清除
+Yii::app()->session-clear();
+Yii::app()->session->destroy();
+退出登陆
+Yii::app()->user->logout();
+客户端的IP
+Yii::app()->request->userHostAddress

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>伪类选择器</title>
+	<style type="text/css">
+		/*:link{
+			color:red;
+		}*/
+		a:link{
+			color:green;
+			/*font-size:50px;*/
+		}
+		/*相同样式会把之前的样式覆盖掉*/
+		a:link{
+			/*color:purple;*/
+			font-size:50px;
+		}
+		/*设置链接被点击之后的样式*/
+		a:visited{
+			color:red;
+		}
+		/*p:visited{
+			color:green;
+		}*/
+		/*鼠标悬浮在元素上方的时候设置的样式*/
+		a:hover{
+			color:blue;
+		}
+		p:hover{
+			color:green;
+		}
+		h1:hover{
+			color:red;
+			font-size:5px;
+		}
+		h3:active{
+			color:green;
+			font-size:50px;
+		}
+
+
+
+	</style>
+</head>
+<body>
+<a href="#">默认的链接样式</a>
+<br />
+<a href="#"> this is a test</a>
+<p>haha</p>
+<h1>hello world</h1>
+<h3>active鼠标左键点击某个元素时的样式</h3>
+	
+</body>
+</html>

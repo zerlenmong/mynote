@@ -1,0 +1,52 @@
+﻿PHP的工作原理
+
+PHP的所有应用程序都是通过WEB服务器(如IIS或Apache)和PHP引擎程序解释执行完成的，工作过程：
+
+(1)当用户在浏览器地址中输入要访问的PHP页面文件名，然后回车就会触发这个PHP请求，并将请求传送化支持PHP的WEB服务器。
+
+(2)WEB服务器接受这个请求，并根据其后缀进行判断如果是一个PHP请求，WEB服务器从硬盘或内存中取出用户要访问的PHP应用程序，并将其发送给PHP引擎程序。
+
+(3)PHP引擎程序将会对WEB服务器传送过来的文件从头到尾进行扫描并根据命令从后台读取，处理数据，并动态地生成相应的HTML页面。
+
+(4)PHP引擎将生成HTML页面返回给WEB服务器。WEB服务器再将HTML页面返回给客户端浏览器。
+变量回收机制 (php中垃圾回收机制)
+  变量引用
+  $a=123;
+  $b=&$a;
+  $b=789;
+  echo $a;//798
+  unset($a);//空间没有释放
+  unset($b);//空间释放
+  每声明一个变量，php底层对应会产生一个计数器，初始值为1，当有一次引用计数器则加1，删除一个变量，计数器会－1，直到计数器为0，空间释放。
+  
+---20140627----
+  pdo
+
+  cookie
+
+  session 
+
+
+  分组查询
+  select 字段列表 from 表名 join on  where 子句 group by having limit
+  分组：某个字段下，值相同，放到一个组中 
+  count(*) as num ,字段名 from tb_name group by字段名 
+
+  avg求平均数
+  sum求总数
+
+  group by分组要进行筛选只能使用having
+  select count(*) as num,sex from student where cid=1 group by sex having sex='3';
+  select count(*) as num, c.cname from student s join class c on s.cid=c.cid group by cid having num>=3
+
+  外键约束--保护数据完整性
+   要求：两个表的引擎必须是InnoDB，且主键，外键字段类型及长度完全相同
+         加给外键表
+         alter table 表名 add FOREIGN KEY (外键字段名称) REFRERENCES 主键表(主键字段名称)
+
+   聚合函数
+    count()
+    sum()
+    avg()
+    replace(字段名，search,replacement)替换
+    concat(字段名,字段名)连接

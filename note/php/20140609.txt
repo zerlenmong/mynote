@@ -1,0 +1,5 @@
+截取中文字符串
+加载动态链接文件数据库
+php_mbstring.dll
+mb_substr($str,起始位置,结束位置,'utf-8');//英文和中文地位等同
+mb_strlen($str,'utf-8')

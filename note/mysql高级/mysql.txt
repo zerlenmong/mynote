@@ -1,0 +1,258 @@
+﻿-------------2014-07-28--------------------------------------
+mysql 高级部分：
+	事务：
+		完整性
+		隔离性
+		独立性
+
+		在mysql中有些sql语名，要吗一起执行成功，要吗一起执行失败
+	     使用事务
+	     	开启事务----start transaction;begin
+	     		产品出库
+	     		用户的钱要减少
+	     		订单表要增加一条记录
+	     	提交事务---commit
+	     	回滚事务---rollback
+	     说明：表引擎必须是innodb
+	     alert table 表名 type=innodb
+
+	     shop-reg
+	   	  uid,username,password
+	     shop-user
+	   	  uid,intro,birthday,education,name,sex,card
+	     shop-company
+	    	 uid,name,intro,money,person
+
+	    $pdo->beginTransaction()//开启事务
+	    $pdo->commit();//提交事务
+	    $pdo->rollBack();//回滚事务
+
+	触发器
+		把一个表中的数据同步到另一张表中
+	    定义：当一个表中的数据发生变化时触发器起动执行，把变化同步到另一张表中
+			案例
+				日志
+				create table blog(
+					id int(10) unsigned primary key auto_increment,
+					title varchar(20) not null,
+					content text
+				)auto_increment=1
+				话题
+				create table topic(
+					id int(10) unsigned primary key auto_increment,
+					title varchar(20) not null,
+					content text
+				)auto_increment=1400000001
+				帖子
+				create table bbs(
+					id int(10) unsigned primary key auto_increment,
+					title varchar(20) not null,
+					content text
+				)auto_increment=2800000001
+
+				create table info(
+					id int(10) unsigned primary key ,
+					title varchar(20) not null,
+					content text
+				)
+			delimiter //
+
+			-----insert
+			 create trigger blog_insert after insert on blog for each row
+			 begin
+			 	insert into info (id,title,content)values(new.id,new.title,new.content);
+			 end
+			 -----update
+		        create trigger blog_update after update on blog for each row
+		        begin
+		        	     update  info set title=new.title,content=new.content  where id=old.id;
+		        end
+
+			 insert into blog (title,content)values('1232433','2315443')
+	   创建触发器:
+	   create trigger 名称
+	   	触发的时机before||after
+		   	触发的动作insert|update|delete
+		   	on表名 for each row
+
+	   begin
+	   	---触发器要做的事情
+	   	insert...
+	   end
+	   删除触发器----drop trigger 表名
+
+
+	   改变代码的结束符----delimiter //
+
+	   new.字段名---获取当前表中当前操作中字段的值
+	   old.字段名----获取前面未改变的字段值
+---------------2014-07-29---------------------------------------------------------
+	  模拟大数据
+	  	程序运行时间超期
+	  		1、更改php运行的最大时间
+	  		2、通过cmd窗口运行php程序 只运行一行代码
+	  			php.ext -r "php语句;"
+	  			运行php文件
+	  			php.ext -f php文件地址 值1 值2......
+	  		cmd窗口运行php可以传参 并且在php文件中使用$argv接收传值
+	存储过程：mysql中的函数，把复杂的操作写成一个函数
+	创建存储过程
+		create procedure 名称(参数1，参数2，...)
+		begin
+			//相应的操作
+		end
+
+		参数:
+		in|out|inout 名称 数据类型
+			in  输入
+			out 输出
+			inout 输入以及输出
+			数据类型 ---字段类型
+	调用存储过程
+		call 过程名称(参数1，参数2，...)
+	查看所有的存储过程
+		show procedure status
+	删除存储过程
+		drop procedure 过程名称
+
+		in:eg
+		    根据文章id返回文章的标题及内容
+
+
+		    create procedure getNewsById(in idn int(8))
+		    begin
+		    	select title,content from blog where id=idn;
+		    end
+		    call getNewsById('2')
+
+		    create procedure demo(out num int(8))
+		    begin
+		    	select count(*) into num from  blog;
+		    end
+
+		    创建变量 @变量名=值
+		    into ---赋值
+		    declare 变量名称 类型(长度) default 值;---声明
+		    set 变量名=值;---赋值
+
+		    流程控制语句：
+		    	条件语句
+		    	    if   条件  then
+		    	    语句;
+		    	    else
+		    	    语句;
+		    	    end if;
+		会员注册:
+			create table reg(
+				id int(10) unsigned primary key auto_increment,
+				username  varchar(20) not null,
+				password varchar(32) not null
+			);
+			create table user(
+				uid int(10) unsigned primary key,
+				name varchar(20) not null,
+				sex tinyint(1) not null,
+				cardid varchar(18) unique,
+				age tinyint(3) not null,
+				education  enum('硕士','博士','本科','专科','高中','初中'),
+				intro text
+			)
+			create table vip(
+				vid int(10) unsigned primary key,
+				name varchar(20) not null,
+				sex tinyint(1) not null,
+				cardid varchar(18) unique,
+				age tinyint(3) not null,
+				intro text
+			)
+		创建一个普通会注册存储过程
+			create procedure register(in usernamen varchar(20),
+						  in passwordn varchar(32),
+						  in namen varchar(20),
+						  in sexn tinyint(1),
+						  in agen tinyint(3),
+						  in cardidn varchar(18),
+						  in educationn  enum('硕士','博士','本科','专科','高中','初中'),
+						  in intron text
+			)
+			begin
+				declare uidn int(8);
+				insert into reg (username,password) values(usernamen,passwordn);
+				set uidn=last_insert_id();
+				if uidn>0 then
+					insert into user (uid,name,sex,cardid,age,education,intro)values(uidn,namen,sexn,cardidn,agen,educationn,intron);
+					select uidn;
+				else
+					select "";
+				end if;
+			end
+
+			call register('lisi','123','李四','1','18','12323543654','高中','好好好好好好好好')
+
+	索引(大数据)--存储格式---二叉树
+
+		获取语句执行的精确时间
+				set profiling=1;
+				show profiles;
+
+		删除索引 drop index 索引名称 on 表名
+
+	普通索引--所有的字段都能创建的索引，对类型和值没有要求。性能一般
+		创建:
+			create index 索引名称 on 表名(指定字段列表)
+			alter table 表名 add index 索引名称(字段列表)
+
+	唯一索引--要求字段的值具有唯一性(用户名，身份证号)
+		创建:
+			create unique index 索引名称 on 表名(字段列表)
+			alter table 表名  add unique  索引名称(字段列表)
+
+	主键索引--一个表一般都要有一个主键索引，建立主键id上，值具有唯一性
+	            创建：
+	            1、primary key---创建表时
+	            2、alter table 表名 add primary key(字段列表)
+
+	全文索引---字段必须是文本类型,表引擎必须是myisam
+		创建：
+			1、alter table 表名 add  fulltext 索引名称(字段列表)
+	复合索引--为多个字段创建一个索引
+
+索引缺点---占用更多的磁盘空间。
+	        索引会使得delete和insert速度变慢
+
+explain 分析查询语句---检查是否用上了索引
+
+extra   ---using where//条件查询
+          ---using filesort//表外排序
+          ---using temporary//使用临时表
+
+写查询语句应注意的内容:
+	1、select * from  表名，字段列表尽量不要用*。
+	2、尽量使用单表查询。
+	3、避免使用 模糊查询  模糊查询不能使用索引，除非第一个%去掉---eg:where title like "a%"--可以加索引
+	4、在查询语句中尽量少使用聚合函数
+
+------------2014-07-30---------------------------------------------
+表拆分:
+	查询，等待时间过长。
+	show processList; 查看mysql进程
+	1、索引优化，为查询慢的sql语句创建合适的索引。
+		a、explain sql语句;--查看是否用上索引
+		b、如果没有用上索引，创建索引
+		c、如果用上了索引，查看是否出现using filesort---order by|group by
+		d、查看是否出现 using temporay---group by |子查询[select * from news where tid in(select tid from type where state=1)]
+	2、缓存静态化
+	3、用表拆分
+		a、表的横向拆分(把一个表按字段拆分成多个)
+			把经常访问的字段拆分出来组成一张表
+			用户注册：
+					reg
+
+					user
+
+					vip
+		b、表的纵向拆分(按表中的记录进行拆分)
+
+			针对sns社区(开心  qq空间)
+
+			拆分的原则:ceil($uid/10000)--->表

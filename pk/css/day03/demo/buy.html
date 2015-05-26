@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.pro{
+			width:470px;
+			height:470px;
+			border:1px solid red;
+			position:relative;
+		}
+		.pro a img:hover{
+			opacity: .5;
+			filter:alpha(opacity=50);
+		}
+		.pro a img:hover+.buy{
+			display:block;
+			width:90px;
+			height:33px;
+			position:absolute;
+			left:50%;
+			top:50%;
+			background:url(images/buy.png) no-repeat left top;
+
+		}
+	</style>
+</head>
+<body>
+<div class="pro">
+	<a href="#"><img src="images/pro1.jpg" alt=""/>
+	<span class="buy"></span></a>
+</div>
+</body>
+</html>

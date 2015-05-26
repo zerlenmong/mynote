@@ -1,0 +1,22 @@
+*{
+	margin:0;
+	padding:0;
+}
+.clear{
+	clear:both;
+}
+.clear:after{
+	content:".";
+	height:0;
+	display:block;
+	visibility:hidden;
+	overflow:hidden;
+	font-size:0px;
+	clear:both;
+}
+ul,li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+}

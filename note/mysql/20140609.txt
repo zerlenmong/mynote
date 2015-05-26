@@ -1,0 +1,107 @@
+布置项目：
+文章表
+
+会员表
+
+后台用户表
+
+目录结构
+
+前台（内容呈现）
+common----自定义函数文件functions.php
+image
+css
+js
+news
+	detail.php//详细页
+	list.php//列表页
+index.php//首页
+config.ini.php//配置文件（网站的公共信息--数据库链接信息，网站的根目录）
+后台（内容添加，管理）
+admin
+	image
+	css
+	js
+	lanmu----栏目数据相关程序（添加,修改，删除，列表）
+	type---文章分类相关程序
+	news---文章数据相关程序
+	public---后台的公共文件
+	index.php（框架集）
+
+搭建后台页面
+	首页
+	登录程序
+	1、后台用户表
+	id username password ip logintime
+	create table admin(
+	id int(5) primary key auto_increment,
+	username char(30) not null,
+	password char(32) not null,
+	ip char(20),
+	logintime int(11) unsigned
+	)charset=utf8;
+	2、流程：
+	登录的表单页（用户名及密码）
+	     |
+	     |
+	登录程序（loginsave.php）
+	     |
+	  判断用户名是否正确(链接 执行查询语句--“select * from admin where username='{$_POST['username']}'”)
+	     |
+	判断密码
+	     |
+	登录成功（跳转到后台首页--index.php）
+
+写配置文件
+
+//网站的根目录
+define("ROOT","F:/psd1404/project/");
+//ip地址
+define('IP',"localhost");
+//用户名
+define('USERNAME','root');
+//密码
+define('PASSWORD','root');
+//数据库名称
+define('DBNAME','projectone');
+//交互字符集
+define('CHARSET','utf8');
+
+
+
+pdo数据库操作类(占位符**，防sql注入)
+
+1、pdo对应的相应链接文件库是否加载
+2、对象产生，方法，属性
+实例化对象：
+$pdo=new PDO("mysql:host=ip address;dbname=数据库名称;",'用户名','用户名密码');
+执行sql语句
+query($sql)---用来执行查询语句====================== 使用方法，作用，返回值
+         返回值 ：pdoStatement对象
+
+pdoStatement对象
+       方法：fetch()//每次获取一条记录---返回一维数组(混合数组)
+             fetchAll()//一次获取所有记录--返回二维数组(混合数组)
+       设置返回值的类型
+         pdoStatement类的方法
+             setFetchMode(PDO::FETCH_NUM|PDO::FETCH_ASSOC|PDO::FETCH_BOTH)
+exec($sql)----用来执行update delete insert
+         返回值：影响记录的条数
+         获取主键ID值：$pdo->lastInsertId();
+
+prepare()
+  $pdos=$pdo->prepare($sql);---返回pdoStatement对象可以运行任何的sql语句
+      $pdos->execute()
+      $pdos->setFetchMode();
+
+      占位符:----防sql注入
+         :名称
+        说明:占位符只能对值起作用
+
+sql注入：把sql中的传值改变，从而改变sql语句的功能
+
+
+如何将自增长id-->规整起来
+1、ALTER TABLE tablename DROP id;
+	ALTER TABLE tablename ADD id INT NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST
+2、ALTER TABLE `表` AUTO_INCREMENT =1

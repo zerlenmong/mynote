@@ -1,0 +1,642 @@
+算法：
+   冒泡排序(每次产生一个最大值，放到最后面)
+   实现的方法：两两比较，如果前者大于后者则交换位置，否则不动继续比较
+   $arr=array(100,9,99,35,3);
+   for($i=1;$i<count($arr);$i++){//外层控制遍数
+      $num='';
+      for($j=0;$j<count($arr)-$i;$j++){//内层控制比较次数
+          if($arr[$j]>$arr[$j+1]){
+            $num=$arr[$j];
+            $arr[$j]=$arr[$j+1];
+            $arr[$j+1]=$num;
+          }
+      }
+   }
+function maopao($arr){
+    for($i=1;$i<count($arr);$i++){//外层控制遍数
+      $num='';
+      for($j=0;$j<count($arr)-$i;$j++){//内层控制比较次数
+          if($arr[$j]>$arr[$j+1]){
+            $num=$arr[$j];
+            $arr[$j]=$arr[$j+1];
+            $arr[$j+1]=$num;
+          }
+      }
+   }
+   return $arr;
+}
+
+二分查找法：找某个值
+
+
+javascript:脚本语言
+运行：客户端浏览器上。node.js
+1、<script type='text/javascript'>
+	内容
+</script>
+写在单独的文件里
+a.js
+2、<script type='text/javascript' src='a.js'></script>---使用最频繁
+
+表单的事件属性里，或者a标签的href里
+3、<a href='javascript:void()'>空链接</a>
+
+语法格式：
+1、每行代码结束，可以加上;
+2、代码块用{}
+3、注释使用//  /**/
+
+提示框 alert('提示内容')confirm('确认内容')
+
+优点：
+   1、多页面使用
+   2、页面代码清晰
+   3、加载次数少(节省流量)
+
+js具体语句
+   变量
+     var 变量名称=值，变量名称;
+     特点：1、弱类型变量(随处声明，类型随着值的改变页改变)
+           2、命名：不能使用数字开关，可以使用$ 字母 数字
+           3、名称不要使用关键字
+   变量类型
+    string
+    number
+    boolean
+    object(对象包含数组)
+    NaN(无法确认结果时)
+    null
+    undefined
+    (list:列表 reference:引用)
+    字符串变量声明--转义\
+     1、'';
+     2、"";var str="abc"; alert(typeof())--获取类型;|document.write(typeof(str));
+     3、new String("初值"); new String("www")---返回字符串对象
+     typeof()//获取变量类型
+     document.write("内容")//打印输出内容输出字符串
+     数组对象的声明
+     1、var arr=new Array(1,2,3.."abc",array('a','b','c'));
+     2、var arr=Array('a','b','c');
+     3、arr=['a','b','c'];|arr=[[1,2,3],[4,5,6]];
+     下标：没有关联下标，不能指定下标
+     默认产生：从0依次递增
+   运算
+    算术 + - * / %
+    字符串连接'+' 参与者只要有一个是字符串，就执行连接运算
+    比较
+    逻辑
+    赋值
+    二元运算
+    三元运算
+   相互转化规则
+   字符串转化成数值---从第一个非数字字符及以后全部舍弃(第一个字符就是非数字，返回NaN)
+   'a123'---NaN
+    var strn="abc123";
+    var num=parseInt(strn);
+    //document.write(num);
+    document.write(typeof(num));
+    程序中如何判断结果为NaN
+      bool isNaN(num)
+   流程控制语句
+   循环语句
+       continue;
+       break;
+      for(var i in 数组(obj))----//foreach---数组  对象
+ECMA Script
+   基本函数库函数
+    语法：
+      通过对象调用方法
+      document.write()
+      字符串
+       属性：
+           获取长度
+                 length
+       方法：
+	       截取
+	       		str.substr(start,length);
+	       		str.substring(start,end);
+	       查找
+	              str.indexOf('查找的字符');
+	              str.lastIndexOf('查找的字符');
+	              说明：没有找到返回-1
+	       替换
+	            str.replace('search','replace');--每次只替换一个
+	            使用正则表达式
+	            str.replace(//g,'replace');--可以一次替换多个
+	       大小写转换
+	       		str.toLowerCase();
+	       		str.toUpperCase();
+	       拆分
+	            str.split('分隔符');
+         通过下标获取相应的字符
+            charAt(下标值)
+
+
+      时间日期
+          d=new Date();
+          年
+          d.getYear()---2位年
+          d.getFullYear()---4位年
+          月
+          d.getMonth()---(返回0~11)
+          日
+          d.getDate()---返回1~31
+          d.getDay()----今天是星期几(1~6--周一到周六 0---星期天)
+          时间
+          d.getHours()
+          分钟
+          d.getMinutes()
+          秒
+          d.getSeconds()
+          把时间转化成 年 月 日 时 分秒形式
+          d.toLocaleString()
+          把时间转化成年月日
+          d.toLocaleDateString()
+      数学
+          四舍五入
+          re=Math.rand(num*100);
+          document.write(re/100);---保留两位小数
+          向上取整
+          Math.ceil(num);
+          向下取整
+          Math.floor(num);
+          绝对值
+          Math.abs(num);
+          随机数
+          Math.random()--没有参数，获取随机小数
+          幂运算 
+          Math.pow(x,y);
+      数组
+      var arr=new Array();
+          属性：
+               获取长度
+                 arr.length
+               给对象追加方法
+                 prototype---顶级对象追加方法--------------this当前类的对象
+                 //获取数组中的最大值
+                   function fun(){
+                        var mValue=this[0]
+                          for(var j=1;j<this.length;j++){
+                            if(mValue<this[j]){
+                              mValue=this[j];
+                            }
+                          }
+                          return mValue;
+                       }
+                       Array.prototype.funMax=fun;
+                       var arr=new Array('1','15','3','89','34');
+                       document.write(arr.funMax());
+
+          方法：
+               元素的增加
+                arr.push(var1,var2..)//尾部追加--返回追加的长度 int
+                arr.unshift(var1,var2...)//头部追加--返回追加的长度 int
+                arr.splice(开始位置,0,arr)//中间位置追加元素--返回object
+               元素的删除
+                arr.pop()
+                arr.shift()
+                arr.splice()--//删除和替换
+               合并数组
+                arr.concat()
+               排序
+                arr.sort()---返回数组
+                  特点：先根据第一位排，如果第一位相同，则按第二位
+                  var re=arr.sort(fun1);
+                  function fun1(a,b){
+                    return a-b;
+                  }
+               合并成字符串
+                  arr.join(分隔符);
+                  arr.toString();--默认分隔符为','
+
+
+      正则表达式(方法)
+             if (/正则表达式/.test("字符串")){
+              /^\w+@\w+(.\w+)+$/---邮箱正则表达式
+             }---表单验证
+
+      自定义函数
+          function 函数名称(参数1,...){
+               函数体;
+               return 值;
+          }
+          说明 ：1、参数名称没有var
+                 2、不能赋初值(google不支持参数赋初值)
+      例子：
+        获取三个数的最大值
+
+      document对象是整个文档的标签
+      document.getElementById()---返回节点对象
+      作用
+        找到页面中id值的某个元素
+        获取标签的内容
+        给标签写内容
+        获取表单控件的value属性值
+        .value
+        .innerHTML
+------------------------------------------------------------
+      事件(html标签):是把html和js连接起来的桥梁(属性)
+        表单事件 form
+          onsubmit---表单提交时触发
+        光标事件
+          onchange--当光标离开并且内容发生变化时触发
+          onblur--光标离开触发
+        鼠标事件
+          onclick--鼠标点击触发
+          onmouseout--鼠标离开
+          onmouseover--鼠标进来
+          onmousemove--鼠标移动
+          onmouseup---鼠标抬起
+        键盘事件
+          onkeydown---所有按键按下时
+          onkeypress---功能键除外的按键
+          onkeyup----所有键抬起时
+        页面事件(body)
+          onload--页面加载完成时
+          /*onunload--页面关闭时*/
+        滚动条事件--window对象
+          onscroll--滚动触发
+
+-------2014-07-02---------------------------------------------------------
+bom对象(brower object model)和浏览器相关的对象，通过这些对象可以操作浏览器
+        window窗口对象
+             [window.]alert(),
+             [window.]confirm(),
+             window.open()---不使用
+             window.moveTo()---不使用
+             定时器:1、每过一段时间执行一个函数
+                       启动：
+                         var t= window.setInterval(函数名，时间(单位:毫秒));
+                       停止：
+                          window.clearInterval(t);
+                    2、过一段时间执行一次函数
+                      启动：
+                       var t=window.setTimeout(函数名,时间);
+                      停止：
+                       window.clearTimeout(t);
+
+        document
+             属性：
+               title//页面标题<title></title>
+               bgColor//页面背景颜色
+               forms//页面中所有form标签
+               images//页面中所有图片标签列表
+               links//页面所有a标签
+             方法：
+               document.write();
+               document.getElementById();
+               document.getElementsByName();//根据标签name属性
+               document.getElementsByTagName();//根据标签的名称
+
+        location:url地址进行操作
+          属性：
+            href  //url地址面所有内容
+            host  //域名
+            search //问号传值部分
+            pathname  //文件的路径
+            port  //端口
+            hash  //#号后面的内容
+
+          方法：
+            reload(true|false)//重新加载 ctrl+f5  f5
+            replace("http://www.baidu.com")//页面跳转---项目一后台，登录超时，跳转到登录页
+            top.location.replace('login.html')
+
+        screen
+            属性：
+             width
+             height
+             availHeight--可见区域的高
+             availWidth---可见区域的宽
+            用途：可以根据不同宽度浏览器，加载不同的样式
+             响应式布局
+
+      naigator:获取浏览器的内核信息
+           属性：
+            userAgent
+
+        history：浏览器访问的历史记录
+          go(2);
+          back();
+
+dom对象(document object model)--页面节点对象的统称
+
+        body--页面节点对象(object HTMLbodyElement)
+        div--.....(object HTMLdivELement)
+        ...
+
+    页面中有一个标签，就对应有一个节点对象
+  标签有什么样的属性对应的节点对象就有什么样的属性
+         1、遇到样式属性名称中有'-'换成小驼峰---background-color--->backgroundColor
+         2、class被className代替
+
+-----2014-07-03---------
+标题内容滚动
+验证码刷新
+-----js代码从上向下执行
+
+获取页面标签的宽度，高度，绝对宽高，滚动条滚动的距离
+1、定义了行内样式
+     style.height
+     style.width
+2、节点对象  .clientWidth//可见区域的宽
+                    .clientHeight//可见区域的高
+                    .offsetWidth//绝对宽
+                    .offsetHeight//绝对高
+                    .offsetLeft//距离页面左边的距离
+                    .offsetTop//距离页面上边的距离
+3、滚动条一般在body上
+    document.body.scrollWidth
+    document.body.scrollHeight
+    document.body.scrollTop//往下滚动了多少---w3c下不支持
+    document.body.scrollLeft//往右滚动了多少---w3c下不支持
+    w3c下
+    document.documentElement.scrollTop
+    document.documentElement.scrollLeft
+  如何兼容
+  document.body.scrollTop+document.documentElement.scrollTop//实现兼容
+
+
+
+
+
+
+
+遮照层(显示与隐藏)--(三层--页面本身 遮照层 可操作窗口)---z-index对层的控制
+     1、简单页面，有一个连接"登录"，
+     2、有一个遮照层
+     3、登录窗口
+     4、js效果
+
+对联广告：
+     事件
+     window.onscroll---当滚动窗口的滚动条时触发
+
+-----2014-07-04--------
+
+动态追加事件
+  两种方式：1、使用事件节点对象的事件属性
+
+                      表单事件
+                      鼠标事件
+                           onclick=函数名称;
+                      页面事件
+                      键盘事件
+                      光标事件
+                      滚动条事件
+            2、使用方法给标签动追加属性---存在兼容性问题
+            火狐
+            addEventListener(事件名称,函数名,true);
+            第三个参数的作用
+                true:从外到里
+                false:从里到外
+            removeEventListener(事件的名称，函数名);
+            事件名称没有"on",
+            ie:
+            attachEvent(事件名称,函数名);
+            detachEvent(事件名称,函数名);
+             注意：事件名称有"on",
+
+            navigator.userAgent---bom对象获取浏览器内核信息
+
+ 图片轮换显示
+
+
+
+表单的操作
+     表单及表单控件有什么属性,对应的节点对象就有什么样的属性
+     this---当前对象的节点对象
+
+节点的遍历
+     节点对象的属性---
+             childNodes---获取的是一个列表---nodelist----item
+             nodType---1、元素节点、2、属性节点、3、文本节点
+             firstChild
+             lastChild
+     节点的动态增加
+             document.createElement('div')--创建一个div节点
+             document.createTextNode()--创建文本节点
+             父节点.insertBefore(要增加的节点对象,在谁的前面)
+             ob.appendChild(要追加的节点对象)
+     删除
+         ob.parentNode
+         父节点对象.removeChild(被删除的节点对象)
+
+www.w3cschool.com
+
+
+----2014-07-07----
+地区的两级联运
+   属性
+            select ----节点对象
+            value//被选中的option的value属性值,
+            selectededIndex//获取被选中的option的索引id值
+            options 内容---option节点对象的列表
+                    value
+                    text/innerHTML
+                    selected
+
+
+数组对象
+     属性
+     方法
+     元素操作(增、删、查)
+        增：arr.unshift()
+            arr.push()
+            arr.splice()
+        删：arr.shift()
+            arr.pop()
+            arr.splice(index.length)
+        查：
+            arr.indexOf(search)
+            arr.lastIndexOf(search)
+        排序
+            sort()---
+            配合
+            function fun1(a,b){
+              return a-b;
+              /*
+              if(a>b){
+              return 1;
+              }else if(a<b){
+              return -1
+              }else{
+              return 1;
+              }
+               */
+              }
+              }
+              }
+            }
+        合并
+            arr.concat()
+        转化成字符串
+            toString()
+            join()
+
+bom对象
+*window
+      属性：
+       onscroll
+      方法
+       定时器方法
+       setInterval(函数名,时间)
+       setTimeout(函数名,时间)
+*document
+      属性
+      title
+      bgColor
+      forms
+      links
+      images
+      方法
+      document.getElementById()
+      document.getElementsByName()
+      document.getElementsByTagName()
+      //document.createElement()
+      //document.createTextNode()
+*location
+      操作url地址http://域名/路径/文件名?get传值#top
+      属性
+        href
+        host
+        pathName
+        search
+        hash
+        port
+      方法
+        reload(true|false)
+        replace(url地址)
+sreen
+     属性：
+     height
+     width
+     availHeight
+     availWidth
+history
+     属性
+      back()
+      go(步长)
+
+
+dom对象
+      标签有什么属性对应的节点对象就有什么属性
+      className
+      style
+
+      属性操作
+          属性
+          className
+          style
+          方法：getAtribute('属性名称')
+                setAtribute('属性名称',值)
+
+      样式操作
+              className
+              style
+      内容操作
+            innerHTML
+            innerText//有兼容问题
+            value
+      事件操作
+           onclick=函数名称
+           attachEvent(事件名称，函数名)
+           detachEvent(事件名称，函数名)
+           addEventListener(事件名称，函数名，true)
+           removeEventListener(事件名称，函数名)
+      节点遍历
+          parentNode
+          childNodes
+          nodeType 1 2
+          tagName
+          hasChild()
+      节点增加
+          父节点.appendChild(子节点)
+          父节点.insetBefore(要增加的节点，增加在谁的前面)
+      节点删除
+          父节点.removeChild(子节点)
+      获取元素的宽高
+          绝对
+          节点对象.offsetHeight
+          节点对象.offsetWidth
+          节点对象.offsetTop
+          节点对象.offsetLeft
+
+          相对
+          节点对象.clientHeight
+          节点对象.clientWidth
+
+          节点对象.scrollHeight
+          节点对象.scrollWidth
+          节点对象.scrollTop
+          节点对象.scrollleft
+
+
+
+原生ajax
+
+get方法 异步传输
+ 1判断浏览器的类型并生成一个异步传输的对象
+    if(window.ActiveXObject){
+	//如果是IE
+      http_request=new ActiveObject('Microsoft.XMLHTTP');
+    }else{
+	//如果不是IE
+      http_request=new XMLHttpRequest();
+    }
+ 2打开通道
+  http_request.open('get','url?参数',true);
+ 3发送数据(null)
+  http_request.send(null)
+ 4指定数据回调的方法
+  http_reuest.onreadystatechange=process;
+ 5定义process方法
+ function process(){
+	//判断异步传输是否成功
+   if(http_request.readyState==4){
+ 	//将回调的数据得到并做相应的处理
+       var data=http_request.responseText;   
+    }
+ }
+post方法
+ 1判断浏览器并产生相应的异步传输对象
+  if(window.ActiveXObject){
+	//如果是IE
+	http_request=new ACtiveXObject(Microsotf.XMLHTTP);
+  }else{
+	//如果不是IE
+	http_request=new XMLHttpRequest();
+  }
+ 2打开通道,
+  http_request.open('post','url',true);
+ 3发送头文件;
+  http_request.setRequestHeader("content-type","application/x-www-form-urlencoded");
+ 4发送数据;
+  http_request.send('表单提交数据组成名值对');
+ 5指定数据回调的方法
+  http_request.onreadystatechange=process;
+ 6定义回调方法
+ function process(){
+  if(http_request.readyState==4){
+     var data=http_request.RequestText;
+  }
+ }
+
+通过js封装ajax
+ /*
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

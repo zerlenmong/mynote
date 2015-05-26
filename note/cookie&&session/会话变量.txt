@@ -1,0 +1,47 @@
+cookie----跨页面访问
+	什么是cookie：
+	在服务器上产生，保存在客户端浏览器上，能够跨页面访问的一个变量
+	如何实现：
+	服务器上产生：
+	setcookie(名称,值,有效期时间,服务器上哪个目录上的程序能够接收这个值,指定域名,是否为安全连接);
+	setcookie("username","admin",time()+3600,"/function");	
+	服务器上哪个目录起作用：
+	指定接收程序的目录
+	有效期时间：
+	结束的时间点,单位为秒
+	time()+3*3600
+	指定域名：
+	cookie值在哪个域名下起作用（localhost）
+	cookie值获取
+	访问：
+	$_COOKIE['名称']
+	销毁
+	setcookie(name,value,time()-1,path,domain,0|1)
+
+
+session:
+		产生session的id
+		session_id();---指定session的id值
+
+		session_start();
+		存放值
+		$_SESSION['名称']='值'
+		读取
+		$_SESSION['名称']
+		销毁
+		unset($_SESSION['名称'])-----把内存空间释放
+		session_destroy()---销毁用户创建的全部session,并且把session创建的文件也删除掉(E:/tmp)
+
+
+		php.ini
+		生命周期
+		session.cookie_lifetime=0
+		session.save_path="存放的路径"
+		session.cookie_path="存放的路径"
+
+
+		面试题
+			1，cookie关闭session还能不能使用？
+			2，能不能把cookie中重要数据放在表中
+不同浏览器，会话不能混淆
+后台登录使用session实现

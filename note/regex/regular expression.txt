@@ -1,0 +1,130 @@
+定义：有一定格式的字符串
+		作用：1，用来判断一个字符串是否符合一定的要求
+		      2，可以去一个字符串，把某些符合规则的字符串
+
+格式是什么
+     由字符簇，限定符，定位符等组成
+     字符簇：一组字符(由字符组成的集合)--
+     字符簇写法;
+     [0123456789]/[0-9]
+     [abc123]
+     [a-z] 小写的英文字母a到z
+     [A-Z]大写的英文字母A到Z
+     [a-zA-Z]大小写英文
+     [a-zA-Z0-9]
+     [^0-9]非数字
+     简写：
+     \d数字
+     \w数字英文字母及下划线
+     \D非数字
+     \W非数字英文字母及下划线
+     '.'代表所有字符，除了换行'\n'
+     在字符簇中出现特殊字符使用转义'\'  \-
+
+     限定符{}
+
+      限定字符簇中字符出现的次数
+     {m,n}---限定m次到n次(n>m)
+     {m}---限定m次
+     {m,}---限定m次以上
+     {0,m}---限定m次以下
+     简写：
+     ？0或一次{0,1}
+     + 1次以上{1,}
+     * 0次以上{0,}
+
+    写正则表达式
+     "/正则表达式/"
+     "#正则表达式#"
+     "!正则表达式!"
+     匹配过程
+       从字符串左边开始依次和字符簇进行比对，如果符合 计数器加1，当计数器已经到限定符的最大值
+     ，或者遇到和字符簇不匹配的字符，停止，然后判断计数器中的值 是否和限定符要求一致，一致则匹配下来，否则继续。
+     运行正则表达式：
+     preg_match_all(正则表达式,字符串,数组);---返回int
+
+     /正则表达式 /g,i,m
+        1，/g 表示该表达式将用来在输入字符串中查找所有可能的匹配，返回的结果可以是多个。如果不加/g最多只会匹配一个
+
+        2，/i  表示匹配的时候不区分大小写
+
+        3，/m 表示多行匹配，什么是多行匹配呢？就是匹配换行符两端的潜在匹配。影响正则中的^$符号
+
+     定位符：匹配字符串中的位置。
+     二，实例说明
+
+            1，/g的用法
+
+            <script type="text/javascript">  
+            str = "tankZHang (231144)"+ "tank ying (155445)";
+            res = str.match(/tank/);    //没有加/g
+            alert(res);                 //显示一个tank
+
+            res = str.match(/tank/g);   //加了/g
+            alert(res);                 //显示为tank,tank
+            <strong></script></strong>  
+            2，/i的用法
+
+            <script type="text/javascript">  
+            str = "tankZHang (231144)"+  
+             "tank ying (155445)";  
+            res = str.match(/zhang/);      
+            alert(res);                  //显示为null  
+
+            res = str.match(/zhang/i);   //加了/i  
+            alert(res);                  //显示为ZHang  
+            </script>  
+            3，/m的用法
+
+            <script type="text/javascript">  
+            var p = /$/mg;  
+            var s = '1\n2\n3\n4\n5\n6';  
+            alert(p.test(s));  //显示为true  
+            alert(RegExp.rightContext.replace(/\x0A/g, '\\a'));  //显示\a2\a3\a4\a5\a6  
+            alert(RegExp.leftContext);    //显示为竖的2345  
+            alert(RegExp.rightContext);   //显示为6  
+
+            var p = /$/g;  
+            var s = '1\n2\n3\n4\n5\n6';  
+            alert(p.test(s));  //显示为true  
+            alert(RegExp.rightContext.replace(/\x0A/g, '\\a'));  //什么都不显示  
+            alert(RegExp.leftContext);    //显示为竖的123456  
+            alert(RegExp.rightContext);   //什么都不显示  
+
+            var p = /^/mg;  
+            var s = '1\n2\n3\n4\n5\n6';  
+            alert(p.test(s));    //显示为true  
+            alert(RegExp.rightContext.replace(/\x0A/g, '\\a')); //显示为1\a2\a3\a4\a5\a6  
+            alert(RegExp.leftContext);     //显示为竖的12345  
+            alert(RegExp.rightContext);    //显示为6  
+            </script>   
+
+            //从上例中可以看出/m影响的^$的分割方式  
+            上面说的三个例子，/i,/g,/m分开来说的，可以排列组合使用的。个人觉得/m没有多大用处
+
+
+
+
+
+     --------------------------------------------------------------------
+
+        开始位置^
+        /^abc/看一个字符串是否以abc开头
+        匹配结束位置 $
+        /abc$/
+
+      匹配模式：
+      不区分大小写，匹配模式 i   '//i'
+      '.'中包含换行，匹配模式 s   '//s'
+
+      邮箱的组成规律
+         1、名称@域名后缀名
+         2、名称：两个以上[英文字母、数字、下划线及中划线]
+         3、域名：一个以上[英文字母、数字及中划线]
+         4、后缀名：点及两个以上的英文字母，可以重复出现
+         /^\w+@\d(\.\w+)+$/
+
+    反向引用：
+       把正则表达式中的子表达式获取到的内容给第二个参数用[$string  preg_replace(正则表达式,replace,$string)]
+    反向引用变量：
+       $1 $2 $3...(其中$表示第几个子表达式)

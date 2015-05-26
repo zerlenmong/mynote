@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		body{
+			background:#F5F5F5;
+		}
+		#container{
+			width:960px;
+			margin:0 auto;
+		}
+		#header{
+			height:50px;
+			background: red;
+			margin-bottom:10px;
+		}
+		#navi{
+			height:30px;
+			background: green;
+			margin-bottom:10px;
+		}
+		#left,#center,#right{
+			height:400px;
+		}
+		#left{
+			width:300px;
+			background: pink;
+			float:left;
+			margin-right:30px;
+		}
+		#center{
+			background: #ABCDEF;
+			width:300px;
+			float:left;
+			margin-right:30px;
+		}
+		#right{
+			background: #FF8200;
+			width:300px;
+			float:right;
+		}
+		#footer{
+			margin-top:10px;
+			height:30px;
+			background:blue;
+			clear:both;
+		}
+		.clear{
+			overflow:hidden;
+			zoom:1;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			我是头部
+
+		</div>
+		<div id="navi">
+			我是导航
+		</div>
+		<div id="main" class="clear">
+			<div id="left">
+				左侧
+			</div>
+			<div id="center">
+				中间
+			</div>
+			<div id="right">
+				右侧
+			</div>
+		</div>
+
+		<div id="footer">
+			我是尾部
+
+		</div>
+
+
+	</div>
+	
+</body>
+</html>

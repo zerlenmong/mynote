@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#container{
+			width:960px;
+			border:1px solid red;
+
+		}
+		#box1{
+			width:500px;
+			height:300px;
+			border:1px solid green;
+			float:left;
+		}
+		/*.clear{
+			clear:left;
+		}*/
+		/*清除父元素高度为0的情况*/
+		/*.clearFix{*/
+			/*overflow:hidden;*/
+			/*overflow:auto;*/
+			/*zoom:1;IE专有的属性*/
+
+		/*}*/
+		.clearFix:after{
+			content:"sjdfl";
+			display:block;
+			overflow:hidden;
+			visibility: hidden;
+			height:0;
+			clear:both;
+		}
+		.clearFix{
+			clear:both;
+			zoom:1;
+		}
+
+
+
+	</style>
+</head>
+<body>
+<div id="container" class="clearFix">
+	<div id="box1">
+		我是box1
+	</div>
+	<!-- <br class="clear"/> -->
+
+</div>
+	
+</body>
+</html>

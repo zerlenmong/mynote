@@ -1,0 +1,85 @@
+mvc	框架的设计思想
+	把所有程序分成三层 m v c
+	每个程序所在的目录,名称,书写规则,都有要求。
+
+	让程序开发标准化。
+	m层 model  和数据库操作相关的所有数据模型类
+
+	c层 controller 控制器
+		把m层和c层联系起来,处理URL地址请求
+
+	v层 view 视图(html页面或者模版)
+
+	目录规划
+
+		index.php
+		config.ini.php
+		controller
+		model//数据模型类
+		core
+			base//基类
+			public//公共类
+			extends//扩展类--smarty源码包
+		views
+			js
+			css
+			images
+			template
+			template_c
+
+get_class(对象变量)--(获取对象对应的类名)
+debug_backtrace()---产生一条 PHP 的回溯跟踪(backtrace)
+function_exists()
+method_exists(obj,obj-method) 检查类的方法是否存在 ---返回的是bool
+property_exists(obj,obj-property)检查对象或类是否具有该属性---返回的是bool
+
+--------2014-07-31----------------------------------------------------------
+M层优化
+	1、表名的自动获取(数据模型类，子类的名称)
+	2、数据模型类基类,可以实例化
+跳转页面
+	给基类Controller.class.php加上一个跳转方法
+前后台分离
+	1、目录结构化
+	2、url地址index.php?g=分组名称&m=控制器名&a=方法名
+	3、controller.class.php 方法display()
+访问控制
+	增加个控制器基类 Controlleradmin.class.php
+	类中增加一个方法
+	function _init(){}---判断是否存在cookie
+	调用_init
+
+	if(method($this,"_init")){
+		$this->_init()
+	}
+
+-----------2014-08-01--------------------------------------------------------
+
+后台登录
+使用验证码
+总结：
+	优点：
+		1、结构清晰--代码更规范、命名有要求
+		2、代码的复用性强--把整个软件分为三层，相互独立
+		3、缩短开发周期
+		4、三层低耦合
+
+
+	缺点：
+		1、理解起来困难了
+		2、v层对数据的低效率访问
+		3、v层和c层关联性大
+
+
+
+
+
+
+如果动作控制器名和方法名没有传默认显示某个动作控制器某个方法
+
+封装一个框架
+
+thinkphp (3.1.6)
+
+Yii(yes it is)
+

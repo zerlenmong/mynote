@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		.dis{
+			width:100px;
+			height:100px;
+		}
+		ul{
+			/*border:1px solid red;*/
+			float:left;
+			margin-left:100px;
+			position:relative;
+		}
+		#show{
+			width:500px;
+			height:510px;
+			border:1px solid red;
+			float:left;
+			background:url(images/1.jpg) no-repeat;
+		}
+		.hid{
+			display:none;
+		}
+		ul li a img:hover+img.hid{
+			display:block;
+			position:absolute;
+			width:500px;
+			height:510px;
+			top:0;
+			left:100px;
+		}
+	</style>
+</head>
+<body>
+<ul>
+	
+	<li><a href="#"><img class="dis" src="images/1.jpg" />
+	<img class="hid" src="images/1.jpg" alt=""/>
+	</a></li>
+
+	<li><a href="#"><img class="dis" src="images/2.jpg" />
+	<img class="hid" src="images/2.jpg" alt=""/>
+	</a></li>
+
+	<li><a href="#"><img class="dis" src="images/3.jpg" />
+	<img class="hid" src="images/3.jpg" alt=""/>
+	</a></li>
+
+	<li><a href="#"><img class="dis" src="images/4.jpg" />
+	<img class="hid" src="images/4.jpg" alt=""/>
+	</a></li>
+
+	<li><a href="#"><img class="dis"  src="images/5.jpg" />
+	<img class="hid" src="images/5.jpg" alt=""/>
+	</a></li>
+</ul>
+<div id="show">
+	
+</div>
+	
+</body>
+</html>

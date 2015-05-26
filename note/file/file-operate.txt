@@ -1,0 +1,70 @@
+文件操作
+	打开文件
+	fopen(path,mode)--返回一个资源,resource
+		mode:
+				r--只读
+				w--可写，如果文件不存在则创建，如果文件存在，内容清空
+				a--追加
+				r+--读写
+				w+--读写(不用)
+				a+--读写(不用)
+	写内容
+	fwrite(resouce,content)---返回一个int字节数
+
+	读文件
+	fread(resource,length)---返回为length长度的字符串
+
+	fgetc(resource);--每次读一个字符不适合中文;--返回包含一个字符的char
+	fgets(resource);--每次读一行--返回string
+	fgetss();--每次读一行，过滤HTML标签---返回string
+
+	获取文件的大小
+	filesize(path)----返回int文件的大小
+
+	关闭文件
+	fclose(resource)---返回bool
+
+	判断文件是否存在---返回bool
+	is_file(path);--判断的文件必须是一个文件
+	file_exists(path);--除了判断必须是一个文件外还要判断文件目录必须存在
+
+	例：
+		upload
+		var_dump(isfile('upload'));---返回false
+		var_dump(file_exists('upload'));---返回true
+
+	删除文件
+	unlink(path);
+
+死循环
+for(;1;){
+}
+
+	目录操作函数
+	is_dir(directory);--文件的目录路径;
+
+	新建目录
+	mkdir(diretory);
+
+	删除空目录
+	rmdir(diretory);
+
+
+
+	打开目录
+	opendir(directory)---返回资源
+
+	获取目录下的内容
+	readdir(resource);---返回字符串每次读取一条数据指针下移
+	配合while循环读取
+
+	关闭目录
+	closedir(resource);
+
+	scandir(directory)----返回数组，打开，获取，关闭全部操作了
+
+目录的递归遍历
+		递归函数的特点
+				1，自己调用自己
+				2，结束条件
+				     ------什么条件自己调用自己

@@ -1,0 +1,1 @@
+ phpthink 在linux中   文件夹严格区分大小写

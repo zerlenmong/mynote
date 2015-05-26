@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		#container{
+			width:960px;
+			margin:0 auto;
+		}
+		#left,#left ul,#right{
+			float:left;
+
+		}
+		#left{
+			position:relative;
+			width:50px;
+			border:1px solid black;
+		}
+		#right{
+			width:500px;
+			height:500px;
+			border:1px solid red;
+		}
+		.show{
+			display:none;
+		}
+		img{
+			border:1px solid pink;
+		}
+		#left ul li img:hover+.show{
+			display:block;
+			width:500px;
+			height:500px;
+			position:absolute;
+			left:50px;
+			top:0;
+		}
+
+
+	</style>
+
+
+</head>
+<body>
+<div id="container">
+	<div id="left">
+		<ul>
+			<li><img src="1.png" alt=""/>
+				<img class="show" src="1.jpg" alt=""/>
+			</li>
+			<li><img src="2.png" alt=""/>
+				<img class="show" src="2.jpg" alt=""/>
+			</li>
+			<li><img src="3.png" alt=""/>
+				<img class="show" src="3.jpg" alt=""/>
+			</li>
+			<li><img src="4.png" alt=""/>
+				<img class="show" src="4.jpg" alt=""/>
+			</li>
+		</ul>
+	</div>
+	<div id="right">
+		
+	</div>
+</div>
+	
+</body>
+</html>

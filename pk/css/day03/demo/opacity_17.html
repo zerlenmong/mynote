@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		#container{
+			width:960px;
+			margin:0 auto;
+			border:1px solid black;
+		}
+		.pro{
+			border:1px solid red;
+			width:300px;
+			height:300px;
+			float:left;
+			margin-left:13px;
+			position:relative;
+
+		}
+		.pro img{
+			width:300px;
+			height:300px;
+		}
+		.pro img:hover{
+			opacity:.6;
+			filter:alpha(opacity=60);
+		}
+		.pro .buy{
+			display:none;
+		}
+		.pro img:hover+.buy{
+			display:block;
+			width:90px;
+			height:33px;
+			background:url(images/buy.png) no-repeat;
+			position:absolute;
+			left:105px;
+			top:135px;
+		}
+	</style>
+</head>
+<body>
+
+<div id="container" class="clear">
+		<div class="pro">
+			<img src="images/pro1.jpg" alt=""/>
+			<span class="buy"></span>
+
+		</div>
+	<div class="pro">
+		<img src="images/pro1.jpg" alt=""/>
+		<span class="buy"></span>
+
+	</div>
+	<div class="pro">
+		<img src="images/pro1.jpg" alt=""/>
+		<span class="buy"></span>
+
+	</div>
+
+</div>
+	
+</body>
+</html>

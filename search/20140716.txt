@@ -1,0 +1,12 @@
+ThinkPHP
+引入分页类：import('ORG.Util.Page');
+$page=new Page('总页数','每页显示条数')
+$page->firstRow;
+$page->listRows;
+$limit=$page->firstRow.','.$page->listRows;
+$this->page=$page->show();
+
+
+//
+伪静态
+'URL_HTML_SUFFIX'

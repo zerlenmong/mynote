@@ -1,0 +1,329 @@
+---2014-07-07------
+选择器
+    语法格式
+    $('选择器的内容')
+    jquery('选择器的内容')
+          id选择器：根据页面元素的id属性值
+             $("#id")--返回对象--选择器对象
+          标签选择器：根据标签的名称找到相应的标签
+          	 $("标签名称")
+          	   //选择器对象的遍历
+          	       1、for   ob.length
+          	       2、选择器对象.each(function(index){
+          	       			this
+          	       })
+          	        index---下标
+          	        function(){}----匿名函数
+          	        this---当前节点对象
+          	        $(this)--转化为选择器对象
+          选择器对象的方法：
+     选择器对象.addclass('类别样式名称')
+
+          类别选择器
+          	$(".类名")
+
+          属性选择器：根据标签的任意属性值找相应的标签
+          	$("[属性名='值']")
+          	$("[属性名^='值']")--以'值'开始
+          	$("[属性名$='值']")---以'值'结束
+          	$("[属性名*='值']")---包含'值'
+
+          后代选择器:根据元素的嵌套关系
+          	$("选择器1 选择器2……")
+          子代选择器:找一级
+          	$("选择器1>选择器2>……")
+
+          交集选择器
+          	$("选择器1选择器2……")
+          并集选择器：把几个选择找到的结果，放在一起
+          	$("选择器1,选择器2,……")
+
+          位置选择器：根据位置去找
+            $(":eq(位置值)") 说明：位置值从'零'开始
+            $(":eq(0)")找兄弟元素中排在第一的位置只找一级
+            $(":gt(位置值)")找到位置值后的
+            $(":lt(位置值)")找到位置值前的
+            $(":odd")//找到奇数位所有元素
+            $(":even")//找到偶数位所有元素
+
+          过滤选择器:表单控件进行选择
+            $(":checkbox")//找到页面中所有复选框
+               练习：
+                  1、复选框的全选和反选
+                  2、$(":checkbox")
+                  3、遍历
+            $(":input")//
+            $(":button")
+            $(":disabled")//找到表单中不可用元素
+            $(":enabled")//找到页面中可用元素
+            $(":radio")//找到所有单选按钮
+            $(":submit")
+            $(":text")
+            $(":password")
+            $(":image")
+            $(":reset")
+            $(":selected")//下拉框中被选中的option
+
+----2014-07-08--------
+			方法及属性对找到的元素进行操作:
+			事件
+			    方法一：
+			    	选择器对象.load(函数名|匿名函数)
+					选择器对象.click(函数名|匿名函数)
+					选择器对象.mouseover(函数名|匿名函数)
+					选择器对象.mouseout(函数名|匿名函数)
+				    选择器对象.mousemove(函数名|匿名函数)
+					选择器对象.mouseup(函数名|匿名函数)
+					选择器对象.mousedown(函数名|匿名函数)
+					选择器对象.keydown(函数名|匿名函数)
+					选择器对象.keyup(函数名|匿名函数)
+					选择器对象.blur(函数名|匿名函数)
+					选择器对象.change(函数名|匿名函数)
+
+				方法二:
+				选择器对象.bind(事件名称,函数名|匿名函数)
+				选择器对象.unbind(事件名称,函数名)
+
+				特殊处理:
+					load事件
+					   $([document]).ready(function(){
+					   		页面加载完成执行的代码
+					   })
+			样式
+
+				方法:
+				  $(selector).css(样式属性名称[,值])//操作行内样式 style
+				  $(selector).addClass(类别样式名称)//给元素增加类别样式 class
+				  $(selector).removeClass(类别样式名称)//去除某类别样式
+				  $(selector).toggleClass(类别样式名称)//交替增加与去除样式
+				  $(selector).show(速度)//显示元素
+				  $(selector).hide(速度)//隐藏元素
+				  			速度：
+				  			    slow
+				  			    normal
+				  			    fast
+				  			    1000 毫秒
+				  淡入淡出：
+				  		$(selector).fadeIn(速度)
+				  		$(selector).fadeOut(速度)
+				  		$(selecter).fadeToggle(速度)
+				  滑动：
+				    $(selector).slideDown(speed);
+				    $(selector).slideUp(speed)
+				  动画(跑动)
+				  	$(selecter).animate({left:250px},speed);
+
+		    下拉菜单
+		        mouseenter
+		        mouseleave
+
+			属性(标签的属性 样式属性 对象属性)
+
+			 	$(selecter).attr(属性的名称,属性值)
+			 	<img id='' class='' title='' alt='' src='' width='' height=''/>
+
+			内容(标签内容 value属性值)
+				$(selecter).text([content])---//去除HTML标签
+				$(selecter).html([content])
+				$(selecter).val([content])
+
+			元素的增加 删除
+				增加元素：$(selecter).append('content')//追加子节点
+						  $(selecter).before('content')//追加哥哥节点
+						  $(selecter).after('content')//追加弟弟节点
+						  $(selecter).add()
+				删除：
+				$(selecter).not(选择器)//去除
+				$(selecter).empty()//删除子
+				$(selecter).remove()//删除自己
+				查找子
+				$(selecter).find()
+
+            练习：下拉列表的两级联动
+
+			元素的宽高
+				$(selecter).width()
+				$(selecter).height()
+				$(selecter).offset().top//页面中元素距离页面上边的距离
+				$(selecter).offset().left//页面中元素距离页面左边的距离
+
+			滚动条的操作
+				$(selecter).scrollTop()//滚动条离开上方的距离
+				$(selecter).scrollLeft()//滚动条往左滚动多少
+
+----2014-07-09----
+css:级联样式表
+作用：美化页面标签
+选择器:
+通配
+标签 		0.0.0.1
+类别 		0.0.1.0
+id选择器    0.1.0.0
+行内样式    1.0.0.0
+
+后代
+交集选择器  优先级做加法
+
+并集选择器  优先级取之中最高的一个
+
+样式语句
+盒子模型:页面中每一个元素所占的位置，都相似一个盒子
+盒子模型相关样式属性
+		边框
+		背景(颜色 图片 平铺效果 定位方式)
+		宽
+		高
+		内边距
+		外边距
+		内容
+		定位
+			position:absolute|relative|fixed|static
+			relative 位置移动,原来的位置保留,相对于自己原来的位置改变
+			absolute 位置移动,原来的位置不保留,浮动在其它元素的上方,
+			         移动方式:相对于设置了position为relativer的祖先元素变换自己的位置,如果祖先元素没有设置relative则相对于HTML来变换位置
+		浮动
+			float:right|left
+		清除环绕
+			1、clear:both;
+			2、:after{
+				content:"";
+				clear:both;
+			}
+			3、给父类加个高度
+
+文字修饰
+		color:
+		font-size:
+		font-weight:bold
+		下划线
+		text-decoration:under-line|over-line|through|none
+列表修饰
+		list-style:none;
+超链接修饰：
+		:link{}
+		:hover{}
+		:active{}
+		:visted{}
+
+
+图片无缝滚动
+
+
+异步通信:
+    通信：http请求--服务器响应---回传数据给浏览器
+    异步：通过一个连接或一个事件来发送请求，页面不刷新
+    jquery需要的参数：
+	    url
+	    data
+	    type'GET|POST' //以什么形式传输
+	    dataType //服务器回传数据的类型 text htm xml json script
+	    success function(re){//负责接收数据并且处理
+	    }
+	    timeout//设置超时时间
+	    error function(){//失败时触发
+	    }
+$.ajax({
+		url:'url地址',
+		data:'验证的数据',
+		Type:'GET|POST',
+		dataType:'text|htm|xml|json|script',
+		success:function(re){
+		//处理回传值
+		},
+		timeout:5000,
+		error:function(){
+		//出错提示
+		}
+})
+ajax不能跨域中访问
+但可以通过代理程序来实现
+
+create table province(
+id int(8) auto_increment primary key,
+pname char(20) not null,
+pid int(8) default 0
+)charset=utf8;
+
+insert into province values(1,'河北',0),
+(2,'河南',0),
+(3,'四川',0),
+(4,'石家庄',1),
+(5,'承德',1),
+(6,'郑州',2),
+(7,'成都',3),
+(8,'绵阳',3);
+
+
+-----2014-07-10-----------
+xml数据
+json串(json对象)：轻量级数据存储对象
+js---Array-索引下标
+json串可以理解为是一个索引下标的数组
+格式:
+    {名:值,名:值,...}
+    [{名:值,名:值,...},{名:值,名:值,...}]
+
+使用
+ob.下标
+
+json_encode()----把数组转化成json格式字符串
+json_decode()----把json格式字符串转化成数组
+
+光标对象：
+      e.pageX;
+      e.pageY;
+
+遮罩层：
+
+------2014-07-11-------
+ob=eval("{名：值,...}")//执行一个js语句
+
+布置项目：
+自己考虑：从哪开始，规划步骤
+写出文档
+数据字典
+
+表名
+字体名称  类型 长度          额外                 注释                  
+id        int  8    primary key auto_increment 
+tname     char ...   
+
+
+手机网：
+
+
+网站发布：
+	服务器(租用空间，租用服务器 云服务器 自己买服务器-托管)
+		1u
+		2u
+	上传程序
+jquery ui
+dialog
+$(selector).dialog({
+	autoOpen:boolean,//是否自动打开对话框
+	title:string,//标题信息
+	modal:boolean,//是否开启对话框形式
+	show:string,//显示时的动画效果
+	hide:string,//隐藏时的动画效果
+	resizable:boolean,//是否允许缩放
+	draggable:boolean,//是否允许拖拽
+	buttons:{//按钮对象
+	显示文本:function(){
+		动作
+		}
+	},
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+

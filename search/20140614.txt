@@ -1,0 +1,4 @@
+array_rand()-->随机取出数组的n个键名
+array_flip()-->将键名与键值互换
+exit;
+die;

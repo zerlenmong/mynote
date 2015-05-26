@@ -1,0 +1,14 @@
+四大框架
+  
+  zend framework
+  ThinkPHP
+  Yii
+  CI
+  ---majinto--麦金斗---专门做商务网站的框架
+
+二次开发
+  duzus!---仿论坛
+  dedecms--织梦
+  ecshop--商城二次开发
+
+互联网高级//
