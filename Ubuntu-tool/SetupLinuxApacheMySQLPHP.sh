@@ -30,7 +30,7 @@ declare -A repoAppsList
 
 repoAppsList=(
     ["Apache2 Server"]="apache2"
-    ["MySQL Server"]="mysql-server libapache2-mod-auth-mysql php5-mysql mysql-client-core-5.5"
+    ["MySQL Server"]="mysql-server-5.6 libapache2-mod-auth-mysql php5-mysql mysql-client-core-5.6"
     ["PHP5"]="php5 libapache2-mod-php5 php5-mcrypt"
     ["PHP5 Extensions"]="php5-mysql php5-curl php5-gd php-pear php5-mcrypt php5-recode php5-sqlite"
     ["phpmyadmin"]="phpmyadmin"
