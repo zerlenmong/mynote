@@ -72,7 +72,6 @@ cat <<EOF >> /etc/apache2/sites-available/$project_name.conf
     CustomLog /var/www/$project_name/logs/access.log combined
 </VirtualHost>
 EOF
-
 # Enabling the site at apache
 sudo a2ensite $project_name
 echo "Project $project_name site has been enabled at Apache."
@@ -81,6 +80,7 @@ sudo chown $USER:$USER /etc/hosts
 echo "127.0.0.1       lc.$project_name.com" >> /etc/hosts
 # Reloads apache2 service to take information for the new project
 sudo service apache2 reload
+#sudo chmod 777 /var/www/$project_name/logs/*
 echo "Apache service has been restarted."
 echo "Project $project_name is ready!"
 echo "It can be reached at this address: lc.$project_name.com"

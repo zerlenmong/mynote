@@ -1091,3 +1091,161 @@ Finally, there’s the little known _beforeChildToHtml method. In Magento,
 a layout is a nested tree structure of blocks, 
 with parent blocks rendering child blocks. When a parent renders one of its children (through a call to $this->getChildHtml('name')),
 this method is called immediately before rendering the child.
+
+
+Mage::getSingleton('core/session')->getMessages(true); // The true is for clearing them after loading them
+-------2015-05-20-------------------
+Form admin allows user to enter and save data into the database. A magento form includes the 5 following elements:
+Form Container
+Form tag
+Form tabs
+Form action button
+Form fields
+
+1.Create action to display the magento form in backend
+app/code/local/Magestore/Lesson09/controllers/Adminhtml/Lesson09Controller.php
+public function newAction(){
+$this->loadLayout();
+$this->_setActiveMenu('lesson09/items');
+$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item Manager'), Mage::helper('adminhtml')->__('Item Manager'));
+$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item News'), Mage::helper('adminhtml')->__('Item News'));
+ 
+$this->_addContent($this->getLayout()->createBlock(' lession09/adminhtml_lession09_edit'))
+->_addLeft($this->getLayout()
+->createBlock('lession09/adminhtml_lession09_edit_tabs'));
+$this->renderLayout();
+}
+------------
+public function newAction() {
+$this->_forward('edit');
+}
+---------------------
+public function editAction() {
+	$id = $this->getRequest()->getParam('id');
+	$model = Mage::getModel('lesson09/lesson09')->load($id);
+	 
+	if ($model->getId() || $id == 0) {
+	$data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+	if (!empty($data)) {
+	$model->setData($data);
+	}
+	 
+	Mage::register('lesson09_data', $model);
+	 
+	$this->loadLayout();
+	$this->_setActiveMenu('lesson09/items');
+	 
+	$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item Manager'), Mage::helper('adminhtml')->__('Item Manager'));
+	$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item News'), Mage::helper('adminhtml')->__('Item News'));
+	 
+	$this->_addContent($this->getLayout()->createBlock(' lession09/adminhtml_lession09_edit'))
+	->_addLeft($this->getLayout()
+	->createBlock('lession09/adminhtml_lession09_edit_tabs'));
+	$this->renderLayout();
+	} else {
+	Mage::getSingleton('adminhtml/session')->addError(Mage::helper('lesson09')->__('Item does not exist'));
+	$this->_redirect('*/*/');
+	}
+}
+2.Create blocks in magento backend
+app/code/local/Magestore/Lesson09/Block/Adminhtml/Lesson09/Edit.php
+class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+{
+	public function __construct()
+	{
+		parent::__construct();
+		 
+		$this->_objectId = 'id';
+		$this->_blockGroup = 'lesson09';
+		$this->_controller = 'adminhtml_lesson09';
+		 
+		$this->_updateButton('save', 'label', Mage::helper('lesson09')->__('Save'));
+		$this->_updateButton('delete', 'label', Mage::helper('lesson09')->__('Delete'));
+		 
+		$this->_addButton('saveandcontinue', array(
+		'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
+		'onclick' => 'saveAndContinueEdit()',
+		'class' => 'save',
+		), -100);
+		}
+		 
+		public function getHeaderText()
+		{
+		return Mage::helper('lesson09')->__('My Form Container');
+	}
+}
+
+app/code/local/Magestore/Lesson09/Block/Adminhtml/Lesson09/Edit/Form.php
+class Excellence_Lesson09_Block_Adminhtml_Lesson09_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+{
+	protected function _prepareForm()
+	{
+		$form = new Varien_Data_Form(array(
+		'id' => 'edit_form',
+		'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))),
+		'method' => 'post',
+		'enctype' => 'multipart/form-data'
+		)
+		);$form->setUseContainer(true);
+		$this->setForm($form);
+		return parent::_prepareForm();
+	}
+}
+App/code/local/Magestore/Lesson09/Block/Adminhtml/Lesson09/Edit/Tabs.php
+class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+{
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setId('form_tabs');
+		$this->setDestElementId('edit_form');
+		$this->setTitle(Mage::helper('lesson09')->__('Lesson09 Information'));
+		}
+		protected function _beforeToHtml()
+		{
+		$this->addTab('form_section', array(
+		'label' => Mage::helper('lesson09')->__('Item Information'),
+		'title' => Mage::helper('lesson09')->__('Item Information'),
+		'content' => $this->getLayout()->createBlock('lesson09/adminhtml_lesson09_edit_tab_form')->toHtml(),
+		));
+		return parent::_beforeToHtml();
+	}
+}
+app/code/local/Magestore/Lesson09/Block/Adminhtml/Lesson09/Edit/Tab/Form.php
+class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+{
+	protected function _prepareForm()
+	{
+		$form = new Varien_Data_Form();
+		$this->setForm($form);
+		$fieldset = $form->addFieldset('lession09_form',array('legend'=>Mage::helper('lession09')->__('Item information')));
+		 
+		$fieldset->addField('title', 'text', array(
+		'label' => Mage::helper('lession09')->__('Title'),
+		'class' => 'required-entry',
+		'required' => true,
+		'name' => 'title',
+		));
+		 
+		$fieldset->addField('content', 'editor', array(
+		'name' => 'content',
+		'label' => Mage::helper('dochelp')->__('Content'),
+		'title' => Mage::helper('dochelp')->__('Content'),
+		'style' => 'width:700px; height:500px;',
+		'wysiwyg' => false,
+		'required' => true,
+		));
+		 
+		if ( Mage::getSingleton('adminhtml/session')->getlesson09Data() )
+		{
+		$form->setValues(Mage::getSingleton('adminhtml/session')->getlesson09Data());
+		Mage::getSingleton('adminhtml/session')->setlesson09Data(null);
+		} elseif ( Mage::registry('lesson09_data') ) {
+		$form->setValues(Mage::registry('lesson09_data')->getData());
+		}
+		 
+		return parent::_prepareForm();
+	}
+}
+3.1. Save Action
+app/code/local/Magestore/Lesson09/controllers/Adminhtml/Lesson09Controller.php

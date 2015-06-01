@@ -1,0 +1,352 @@
+复习：
+<form enctype="multipart/form-data" action="目标文档的URL" method="get|post">
+
+</form>
+get:?名值对username=king&email=123@qq	.com&....
+post:HTTP headers
+表单控件：
+单行文本框：<input x-webkit-speech size="" maxlength="" placeholder="" type="text" name="" value="" />
+密码框：<input type="password" name="pwd" />
+单选框：<input checked="checked" type="radio" name="" value="提交值"/>
+复选框：<input type="checkbox" name="名称[]" value=""/>
+浏览框：<input type="file" name="" />
+隐藏域：<input type="hidden" name="" value=""/>
+下拉框：
+<select name="" size="">
+	<option selected="selected" value="提交值">xxxxxx</option>
+	<optgroup label="分组名称">
+		<option value="">xx</option>
+	</optgroup>
+</select>
+
+<select name="数组形式" size="" mutiple="mutiple">
+
+
+</select>
+多行文本框：<textarea cols="" rows="" name="">内容</textarea>
+按钮：
+
+<input type="submit" name="" value=""/>
+
+<input type="image" src="目标文档的URL"/>
+
+<input type="reset" value="" />
+
+<input type="button" name="" value="" />
+
+框架集：
+
+<!DOCTYPE Frameset>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>xxxx</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	</head>
+	<frameset rows="100,*" frameborder="no" border="">
+		<frame src="目标文档URL" name="" scrolling="yes|no|auto" noresize="noresize"/>
+		<frameset cols="200,*">
+			<frame src="" name=""/>
+			<frame src="" name=""/>
+		</frameset>
+	</frameset>
+	<noframes>
+		<body>xxxxx</body>
+	</noframes>
+</html>
+
+嵌套网页：
+
+<iframe scrolling="yes|no|auto" src="" width="" height="" frameborder="1|0"></iframe>
+
+1.CSS[Cascading Style Sheet]:层叠样式表，美化网页
+
+2.CSS的应用
+
+1》链接到外部文档：链接到外部的CSS文档，.css结尾
+<link />书写于<head></head>标记内，
+<link href="目标文档的URL" type="text/css" rel="stylesheet" media="all|tv|print|screen"/>
+
+2》书写于文档内部
+<style type="text/css">
+
+</style>,同样写在head标记中
+
+3》书写于标记内部
+<p style="color:red;font-size:100px;"> this sis a test</p>
+
+3.CSS的语法结构
+
+selector(选择器){
+	样式
+	声明---属性:属性值;
+	属性:属性值;
+	属性:属性值;
+}
+
+4.CSS的选择器：
+
+1》通配选择器：*,自动适应所有标记
+*{
+	样式
+}
+2》id选择器：#ID名称
+
+#ID名称{
+	样式;
+}
+注意：
+同一文档中ID名称只能出现一次
+
+3》class类选择器:.类名称
+
+.类名称{
+	样式;
+}
+
+4》标记选择器：标记名称
+
+标记名称{
+	样式;
+}
+
+5》父类选择器：selector selector
+
+selector selector {
+	样式
+
+}
+注意：选择器之间至少为父子关系
+
+6》子类选择器：selector>selector
+
+selector>selector{
+	样式;
+}
+注意：只能为父子关系
+
+7》群组选择器：selector,selector,...
+
+selector,selector,...{
+	样式
+}
+
+8》兄弟选择器：selector+selector
+
+selector+selector{
+	样式
+
+}
+注意：兄弟选择器只对+后面的第一个兄弟有作用
+
+9》伪类选择器
+
+:link->是设置你链接默认的样式
+:visited->是设置链接访问之后的样式
+:hover->是设置鼠标悬浮在元素上方时的样式
+:active->鼠标左键点击元素时的样式
+
+注意：这4个伪类作用于超链接的时候，注意书写顺序
+LVHA的顺序来写
+:root
+:not
+:empty
+:target
+:focus:向具有输入域的元素添加样式
+
+:first-child---向元素的第一个子元素添加样式
+:last-child---向元素的最后一个子元素添加样式
+:nth-child(n)---选择器用来定位某个父元素的一个或多个特定的子元素
+:nth-last-child(n)---从某父元素的最后一个子元素开始计算，来选择特定的元素。
+:first-of-type---其主要用来定位一个父元素下的某个类型的第一个子元素
+:last-of-type--选择是父元素下的某个类型的最后一个子元素
+:nth-of-type---选择器来定位于父元素中某种类型的子元素是非常方便和有用的,它只计算父元素中指定的某种类型的子元素
+:nth-last-of-type(n)---选择父元素中指定的某种子元素类型，但它的起始方向是从最后一个子元素开始
+:only-child---选择器选择的是父元素中只有一个子元素，而且只有唯一的一个子元素。也就是说，匹配的元素的父元素中仅有一个子元素，而且是一个唯一的子元素
+:only-of-type---选择器用来选择一个元素是它的父元素的唯一一个相同类型的子元素
+:enabled选择器---有些表单元素有可用（“:enabled”）和不可用（“:disabled”）状态
+:disabled选择器
+:checked
+::selection选择器--伪元素是用来匹配突出显示的文本(用鼠标选择文本时的文本Firefox 支持替代的 ::-moz-selection。)
+:read-only选择器
+:read-write选择器---主要用来指定当元素处于非只读状态时的样式。
+
+10》伪元素:
+::before和::after----::before和::after这两个主要用来给元素的前面或后面插入内容，
+这两个常和"content"配合使用，使用的场景最多的就是清除浮动
+
+:after->在元素内容之后添加样式
+content:"添加内容"
+content:url(目标文档的URL)
+
+:before->在当前元素内容之前添加样式
+
+.effect::before, .effect::after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+上面代码作用在class名叫.effect上的div的前（before）后(after)都添加一个空元素，然后为这两个空元素添加阴影特效
+
+5.选择器的优先级：
+
+内联样式：1000,代表选择器的权值
+id选择器:100
+类选择器：10
+标记选择器：1
+
+优先级高的先执行，选择器求和
+
+!important:优先级最高
+
+6.div和span
+div：是块元素，自己占一行
+span:行内元素
+配合CSS才会有效果
+
+p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dd,dt,
+br,hr,form,table,tr,td,th,div,body
+
+颜色：
+color:颜色名称
+color:rgb(数值,数值,数值)
+数值0-255
+color:rgb(百分数的形式,40%,30%)
+color:十六进制数字的形式
+#ABCDEF：天蓝色
+#FF8800:橘黄色
+
+盒子模型：
+
+width:宽度
+height：高度
+padding:内边距，内容到边框之间的距离
+padding-left:左内边距;
+padding-top:上内边距;
+padding-right:右内边距;
+padding-bottom:下内边距;
+padding:value;代表4个方向的值相同
+padding:value1 value2;value1代表上和下，
+value2代表左和右
+padding:value1 value2 value3;
+value1代表上 value2代表左和右 value3 下;
+padding:value1上 value2右 value3下 value4左;
+
+margin:代表外边距
+
+margin-left:
+margin-right:
+margin-top:
+margin-bottom:
+margin:value;上下左右
+margin:auto auto;
+
+清楚浏览器给块级元素的外边距：
+
+设置*{
+	margin:0px;
+	padding:0px;
+}
+
+变形---
+-moz代表firefox浏览器私有属性
+-ms代表IE浏览器私有属性
+-webkit代表chrome、safari私有属性
+deg 以角度(以符号“° 表示)表示角的大小
+旋转---rotate()  -webkit-transform:rotate(n deg)
+扭曲---skew( deg) 
+1、skew(x,y)使元素在水平和垂直方向同时扭曲（X轴和Y轴同时按一定的角度值进行扭曲变形）；
+2、skewX(x)仅使元素在水平方向扭曲变形（X轴扭曲变形）；
+3、skewY(y)仅使元素在垂直方向扭曲变形（Y轴扭曲变形）;
+缩放---scale(倍数)
+1、 scale(X,Y)使元素水平方向和垂直方向同时缩放（也就是X轴和Y轴同时缩放）;
+2、scaleX(x)元素仅水平方向缩放（X轴缩放）;
+3、scaleY(y)元素仅垂直方向缩放（Y轴缩放）
+位移---translate(像素或者百分比)
+1、translate(x,y)水平方向和垂直方向同时移动（也就是X轴和Y轴同时移动）
+2、translateX(x)仅水平方向移动（X轴移动）
+3、translateY(Y)仅垂直方向移动（Y轴移动）
+矩阵---matrix()--是一个含六个值的(a,b,c,d,e,f)变换矩阵
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CSS注释：
+
+/*注释内容*/：注释内容中九不能再包括你*/
+
+
+
+
+
+
+
+
+
+公共核心属性：
+
+title:提示文本
+
+id:代表唯一标识符
+
+class:类名称
+
+style:样式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

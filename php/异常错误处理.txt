@@ -58,6 +58,25 @@ error_get_last()--获取最后一次出现的错误
 
 
 
+1、异常：程序运行与预期不太一致
+
+try{
+   throw new Exception('message');
+}catch(Exception $e){
+  echo $e->getMessage();
+}
+PDOException
+
+自定义异常类
+set_exception_handler()
+restore_exception_handler()//恢复到上次定义过的异常处理函数
+
+
+
+
+
+
+
 
 
 

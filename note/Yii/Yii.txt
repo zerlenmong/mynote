@@ -282,13 +282,14 @@ $c=new CDbCtriteria()//----用来存放数据模型类方法
 		'having'=>'',
 	)
 	 */
-config/main.php----log=>array(
+config/main.php--->
+    log=>array(
 
-array(
-	'class'=>'CWebLogRoute',
-),
+        array(
+	        'class'=>'CWebLogRoute',
+        ),
 
-)
+    )
 CPagination类
 web/Cpagination.php
 1、总条数
