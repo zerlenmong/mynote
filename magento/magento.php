@@ -1,4 +1,4 @@
-<?php 
+<?php
 ﻿------------2014-09-02-------------------------
 
 网站(Website)是一些共享相同的客户、订单信息和购物车信息的商店（Store）的集合。
@@ -28,10 +28,10 @@ Blocks(区块)
 
 
 默认主题
-非默认主题 template/catalog/home.phtml	
+非默认主题 template/catalog/home.phtml
 记住,不管在此 Design 中如何配置,Magento都将自动装载名字叫'default'的主题
 
-Say Hello to Multiple Themes----加载多个主题	
+Say Hello to Multiple Themes----加载多个主题
 主题的层次(Hierarchy of Themes)
 
 缓存控制 进入admin后台 System -> CacheManagement
@@ -89,24 +89,24 @@ public static function app($code = '', $type = 'store', $options = array())
         self::$_app->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
     }
     return self::$_app;
-}	
+}
 
 1、const用于类成员变量定义，一旦定义且不能改变其值。define定义全局常量，在任何地方都可以访问。
-2、define不能在类中定义而const可以。	
+2、define不能在类中定义而const可以。
 
---------2014-09-03-------------------------------------			
+--------2014-09-03-------------------------------------
 Varient_Object 类是 Magento 中所有的Models的父类	lib/Varien/Object.php
 Magento中大部分的data Collections都是继承自Varien_Data_Collection
 Varien_Data_Collection对象--对一个product Collection 进行sort:
 getData()
 getFirstItem()
 getLastItem()
-toXml() 
+toXml()
 getColumnValues('name')--取其中的一个Column的值
 getItemsByColumnValue('name','Spot')--过滤
---------2014-09-04-------------------------------------		
-Layout文件一般包含block、reference、action三种标签。		
-1.顶层的block一般位于page.xml中 Output表示通过toHtml进行输出。默认使用3columns.phtml三列布局。Type对应Mage_Page_Block_Html类。	
+--------2014-09-04-------------------------------------
+Layout文件一般包含block、reference、action三种标签。
+1.顶层的block一般位于page.xml中 Output表示通过toHtml进行输出。默认使用3columns.phtml三列布局。Type对应Mage_Page_Block_Html类。
 2.在顶层的block中，一般包含以下几个关键部分，分别是Html头部、网页头部、内容左部中部右部、网页底部这么几个基本结构布局。
 3.每个模块一般情况下都会有对应的模块xml文件，如目录布局文件为catalog.xml文件，支付为checkout.xml。不过对于magento系统来说，最终还是合并读取的
 4.content内容一般在具体页面中进行指定，不同模块的内容肯定是不同的，在page.xml文件中只是定义了一个as。
@@ -118,32 +118,32 @@ Layout文件一般包含block、reference、action三种标签。
 <skin url=''/>
 
 
-Magento中部分数据表是设计成EAV形式的	
+Magento中部分数据表是设计成EAV形式的
 EAV
-eav_entity_type，eav_entity_attribute，eav_attribute	
+eav_entity_type，eav_entity_attribute，eav_attribute
 
-创建一个Hello World模块 
-为这个模块配置路由 
-为这个模块创建执行控制器 
+创建一个Hello World模块
+为这个模块配置路由
+为这个模块创建执行控制器
 创建Hello World模块
 
-建立目录		
-app/code/local/Alanstormdotcom/Helloworld/Block 
+建立目录
+app/code/local/Alanstormdotcom/Helloworld/Block
 app/code/local/Alanstormdotcom/Helloworld/controllers ---目录“controllers”（小写c）
-app/code/local/Alanstormdotcom/Helloworld/etc 
-app/code/local/Alanstormdotcom/Helloworld/Helper 
-app/code/local/Alanstormdotcom/Helloworld/Model 
-app/code/local/Alanstormdotcom/Helloworld/sql 
+app/code/local/Alanstormdotcom/Helloworld/etc
+app/code/local/Alanstormdotcom/Helloworld/Helper
+app/code/local/Alanstormdotcom/Helloworld/Model
+app/code/local/Alanstormdotcom/Helloworld/sql
 然后我们要创建一个系统配置文件来激活这个模块 ---检测是否添加
 配置文件
 <frontend />
-		<routers />----http://example.com/frontName/actionControllerName/actionMethod/ 
+		<routers />----http://example.com/frontName/actionControllerName/actionMethod/
 		<modules >Packagename_Modulename(模块名)</modules>
 		<frontName />
      <helloworld />
-     配置路由 	--路由是用来把一个URL请求转换成一个执行控制器和方法		
-     为路由创建执行控制器 
-     app/code/local/Alanstormdotcom/Helloworld/controllers/IndexController.php 
+     配置路由 	--路由是用来把一个URL请求转换成一个执行控制器和方法
+     为路由创建执行控制器
+     app/code/local/Alanstormdotcom/Helloworld/controllers/IndexController.php
 
      -------2014-09-07-------------------------------
      我们可以不需要更改 Magento 的代码就能更改 Magento 的核心功能
@@ -177,7 +177,7 @@ app/code/local/Alanstormdotcom/Helloworld/sql
      定义了默认的模板
      template_links
      text_list
-     
+
      Magento 模型分为两类。第一类是基本的 ActiveRecord 类型,一张表
      一个对象的模型。第二类是 Entity Attribute Value(EAV)模型
 
@@ -206,7 +206,7 @@ app/code/local/Alanstormdotcom/Helloworld/sql
      数据库模型的curd---Magento 模型通过“load, save, delete”三个方法来支持基本的 Create,Read,Update 和 Delete
      操作
 
-     开启调试模式 
+     开启调试模式
      1、 在根目录的.htaccess 文件最后加入SetEnv MAGE_IS_DEVELOPER_MODE TRUE
      2、将index.php中
      if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
@@ -221,7 +221,7 @@ app/code/local/Alanstormdotcom/Helloworld/sql
   3、创建安装脚本
   4、创建升级脚本
   5、添加资源配置
-  select code,version from core_resource;core_resource这张表包含了系统中所有安装的模块和模块的版本		
+  select code,version from core_resource;core_resource这张表包含了系统中所有安装的模块和模块的版本
 
   Magento 升级的步骤
 
@@ -239,7 +239,7 @@ app/code/local/Alanstormdotcom/Helloworld/sql
 
 -------------2014-09-09---------------------------
 
-after'-'  before'-' 
+after'-'  before'-'
 page//
 <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
 <action method="setIsHandle"><applied>1</applied></action>
@@ -250,19 +250,19 @@ sectionName, groupName and fieldName are present in etc/system.xml file of your 
 --------------2014-09-10---------------------------
 $block = Mage::getModel('cms/block')----静态方法
 
-<?php echo $this->getLayout()->createBlock(‘cms/block’)->setBlockId('order_form')->toHtml() ?> 
+<?php echo $this->getLayout()->createBlock(‘cms/block’)->setBlockId('order_form')->toHtml() ?>
 
 block_id="order_form"----block_id
 
 cms /staic blocks
 
-<layout>  
-	<updates>  
-		<hotel>  
-          <file>hotel.xml</file>  
-      </hotel>  
-  </updates>  
-</layout>  
+<layout>
+	<updates>
+		<hotel>
+          <file>hotel.xml</file>
+      </hotel>
+  </updates>
+</layout>
 
 getChildHtml()---全部输出
 output()方法生成HTML---getlayout()/renderLayout()
@@ -295,7 +295,7 @@ modules:
    </(NameSpace_ModuleName>
 </modules>
 
-active	该模块是否生效(该element的值可在后台修改) 
+active	该模块是否生效(该element的值可在后台修改)
 codePool	app/code 的具体路径,指定的应用程序/代码子目录
 depends	是否依赖于其他的模块，如果被依赖的模块不存在，它就不active,指定其他的模块该模块的依赖关系
 version	定义版本，用于更新和安装,模块升级
@@ -353,14 +353,14 @@ global:
     <(modulename)><!-- custom config variables --></(modulename)>
 </global>
 
-models	
-resources	
-blocks	
-helpers	
-fieldsets	
-template	
-events	
-eav_attributes	
+models
+resources
+blocks
+helpers
+fieldsets
+template
+events
+eav_attributes
 (modulename)	自定义的变量(如设置邮件或newletter时非常有用)
 -----------------------------------------
 admin
@@ -393,9 +393,9 @@ XML Structure
             </admin>
             Elements
             Element	Description
-            attributes	
-            fieldsets	
-            routers	
+            attributes
+            fieldsets
+            routers
             ----------------------------------------
             adminhtml
             XML Structure
@@ -439,11 +439,11 @@ XML Structure
             </adminhtml>
             Elements
             Element	Description
-            events	
-            global_search	
-            translate	
-            layout	
-            (modulename)	自定义变量 
+            events
+            global_search
+            translate
+            layout
+            (modulename)	自定义变量
             ---------------------------------------------
             install
             XML Structure
@@ -488,11 +488,11 @@ XML Structure
                 </frontend>
                 Elements
                 Element	Description
-                secure_url	
-                events	
-                routers	
-                translate	
-                layout	
+                secure_url
+                events
+                routers
+                translate
+                layout
                 default
                 XML Structure
                 stores
@@ -508,24 +508,24 @@ XML Structure
 
                 -----------2014-09-14---------------------------------------
                 ------------数据模型
-                Magento中非EAV Model继承自Mage_Core_Model_Abstract,需要实现_construct方法 
+                Magento中非EAV Model继承自Mage_Core_Model_Abstract,需要实现_construct方法
 
-                protected function _construct(){  
-                $this->_init('Model tag 名/ResourceModel tag名');  
-                
-            }  
+                protected function _construct(){
+                $this->_init('Model tag 名/ResourceModel tag名');
+
+            }
             先通过model的tag找到model的resource model的定义标签， 再从resource model的定义标签中找到对应的resource model名字。
             ----------资源模型
-            非EAV ResourceModel继承自Mage_Core_Model_Mysql4_Abstract, 里面也需要实现 
+            非EAV ResourceModel继承自Mage_Core_Model_Mysql4_Abstract, 里面也需要实现
             <?php
-            protected function _construct(){  
-                $this->_init('Model tag 名/ResourceModel tag名','表格主键列名');  
-            }  
+            protected function _construct(){
+                $this->_init('Model tag 名/ResourceModel tag名','表格主键列名');
+            }
 
             Magento的模型并不直接访问数据库。每一个模型都有一个资源模型（Resource Model），每一个资源模型拥有两个适配器（Adapter），一个读，一个写。这样的话逻辑模型和数据库访问就分开了，所以从理论上讲更改底层数据库 只需要重写适配器就可以了，所有上层代码都不需要更改。
 
-            1. 到管理页面 admin 然后 System -> Configuration 
-            2. 选择你的网店 （通过 website/store selector）  
+            1. 到管理页面 admin 然后 System -> Configuration
+            2. 选择你的网店 （通过 website/store selector）
             3. 页面刷新后，选 'Developer' tab ，然后在Template Path Hints 选'Yes'.
             做完之后回到前台，刷新页面之后你就可以看到所有模板列表的路径了
 
@@ -616,37 +616,37 @@ XML Structure
                     getUrl()--Mage_Core_Block_Abstract
                     new ReflectionClass('Mage');
                     -------------2014-10-08----------------------------------------------------
-                    获取系统的字符集：  
-                    Mage::getStoreConfig('design/head/default_charset') 
+                    获取系统的字符集：
+                    Mage::getStoreConfig('design/head/default_charset')
 
-获取 http://magentonotes.com/ 
-echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); 
+获取 http://magentonotes.com/
+echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 
-获取 http://magentonotes.com/js/ 
-echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); 
+获取 http://magentonotes.com/js/
+echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);
 
-获取 http://magentonotes.com/index.php/  
-echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); 
+获取 http://magentonotes.com/index.php/
+echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 
-获取 http://magentonotes.com/media/  
-echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); 
+获取 http://magentonotes.com/media/
+echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 
-获取 http://magentonotes.com/skin/  
-echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); 
+获取 http://magentonotes.com/skin/
+echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
 
-简化操作：  
-echo Mage::getBaseUrl('skin'); echo Mage::getBaseUrl('media'); echo Mage::getBaseUrl('js'); 
+简化操作：
+echo Mage::getBaseUrl('skin'); echo Mage::getBaseUrl('media'); echo Mage::getBaseUrl('js');
 
-//获取首页 
-echo Mage::helper('core/url')->getHomeUrl(); 
+//获取首页
+echo Mage::helper('core/url')->getHomeUrl();
 
 //返回当前页面的路径
 echo Mage::helper('core/url')->getCurrentUrl();
 
-//显示登录路径  
+//显示登录路径
 echo $this->getUrl('customer/account/login');
 
-//显示图片的方法：  
+//显示图片的方法：
 echo $this->getSkinUrl('images/qty.gif').
 
 --------------------2014-10-09----------------------------------------------------
@@ -741,11 +741,11 @@ $themeColor = $attributes['theme_color']->getFrontend()->getValue($_product);
 
 19：获取configurable产品simple product
 
-if($_product->getTypeId() == "configurable"):	
+if($_product->getTypeId() == "configurable"):
 	$ids = $_product->getTypeInstance()->getUsedProductIds();
 foreach ($ids as $id) :
   $simpleproduct = Mage::getModel('catalog/product')->load($id);
-$simpleproduct->getName()." - ".(int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($simpleproduct)->getQty();		
+$simpleproduct->getName()." - ".(int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($simpleproduct)->getQty();
 $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $product);
 endforeach;
 endif;
@@ -884,7 +884,7 @@ $select = $connection->select()
     ->from('tablename', array('*')) // select * from tablename or use array('id','title') selected values
     ->where('id=?',1)               // where id =1
     ->group('title');               // group by title
-    
+
 $rowsArray = $connection->fetchAll($select); // return all rows
 $rowArray =$connection->fetchRow($select);   //return row
 
@@ -1032,7 +1032,7 @@ tail -f var/log/system.log
     </default>
 </config>
 
-<?php 
+<?php
 save attribute
 $product->getResource()->saveAttribute($product, "attribute");
 
@@ -1047,11 +1047,11 @@ callback:_beforeChildToHtml();
 --------------------------------------------------
 Callback: _construct()
 The _construct method is Magento’s internal (or “pseudo”) constructor.
- All objects that inherit from Varien_Object (which includes blocks) have this callback, which is called when you instantiate a block. 
+ All objects that inherit from Varien_Object (which includes blocks) have this callback, which is called when you instantiate a block.
  This method isn’t specific to blocks, but its behavior is close enough to warrant its inclusion in our lifecycle callback lineup.
 
 Callback: _prepareLayout()
-The _prepareLayout() method is called immediately after a block has been added to the layout object for the first time. 
+The _prepareLayout() method is called immediately after a block has been added to the layout object for the first time.
 If this seems vague don’t worry, we’ll get to some specifics in a moment.
 
 Callback: _beforeToHtml()
@@ -1059,7 +1059,7 @@ The _beforeToHtml() method is called immediately before a block’s HTML content
 
 Callback: _afterToHtml($html)
 The _afterToHtml method is called immediately after a block’s HTML content is generated.
- It’s also the only method with both a method parameter and a required return value. Whatever 
+ It’s also the only method with both a method parameter and a required return value. Whatever
  content is returned from your _afterToHtml method call will become the rendered content for that block. So the following
 
 class Packagename_Namespace_Block_Model extends Mage_Core_Block_Template
@@ -1083,12 +1083,12 @@ class Packagename_Namespace_Block_Model extends Mage_Core_Block_Template
 would result in an empty block being rendered. Make sure you don’t forget your return value if you’re using _afterToHtml.
 
 Callback: _toHtml()
-The _toHtml method is another questionable inclusion in the lifecycle lineup. 
+The _toHtml method is another questionable inclusion in the lifecycle lineup.
 The _toHtml method is where you put the code that should render your block. You’ll see a little later why we’re including this as a lifecycle callback.
 
 Callback: _beforeChildToHtml($name, $block)
 Finally, there’s the little known _beforeChildToHtml method. In Magento,
-a layout is a nested tree structure of blocks, 
+a layout is a nested tree structure of blocks,
 with parent blocks rendering child blocks. When a parent renders one of its children (through a call to $this->getChildHtml('name')),
 this method is called immediately before rendering the child.
 
@@ -1109,7 +1109,7 @@ $this->loadLayout();
 $this->_setActiveMenu('lesson09/items');
 $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item Manager'), Mage::helper('adminhtml')->__('Item Manager'));
 $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item News'), Mage::helper('adminhtml')->__('Item News'));
- 
+
 $this->_addContent($this->getLayout()->createBlock(' lession09/adminhtml_lession09_edit'))
 ->_addLeft($this->getLayout()
 ->createBlock('lession09/adminhtml_lession09_edit_tabs'));
@@ -1123,21 +1123,21 @@ $this->_forward('edit');
 public function editAction() {
 	$id = $this->getRequest()->getParam('id');
 	$model = Mage::getModel('lesson09/lesson09')->load($id);
-	 
+
 	if ($model->getId() || $id == 0) {
 	$data = Mage::getSingleton('adminhtml/session')->getFormData(true);
 	if (!empty($data)) {
 	$model->setData($data);
 	}
-	 
+
 	Mage::register('lesson09_data', $model);
-	 
+
 	$this->loadLayout();
 	$this->_setActiveMenu('lesson09/items');
-	 
+
 	$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item Manager'), Mage::helper('adminhtml')->__('Item Manager'));
 	$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Item News'), Mage::helper('adminhtml')->__('Item News'));
-	 
+
 	$this->_addContent($this->getLayout()->createBlock(' lession09/adminhtml_lession09_edit'))
 	->_addLeft($this->getLayout()
 	->createBlock('lession09/adminhtml_lession09_edit_tabs'));
@@ -1154,21 +1154,32 @@ class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit extends Mage_Adminhtml_Bl
 	public function __construct()
 	{
 		parent::__construct();
-		 
+
 		$this->_objectId = 'id';
 		$this->_blockGroup = 'lesson09';
 		$this->_controller = 'adminhtml_lesson09';
-		 
+
 		$this->_updateButton('save', 'label', Mage::helper('lesson09')->__('Save'));
 		$this->_updateButton('delete', 'label', Mage::helper('lesson09')->__('Delete'));
-		 
+
 		$this->_addButton('saveandcontinue', array(
 		'label' => Mage::helper('adminhtml')->__('Save And Continue Edit'),
 		'onclick' => 'saveAndContinueEdit()',
 		'class' => 'save',
 		), -100);
+          $this->_formScripts[] = "
+         function toggleEditor() {
+         if (tinyMCE.getInstanceById('salestaff_content') == null) {
+         tinyMCE.execCommand('mceAddControl', false, 'salestaff_content');
+         } else {
+         tinyMCE.execCommand('mceRemoveControl', false, 'salestaff_content');
+         }
+         }
+        function saveAndContinueEdit(){
+         editForm.submit($('edit_form').action+'back/edit/');
+         }";
 		}
-		 
+
 		public function getHeaderText()
 		{
 		return Mage::helper('lesson09')->__('My Form Container');
@@ -1219,14 +1230,14 @@ class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit_Tab_Form extends Mage_Adm
 		$form = new Varien_Data_Form();
 		$this->setForm($form);
 		$fieldset = $form->addFieldset('lession09_form',array('legend'=>Mage::helper('lession09')->__('Item information')));
-		 
+
 		$fieldset->addField('title', 'text', array(
 		'label' => Mage::helper('lession09')->__('Title'),
 		'class' => 'required-entry',
 		'required' => true,
 		'name' => 'title',
 		));
-		 
+
 		$fieldset->addField('content', 'editor', array(
 		'name' => 'content',
 		'label' => Mage::helper('dochelp')->__('Content'),
@@ -1235,7 +1246,7 @@ class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit_Tab_Form extends Mage_Adm
 		'wysiwyg' => false,
 		'required' => true,
 		));
-		 
+
 		if ( Mage::getSingleton('adminhtml/session')->getlesson09Data() )
 		{
 		$form->setValues(Mage::getSingleton('adminhtml/session')->getlesson09Data());
@@ -1243,7 +1254,7 @@ class Magestore_Lesson09_Block_Adminhtml_Lesson09_Edit_Tab_Form extends Mage_Adm
 		} elseif ( Mage::registry('lesson09_data') ) {
 		$form->setValues(Mage::registry('lesson09_data')->getData());
 		}
-		 
+
 		return parent::_prepareForm();
 	}
 }

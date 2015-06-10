@@ -81,6 +81,7 @@ echo "127.0.0.1       lc.$project_name.com" >> /etc/hosts
 # Reloads apache2 service to take information for the new project
 sudo service apache2 reload
 #sudo chmod 777 /var/www/$project_name/logs/*
+sudo chown $USER:$USER /var/www/bootstrap/logs/
 echo "Apache service has been restarted."
 echo "Project $project_name is ready!"
 echo "It can be reached at this address: lc.$project_name.com"
