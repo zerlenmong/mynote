@@ -1117,7 +1117,193 @@ try{
     Mage::log($e->getMessage());
   }
 
+--------------------------------20150612---------------------------------------
 
+Magento CMS syntax
+Every Magento user noticed that there is special {{magentocode}} syntax available in cms pages and blocks. We traced a bit to find out which params are available and what exactly they do.
+
+As strange as this may sound, processor class that gets called is Mage_Core_Model_Email_Template_Filter located at app/code/core/Mage/Core/Model/Email/Template/Filter.php .
+
+There are also some interesting directives in superclass Varien_Filter_Template, but if i’m not mistaken, none of them can be used.
+
+ 
+
+There are six replacement codes  that can be used and each triggers its equivalent Directive function:
+
+skinDirective
+mediaDirective
+htmlescapeDirective
+storeDirective
+blockDirective
+layoutDirective
+
+I’ll start with easier and most commonly used and continue with advanced ones in part two of this article.
+
+ 
+
+ 
+
+1. skinDirective
+
+Description: Used to retrieve path of skin folder and its files, theme fallback respected
+Example: {{skin url=’images/image.jpg’ _theme=’blank’}}
+Synonym: Mage::getDesign()->getSkinUrl($params['url'], $params)
+Params:
+url = empty or relative file path
+_theme = alternative theme, fallbacks if file not exist
+_package = alternative package
+_area = alternative area(frontend,adminhtml)
+_type, _default etc. = nothing useful, somebody please correct me if i’m wrong
+
+ 
+
+ 
+
+2. mediaDirective
+
+Description: Used to retrieve path of root/media folder and its files
+Example: {{media url=’image.jpg’}}
+Synonym: Mage::getBaseUrl(‘media’) . $params['url']
+Params:
+url = empty or relative file path
+
+ 
+
+ 
+
+3. htmlescapeDirective
+
+Description: Used to escape special html chars
+Example: {{htmlescape var=’<a href=”www.inchoo.net”>inchoo</a><b>inchoo</b><i>inchoo</i>’ allowed_tags=’b'}}
+Synonym: Mage::helper(‘core’)->htmlEscape($params['var'], $params['allowed_tags'])
+Params:
+var = string to escape
+allowed_tags = comma-separated list of allowed tags
+
+ 
+
+ 
+
+4. storeDirective
+
+Description: Used to build magento routes and custom urls
+Example: {{store url=’customer/account’ _query_a=’8′}}
+Synonym: Mage::getUrl($params['url'], $params);
+Params:
+url = magento routers url
+direct_url = normal url, appended to baseurl
+_query_PARAMNAME = adds query param, for example _query_a=’8′ adds a=8 to url
+_fragment = adds fragment, for example #comments
+_escape = escapes “,’,<,>
+custom = if using magento route url param, every custom param added will be appended like /a/8/b/10
+
+ 
+
+ 
+
+5. blockDirective
+
+Description: Prints out cms static block or any block defined by type
+
+Example:
+{{block id=”static_block_code”}} – static block example
+{{block type=”core/template” template=”custom/test.phtml”}} – core/template block with defined template
+
+Synonym:
+Mage::app()->getLayout()->createBlock(‘cms/block’)->setBlockId(‘static_block_code’)->toHtml();
+Mage::app()->getLayout()->createBlock(‘core/template’)->setTemplate(‘custom/test.phtml’)->toHtml();
+
+Params:
+id = static block code; if id is set type is always cms/block
+type = block type, same as in layout files
+Any additional parameter provided will be passed on to block object (template=”custom/test.phtml” from above example will trigger ->setTemplate(“custom/test.phtml”) on that block)
+
+ 
+
+ 
+
+6. layoutDirective
+
+Description: Reads and prints out layout handle defined in your layout xml files
+
+Example: {{layout area=”frontend” handle=”my_layout_handle”}}
+<sales_email_order_items> layout handle defined in sales.xml is used this way in order e-mail templates for example.
+
+Synonym:
+$layout = Mage::getModel(‘core/layout’);
+$layout->getUpdate()->load(‘my_layout_handle’);
+$layout->generateXml()->generateBlocks();
+echo $layout->getOutput();
+
+Params:
+area = frontend or adminhtml
+handle = layout handle
+Any additional parameter provided will be passed to every block defined in layout
+
+ 
+
+ 
+
+7. configDirective
+
+Description: Prints out Magneto config value. Use predefined through Insert Variable dialog in editor.
+
+Example: {{config path=”general/store_information/address”}}
+
+Synonym: Mage::getStoreConfig(‘general/store_information/address’);
+
+Params:
+path = config path
+
+ 
+
+ 
+
+8. customvarDirective
+
+Description: Prints out Custom Variable HTML Value (System->Custom Variables in admin). Can be easily added through Insert Variable dialog in editor.
+
+Example: {{customvar code=”my_custom_var”}}
+
+Synonym: Mage::getModel(‘core/variable’)->loadByCode(‘my_custom_var’)->getValue();
+
+Params:
+code = custom variable code
+
+ 
+
+ 
+
+9. protocolDirective
+
+Description: Prints out current protocol (http or https) for absolute links
+
+Example:
+{{protocol}} – current protocol http or https
+{{protocol url=”inchoo.net/”}} – domain URL with current protocol
+{{protocol http=”http://inchoo.net” https=”https://inchoo.net”}} – one or another
+
+Params:
+url = url to print with proper protocol prefix http(s)://; (for Magento links use {{store}} code)
+http + https = prints out https value if viewing secure page, http value otherwise
+store = optional store id to check secure by that store; I’m not exactly sure what’s the purpose of this
+
+ 
+
+ 
+
+10. widgetDirective
+
+Description: Prints out defined widget. Magento widgets automatically insert these codes, for manual custom usage it’s probably better to use block codes.
+
+Example: {{widget type=”catalog/product_widget_new” products_count=”5″ template=”catalog/product/widget/new/content/new_list.phtml”}}
+
+Synonym: Mage::app()->getLayout()->createBlock(‘catalog/product_widget_new’, null, array(‘products_count’=>5, ‘template’=>’catalog/product/widget/new/content/new_list.phtml’))->toHtml();
+
+Params:
+type = widget type, similar as block type
+name = determine what name block should have in layout; probably needed only if more than one same widget is used on same page
+Any additional parameter provided will be passed on to widget object. There is also code that accepts id param, but it currently does nothing useful
 
 
 

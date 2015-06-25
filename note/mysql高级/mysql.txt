@@ -256,3 +256,8 @@ extra   ---using where//条件查询
 			针对sns社区(开心  qq空间)
 
 			拆分的原则:ceil($uid/10000)--->表
+
+
+创建用户并赋予用户权限
+CREATE USER 'player'@'localhost' IDENTIFIED BY 'player';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON testing.* TO 'player'@'localhost';

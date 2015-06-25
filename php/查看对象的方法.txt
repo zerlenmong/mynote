@@ -1,0 +1,17 @@
+array get_class_methods (mixed $class_name) 获取指定类中可访问的成员函数。
+array get_class_vars (string $class_name) 获取指定类中可以访问的成员变量。
+array get_object_vars (object $object) 获取可以访问的非静态成员变量。
+
+
+
+get_declared_interfaces
+get_declared_classes
+
+
+
+string get_class ([ object $object = NULL ]) 获取参数对象的类名称。
+string get_called_class (void) 静态方法调用时当前的类名称。
+
+string get_parent_class ([ mixed $object ]) 获取参数对象的父类，如果没有父类则返回false。
+bool is_a (object $object, string $class_name) 判断第一个参数对象是否是$class_name类本身或是其父类的对象。
+bool is_subclass_of (mixed $object, string $class_name) 判断第一个参数对象是否是$class_name的子类。
