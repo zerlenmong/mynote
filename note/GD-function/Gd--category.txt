@@ -1,0 +1,78 @@
+作用：
+   修改配置文件
+   要加载动态链接库文件php_gd2.dll
+   extension=php_gd2.dll
+
+   创建图片画布
+ $resource =imagecreatetruecolor(w,h)--创建真彩图片画布;
+
+   产生色值
+  $color =  imagecolorallocate(r,g,b)
+
+   填充颜色
+   imagefill(resource,x,y,color);
+   说明：遇到边界则停止
+
+   图片上写文字
+   imagechar(resource,fontsize,x,y,'char',color)----横写一个字符
+   imagestring(resource,fontsize,x,y,'string',color)---横写字符串
+   只能写英文
+   x,y和字的左上角重叠
+
+   imagecharup(resource,fontsize,x,y,'char',color)---竖立写一个字符
+   imagestringup(resource,fontsize,x,y,'char',color)---竖立写字符串
+   只能写英文
+   x,y和字的左上角重叠
+
+   写中文
+   imagesfttext(resource,fontsize,'倾斜的角度',x,y,color,'字体文件path','content')
+
+   画点
+   imagesetpixel(resource,x,y,color);
+
+   画线
+   imagesline(resource,x1,y1,x2,y2,color);
+
+   画虚线
+   imagedashedline(resource,x1,y1,x2,y2,color);
+
+   画圆/画椭圆
+   imageellipse(resource,cx,cy,w,h,color);
+   当'w'='h'时为圆
+   其它为椭圆
+
+   画有填充颜色的圆/椭圆
+   imagefilledellipse(resource,cx,cy,w,h,color)
+
+   画圆弧
+   imagearc(resource,cx,cy,w,h,start,end,color);
+   imagefilledarc(resource,cx,cy,w,h,start,end,color,style)
+   style 1,2,3,4
+
+   画矩形
+   imagerectangle(resource,x1,y1,x2,y2,color);
+
+   获取图片信息
+   getimagesize('图片路径')
+      可以用来判断一个文件是否为图片如果是图片返回一个数组，不是图片返回false
+
+
+   由一个已知图片创建一个图片资源
+   $resource = imagecreatefromgif(path);
+   $resource = imagecreatefromjpeg(path);
+   $resource = imagecreatefrompng(path);
+
+   把一张图片拷贝到另一张图片中
+   imagecopy('目标图片','被拷贝图片',放在目标x,放在目标y,被拷贝x,被拷贝y,被拷贝的宽w,被拷贝的高h);
+
+   把一张图上拷贝到另一张图片中并缩放
+   imagecopyresized('目标图片','被拷贝图片',放在目标x,放在目标y,被拷贝x,被拷贝y,到目标图片的宽,到目标图片的高,被拷贝的宽w,被拷贝的高h);
+
+   生成图片类型
+   	imagepng();
+   	保存：imagepng(resource[,path])
+   	回传给浏览器
+
+
+   销毁
+      imagedestroy(resource);

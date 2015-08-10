@@ -37,6 +37,121 @@ sass-convert main.scss main.sass ---scss与sass之间的转换
 
 compass
 compass-style.org
-gen install compass
+gem install compass
 compass -v ---查看版本
 compass create learn-compass-init --创建一个compass项目
+
+
+sass 语法
+sass有两种注释方式，一种是标准的css注释方式/* */，另一种则是//双斜杆形式的单行注释，不过这种单行注释不会被转译出来
+@import(path);
+sass的变量必须是$开头，后面紧跟变量名，而变量值和变量名之间就需要使用冒号(:)分隔开（就像CSS属性设置一样）
+，如果值后面加上!default则表示默认值。
+普通变量
+定义之后可以在全局范围内使用。
+默认变量
+sass的默认变量仅需要在值后面加上!default即可(sass的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可)
+特殊变量
+一般我们定义的变量都为属性值，可直接使用，但是如果变量作为属性或在某些特殊情况下等则必须要以#{$variables}形式使用。
+多值变量
+多值变量分为list类型和map类型
+
+sass的嵌套包括两种：一种是选择器的嵌套；另一种是属性的嵌套。我们一般说起或用到的都是选择器的嵌套。
+选择器嵌套
+所谓选择器嵌套指的是在一个选择器中嵌套另一个选择器来实现继承，从而增强了sass文件的结构性和可读性。
+在选择器嵌套中，可以使用&表示父元素选择器
+属性嵌套
+所谓属性嵌套指的是有些属性拥有同一个开始单词，如border-width，border-color都是以border开头
+@at-root 普通跳出嵌套
+@at-root (without: ...)和@at-root (with: ...)
+默认@at-root只会跳出选择器嵌套，而不能跳出@media或@support，如果要跳出这两种，则需使用@at-root (without: media)，@at-root (without: support);
+这个语法的关键词有四个：all（表示所有），rule（表示常规css），media（表示media），support（表示support，因为@support目前还无法广泛使用，所以在此不表）。我们默认的@at-root其实就是@at-root (without:rule)。
+
+混合(@mixin)
+sass中使用@mixin声明混合，可以传递参数，参数名以$符号开始，多个参数以逗号分开，也可以给参数设置默认值。
+声明的@mixin通过@include来调用。
+多个参数mixin
+调用时可直接传入值，如@include传入参数的个数小于@mixin定义参数的个数，则按照顺序表示，
+后面不足的使用默认值，如不足的没有默认值则报错。除此之外还可以选择性的传入参数，使用参数名与值同时传入。
+多组值参数mixin
+如果一个参数可以有多组值，如box-shadow、transition等，那么参数则需要在变量后加三个点表示，如$variables...。
+@content
+@content在sass3.2.0中引入，可以用来解决css3的@media等带来的问题。
+它可以使@mixin接受一整块样式，接受的样式从@content开始
+
+建议传递参数的用@mixin，而非传递参数类的使用继承%。
+
+继承
+sass中，选择器继承可以让选择器继承另一个选择器的所有样式，并联合声明。
+使用选择器的继承，要使用关键词@extend，后面紧跟需要继承的选择器。
+
+占位选择器%
+从sass 3.2.0以后就可以定义占位选择器%。
+这种选择器的优势在于：如果不调用则不会有任何多余的css文件，避免了以前在一些基础的文件中预定义了很多基础的样式，
+然后实际应用中不管是否使用了@extend去继承相应的样式，都会解析出来所有的样式。占位选择器以%标识定义，通过@extend调用。
+
+函数
+sass定义了很多函数可供使用，当然你也可以自己定义函数，以@fuction开始
+实际项目中我们使用最多的应该是颜色函数，而颜色函数中又以lighten减淡和darken加深为最，
+其调用方法为lighten($color,$amount)和darken($color,$amount)，它们的第一个参数都是颜色值，第二个参数都是百分比。
+
+字符串函数
+字符串函数顾名思意是用来处理字符串的函数。Sass的字符串函数主要包括两个函数：
+ unquote($string)：删除字符串中的引号；
+ quote($string)：给字符串添加引号。
+
+数字函数
+
+Sass中的数字函数提要针对数字方面提供一系列的函数功能：
+ percentage($value)：将一个不带单位的数转换成百分比值；
+ round($value)：将数值四舍五入，转换成一个最接近的整数；
+ ceil($value)：将大于自己的小数转换成下一位整数；
+ floor($value)：将一个数去除他的小数部分；
+ abs($value)：返回一个数的绝对值；
+ min($numbers…)：找出几个数值之间的最小值；
+ max($numbers…)：找出几个数值之间的最大值。
+
+List函数
+
+列表函数主要包括一些对列表参数的函数使用，主要包括以下几种：
+ length($list)：返回一个列表的长度值；
+ nth($list, $n)：返回一个列表中指定的某个标签值
+ join($list1, $list2, [$separator])：将两个列给连接在一起，变成一个列表；
+ append($list1, $val, [$separator])：将某个值放在列表的最后；
+ zip($lists…)：将几个列表结合成一个多维的列表；
+ index($list, $value)：返回一个值在列表中的位置值。
+
+Introspection函数
+Introspection函数包括了几个判断型函数：
+ type-of($value)：返回一个值的类型
+ unit($number)：返回一个值的单位；
+ unitless($number)：判断一个值是否带有单位
+ comparable($number-1, $number-2)：判断两个值是否可以做加、减和合并
+
+Miscellaneous函数
+在这里把Miscellaneous函数称为三元条件函数，主要因为他和JavaScript中的三元判断非常的相似。
+他有两个值，当条件成立返回一种值，当条件不成立时返回另一种值：
+
+自定义函数
+
+自定义函数是用户根据自己一些特殊的需求编写的Sass函数。
+在很多时候，Sass自带的函数并不能满足功能上的需求，所以很多时候需要自定义一些函数。
+@function strip-units($number){
+    @return $number / ($number * 0 + 1);
+}     
+
+运算
+sass具有运算的特性，可以对数值型的Value(如：数字、颜色、变量等)进行加减乘除四则运算。
+请注意运算符前后请留一个空格，不然会出错。
+
+条件判断及循环
+@if判断
+@if可一个条件单独使用，也可以和@else结合多条件使用;
+三目判断
+语法为：if($condition, $if_true, $if_false) 。三个参数分别表示：条件，条件为真的值，条件为假的值。
+for循环
+for循环有两种形式，分别为：@for $var from <start> through <end>和@for $var from <start> to <end>。
+$var表示变量，start表示起始值，end表示结束值，这两个的区别是关键字through表示包括end这个数，而to则不包括end这个数。
+@each循环
+语法为：@each $var in <list or map>。
+其中$var表示变量，而list和map表示list类型数据和map类型数据。sass 3.3.0新加入了多字段循环和map数据循环。
