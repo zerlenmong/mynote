@@ -1,10 +1,10 @@
 git config --global --add merge.ff false
 初始化操作 
-    $ git config -global user.name <name> #设置提交者名字 
-    $ git config -global user.email <email> #设置提交者邮箱 
-    $ git config -global core.editor <editor> #设置默认文本编辑器 
-    $ git config -global merge.tool <tool> #设置解决合并冲突时差异分析工具 
-    $ git config -list #检查已有的配置信息 
+    $ git config --global user.name <name> #设置提交者名字 
+    $ git config --global user.email <email> #设置提交者邮箱 
+    $ git config --global core.editor <editor> #设置默认文本编辑器 
+    $ git config --global merge.tool <tool> #设置解决合并冲突时差异分析工具 
+    $ git config --list #检查已有的配置信息 
 
 创建新版本库 
     $ git clone <url> #克隆远程版本库 

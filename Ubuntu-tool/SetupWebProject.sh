@@ -28,7 +28,7 @@ echo "Folder for log files has been created."
 # Makes sure the user has permissions on the project folder
 sudo chown -R $USER:$USER /var/www/$project_name/public_html
 # Makes sure the user has permissions on the logs folder
-sudo chown -R $USER:$USER /var/www/$project_name/logs
+sudo chown -R 777 /var/www/$project_name/logs
 # Ensure anyone can read the files
 #sudo chmod -R 755 /var/www
 # Creates and example index.html file in the project folder
@@ -81,7 +81,7 @@ echo "127.0.0.1       lc.$project_name.com" >> /etc/hosts
 # Reloads apache2 service to take information for the new project
 sudo service apache2 reload
 #sudo chmod 777 /var/www/$project_name/logs/*
-sudo chown $USER:$USER /var/www/bootstrap/logs/
+sudo chown $USER:$USER /var/www/$project_name/logs/
 echo "Apache service has been restarted."
 echo "Project $project_name is ready!"
 echo "It can be reached at this address: lc.$project_name.com"

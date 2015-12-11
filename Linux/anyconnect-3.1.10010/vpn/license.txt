@@ -1,0 +1,44 @@
+Supplemental End User License Agreement for Cisco Systems AnyConnect Secure Mobility and other related Client Software 
+
+IMPORTANT: READ CAREFULLY 
+This Supplemental End User License Agreement ("SEULA") contains additional terms and conditions for the Software Product licensed under the End User License Agreement ("EULA") between You ("You" as used herein means You and the business entity you represent) and Cisco (collectively, the "Agreement"). Capitalized terms used in this SEULA but not defined will have the meanings assigned to them in the EULA. To the extent that there is a conflict between the terms and conditions of the EULA and this SEULA, the terms and conditions of this SEULA will take precedence. 
+In addition to the limitations set forth in the EULA on your access and use of the Software, you agree to comply at all times with the terms and conditions provided in this SEULA. DOWNLOADING, INSTALLING, OR USING THE SOFTWARE CONSTITUTES ACCEPTANCE OF THE AGREEMENT, AND YOU ARE BINDING YOURSELF AND THE BUSINESS ENTITY THAT YOU REPRESENT (COLLECTIVELY, "CUSTOMER") TO THE AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE TERMS OF THE AGREEMENT, THEN CISCO IS UNWILLING TO LICENSE THE SOFTWARE TO YOU AND (A) YOU MAY NOT DOWNLOAD, INSTALL OR USE THE SOFTWARE, AND (B) YOU MAY RETURN THE SOFTWARE (INCLUDING ANY UNOPENED CD PACKAGE AND ANY WRITTEN MATERIALS) FOR A FULL REFUND, OR, IF THE SOFTWARE AND WRITTEN MATERIALS ARE SUPPLIED AS PART OF ANOTHER PRODUCT, YOU MAY RETURN THE ENTIRE PRODUCT FOR A FULL REFUND. YOUR RIGHT TO RETURN AND REFUND EXPIRES 30 DAYS AFTER PURCHASE FROM CISCO OR AN AUTHORIZED CISCO RESELLER, AND APPLIES ONLY IF YOU ARE THE ORIGINAL END USER PURCHASER. 
+For purposes of this SEULA, the Product name and the Product description You have ordered is any of the following ("Software"): 
+- Cisco AnyConnect Secure Mobility Client 
+- Cisco AnyConnect VPN Client 
+- Cisco AnyConnect Profile Editor 
+- Cisco AnyConnect Host Scan (HostScan) 
+- Cisco AnyConnect Diagnostics and Reporting Tool (DART) 
+- Cisco SSL VPN Client 
+- Cisco VPN Client 
+- Cisco Secure Desktop 
+- Smart Tunnels 
+- Port Forwarding 
+- Additional SSL VPN delivered applets 
+
+Definitions 
+For purposes of this SEULA, the following definitions apply: 
+"Endpoint" means a computer, smartphone or other mobile device used in conjunction with any of the Software. 
+"Network Access Manager Module" means a separate module in the Cisco AnyConnect Secure Mobility Client with IEEE 802.1X authentication functionality to manage wired and wireless network connections. 
+"Non-personal Information" means technical and related information that is not personally identifiable, including, but not limited to, the operating system type and version, origin and nature of identified malicious system threats, and the Software modules installed on an Endpoint device. 
+"Personal Information" means any information that can be used to identify an individual, including, but not limited to, an individual's name, user name, email address and any other personally identifiable information. 
+
+Additional License Terms and Conditions 
+1. Installation and Use on Unlimited Number of Endpoint Devices 
+Cisco hereby grants You the right to install and use any of the Software listed above in this SEULA on an unlimited number of Endpoint devices, provided that, except with respect to the Network Access Manager Module as described in Section 2 below, each of those Endpoint devices must use the Software only to connect to Cisco equipment. These license grants are subject to export restrictions in the EULA and to the network equipment license restrictions in Section 3 below. You may make one copy of the Software for each such Endpoint device and a reasonable number of backup copies for the purpose of installing the Software on that Endpoint device. 
+2. Cisco AnyConnect Network Access Manager Module 
+The Network Access Manager Module, as described in the Cisco AnyConnect Secure Mobility Client Administrator Guide, may be used by You in conjunction with non-Cisco wired and wireless equipment for the purpose of connecting to non-Cisco network equipment. Support services (including Technical Assistance or TAC support) are only available if You have an active support contract for Cisco Products used in conjunction with the Network Access Manager Module. Support services will not be provided directly to your end users by Cisco. 
+3. Cisco Network Equipment and Hosted Service License Entitlements and Restrictions 
+Your use of the Software or specific features thereof with Cisco network equipment shall be subject to license entitlements and restrictions for the applicable Cisco network equipment or hosted services. Please consult Your administrator guide for the applicable Cisco network equipment or hosted services for the relevant license entitlements and restrictions. 
+4. Distribution to Third Party Business Partners and Customers 
+You may copy and distribute the Software to your third party business partners and customers solely and exclusively for the purposes of accessing your Cisco equipment, provided that You shall remain responsible for compliance with the EULA and this SEULA by each such third party business partner and customer. Each such distribution of the Software to a third party must be accompanied by a copy of the EULA and this SEULA. 
+5. No Support to Third Party Business Partners or Customers 
+Cisco will not provide end-user support (including Technical Assistance or TAC support) to any third party business partner or customer that receives the Software in accordance with Section 4 hereof. You shall be responsible for providing all support to each such third party. 
+6. Effect of Termination on Third Party Business Partners or Customers 
+In the event of termination of the Agreement, You must use commercially reasonable efforts to notify the third party business partner or customer to whom You have distributed the Software that their rights of access and use of the Software have also ceased. 
+7. Data, Information and Privacy 
+If You agree to this Agreement, You consent to Cisco's collection, use, processing and storage of Personal Information and Non-personal Information, and the transfer of Personal Information and Non-personal Information to Cisco, including the transfer of such information to the United States and/or another country outside the European Economic Area, as described in Cisco's Privacy Statement and the AnyConnect Secure Mobility Client Supplement, available at http://www.cisco.com/web/siteassets/legal/privacy.html. 
+
+Description of Other Rights and Obligations 
+Please refer to the Cisco Systems, Inc. End User License Agreement. 
+

@@ -1,4 +1,4 @@
-c=create，f=file，z=zip,v=visible
+c=create，f=file，z=zip,v=visible,x=解压
 tar    tar 
 .gz     gzip,gunzip
 .bz2    bzip2,bunzip2
@@ -59,4 +59,4 @@ tar    tar
 --------------------------------------------- 
 .rar 
 解压：rar a FileName.rar 
-压缩：r ar e FileName.rar
+压缩：rar e FileName.rar

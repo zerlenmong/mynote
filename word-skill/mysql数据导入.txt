@@ -1,5 +1,17 @@
 导入：mysql -h localhost -u root --password="123" $1 <  $2 ;
+导入：mysql -h localhost -u root --password="123"  <  $2 ;
 导出：mysqldump -h localhost -u root --password="123" $1 >  $2;
 注 ：其中 $1->数据库名 
 	  $2->sql文件的全路径
 
+  1、导出數據库為dbname的表结构（其中用戶名為root,密码為dbpasswd,生成的脚本名為db.sql）
+    mysqldump -uroot -pdbpasswd -d dbname >db.sql;
+
+    2、导出數據库為dbname某张表(test)结构
+    mysqldump -uroot -pdbpasswd -d dbname test>db.sql;
+
+    3、导出數據库為dbname所有表结构及表數據（不加-d）
+    mysqldump -uroot -pdbpasswd  dbname >db.sql;
+
+    4、导出數據库為dbname某张表(test)结构及表數據（不加-d）
+    mysqldump -uroot -pdbpasswd dbname test>db.sql;
