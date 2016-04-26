@@ -2,7 +2,7 @@ git config --global --add merge.ff false
 初始化操作 
     $ git config --global user.name <name> #设置提交者名字 
     $ git config --global user.email <email> #设置提交者邮箱 
-    $ git config --global core.editor <editor> #设置默认文本编辑器 
+    $ git config --global core.editor <editor> #设置默认文本编辑器 //git config --global core.editor "vim"
     $ git config --global merge.tool <tool> #设置解决合并冲突时差异分析工具 
     $ git config --list #检查已有的配置信息 
 
@@ -327,7 +327,7 @@ git config --global alias.visual "!gitk" //启动gitk。运行外部命令，只
 
 
 git 差异打包
-git diff 版本号1 版本号2 --name-only|xargs zip update.zip
+git diff 版本号1 版本号2 --name-only|xargs zip update.zip -u
 
 
 
@@ -371,7 +371,21 @@ dbg
 /dbg
 
 
-
+//Shell代码  
+git config --global --add user.email "mebusw@163.com"    
+git config --global --add user.name "mebusw"  
+git config --global alias.co checkout  
+git config --global alias.br branch  
+git config --global alias.ci commit  
+git config --global alias.st status  
+git config --global alias.last 'log -1 HEAD'  
+git config --global color.diff auto  
+git config --global color.status auto  
+git config --global color.branch auto  
+git config --global alias.co checkout  
+git config --global merge.tool kdiff3  
+git config --global meregtool.kdiff3.path "/usr/bin/kdiff3"  
+git config --global alias.visual "!gitk"  
 
 
 
