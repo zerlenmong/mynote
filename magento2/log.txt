@@ -1,0 +1,9 @@
+PHP
+
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info('Your text message');
+
+You can also print PHP objects and arrays like below :
+$logger->info(print_r($yourArray, true));

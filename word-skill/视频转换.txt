@@ -1,0 +1,3 @@
+mencoder out.ogv -o out.avi -oac mp3lame -ovc lavc
+如果不需要声音的话，可以这样
+mencoder out.ogv -o out.avi -nosound -ovc lavc
