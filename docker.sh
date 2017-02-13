@@ -26,6 +26,9 @@ function showip(){
 function dockerlist(){
   docker ps -a
 }
+function  concreate(){
+    docker run --net br0 --ip $1 -d --name $2 --restart=always  -v /home/louis/logs/$2:/var/log/apache2/  $3
+}
 function dbcreate {
    docker run --net br0 --ip 172.20.0.11 --name mysql56 --restart=always -v /home/louis/config/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.6
 }

@@ -81,7 +81,7 @@ switch -- $s1 {
         set rip  www01.filmtools.ml.zerolag.com
         #142.54.227.86
         set ruser www.filmtools.com
-        set rpass "magestore123"
+        set rpass "8_c1@Wjld4JG"
     }
    "cdsilk" {
         set ip 192.168.1.34
