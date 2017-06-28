@@ -1,12 +1,16 @@
 #!/bin/bash
 
-folder=$HOME/mynote/ubuntushell
+folder=$HOME/mynote/ubuntushell/
 
 addshfile(){
      if [ ! -n "$1" ];then
       echo 'Please enter a filename'
      else
-      sh $1
+      if [ $# -gt 1 ];then
+         sh $folder$@
+       else
+        sh $folder$1
+      fi
     fi
   }
 myinfo () {
@@ -126,8 +130,10 @@ alias pantone='cd /var/www/pantone'
 alias benqzowie='cd /var/www/benq-zowie/public_html'
 alias filmtools='cd /var/www/filmtools/public_html'
 alias assetgenie='cd /var/www/assetgenie/public_html'
+alias msmh='cd /var/www/msmh/public_html'
 alias dockerroot='cd /var/www/docker'
 alias showfunction="echo -e '\033[0;31;1m addshfile myinfo kp psa ssd showpkg myuptime extract cmdhistory \033[0m'"
+alias showcmd="echo -e '\033[0;31;1m now runweb chx chr back \033[0m'"
 # alias emw='emacs --no-window'
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode – red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode – bold, magenta

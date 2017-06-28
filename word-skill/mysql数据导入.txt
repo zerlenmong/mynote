@@ -8,7 +8,7 @@
     mysqldump -uroot -pdbpasswd -d dbname >db.sql;
 
     2、导出數據库為dbname某张表(test)结构
-    mysqldump -uroot -pdbpasswd -d dbname test>db.sql;
+    mysqldump -uroot -pdbpasswd -d dbname test1 test2 test3>db.sql;
 
     3、导出數據库為dbname所有表结构及表數據（不加-d）
     mysqldump -uroot -pdbpasswd  dbname >db.sql;

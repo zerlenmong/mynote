@@ -138,6 +138,21 @@ switch -- $s1 {
         set ruser claudio.xu
         set rpass Wy2hBY7i
     }
+     "msmhdev" {
+        set ip 35.165.245.149
+        set user claudio.xu
+        set pass qZlKSfmlwf
+    }
+     "mycelldev" {
+        set rip 54.69.215.69
+        set ruser claudio.xu
+        set rpass XMdSNqaS6x
+    }
+    "b2bb1" {
+        set rip 52.11.174.205
+        set ruser claudio.xu
+        set rpass Silk4dev
+     }
 }
 
 # Importent

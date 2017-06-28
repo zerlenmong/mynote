@@ -1,0 +1,5 @@
+
+mobile – xs ( <768px )
+tablet – sm ( 768~991px )
+desktop – md (992~1170px )
+large desktop – lg ( >1170px )

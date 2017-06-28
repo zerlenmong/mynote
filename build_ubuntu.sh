@@ -137,29 +137,8 @@ bash /etc/fonts/infinality/infctl.sh setstyle osx2
 function zsh_conf {
 sudo apt-get -y install zsh
 chsh -s /bin/zsh
-git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
-sudo apt-get -y install autojump
-cat > $HOME/.zshrc <<EOF
-PROMPT=$'[%{$fg[white]%}%n@%m%{$reset_color%} %~]%# '
-alias ll='ls -l'
-alias vi='vim'
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias diff="colordiff"
-alias javac="javac -J-Dfile.encoding=utf8"
-alias java="java -ea"
-export TERM=xterm-256color
-if [ -x /usr/bin/dircolors ]; then
-test -r ~/.dircolors && eval "\$(dircolors -b ~/.dircolors)" || eval "\$(dircolors -b)"
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-fi
-[[ -s /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
-EOF
-source $HOME/.zshrc
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+source ~/.zshrc
 }
 
 #16，介绍一下我使用的小工具：
