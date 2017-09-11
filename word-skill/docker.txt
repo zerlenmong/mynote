@@ -9,3 +9,6 @@ sudo groupadd docker
 sudo gpasswd -a ${USER} docker
 sudo systemctl restart docker
 docker ps
+
+更改镜像名称
+docker tag imageid name:tag
