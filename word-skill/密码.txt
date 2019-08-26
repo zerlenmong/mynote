@@ -1,8 +1,0 @@
- benq -----www.qisdesignusa.com
-testshop.benq.us/admin
-http://test.qisdesignusa.com
-qshop2 mage4benq
-silk.support-----BenQsilk12345
-
-silk
-ssh louis.zeng@24.250.92.34 12345abc
